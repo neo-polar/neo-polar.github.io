@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polar</title>
+
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self';
+             style-src 'self' https://fonts.googleapis.com;
+             font-src https://fonts.gstatic.com;
+             img-src 'self' data: https:;
+             form-action https://ssgform.com;
+             connect-src 'self';
+             frame-ancestors 'none';" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="description" content="熱意で知を研ぎ澄ます。複数ジャンル横断型クリエイティブ組織 Polar の公式サイトです。" />
+
+  <!-- OG / Twitter Card -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Polar" />
+  <meta property="og:description" content="熱意で知を研ぎ澄ます。複数ジャンル横断型クリエイティブ組織 Polar の公式サイトです。" />
+  <!-- ================================================================
+       TODO: GitHub Pages 公開前に必ず差し替えてください
+       og:url   → https://[ユーザー名].github.io/Polar/
+       og:image → https://[ユーザー名].github.io/Polar/images/og-image.png
+       Twitter Card の image も同様
+       ================================================================ -->
+  <meta property="og:url"         content="https://[ユーザー名].github.io/Polar/" />
+  <meta property="og:image"       content="https://[ユーザー名].github.io/Polar/images/og-image.png" />
+  <meta property="og:locale"      content="ja_JP" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:title"      content="Polar" />
+  <meta name="twitter:description" content="熱意で知を研ぎ澄ます。複数ジャンル横断型クリエイティブ組織 Polar の公式サイトです。" />
+  <meta name="twitter:image"      content="https://[ユーザー名].github.io/Polar/images/og-image.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="Polar_favicon.png" type="image/svg+xml" />
+  <link rel="alternate icon" href="Polar_favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="logo"><img src="images/Polar_logo.png" alt="Polar"></a>
+      <nav class="nav-links" id="navLinks" aria-label="メインナビゲーション">
+        <a href="#about"   data-ja="About"   data-en="About">About</a>
+        <a href="#news"    data-ja="News"    data-en="News">News</a>
+        <a href="#gallery" data-ja="Gallery" data-en="Gallery">Gallery</a>
+        <a href="#members" data-ja="Members" data-en="Members">Members</a>
+        <a href="#contact" data-ja="Contact" data-en="Contact">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <button class="lang-btn" id="langBtn" aria-label="Switch to English">EN</button>
+        <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <p class="hero-eyebrow" data-ja="複数ジャンル横断型クリエイティブ組織" data-en="Cross-genre creative organization">複数ジャンル横断型クリエイティブ組織</p>
+      <h1 class="hero-title">Polar</h1>
+      <p class="hero-sub" data-ja="熱意で知を研ぎ澄ます" data-en="Curiosity, shaped by passion.">熱意で知を研ぎ澄ます</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary" data-ja="参加する" data-en="Join us">参加する</a>
+        <a href="#about"   class="btn btn-outline" data-ja="詳しく見る" data-en="Learn more">詳しく見る</a>
+      </div>
+    </div>
+    <!-- スクロールダウン誘導 -->
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="container">
+      <span class="section-label">About</span>
+      <h2 class="section-title" data-ja="Polarについて" data-en="About Polar">Polarについて</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p data-ja="Polarは、ジャンルの壁を越えて活動するクリエイター・エンジニア・デザイナーが集まる組織です。混沌の中に秩序を見出し、好奇心を原動力として新しいものを生み出し続けます。" data-en="Polar is an organization of creators, engineers, and designers who work across the boundaries of genre. We find order in chaos and keep making new things, driven by curiosity.">Polarは、ジャンルの壁を越えて活動するクリエイター・エンジニア・デザイナーが集まる組織です。混沌の中に秩序を見出し、好奇心を原動力として新しいものを生み出し続けます。</p>
+        </div>
+        <div class="about-cards">
+          <div class="about-card">
+            <span class="about-card-icon">&#9650;</span>
+            <h3 data-ja="Vision" data-en="Vision">Vision</h3>
+            <p data-ja="ジャンルを超えた表現の可能性を追求する。" data-en="Pursue possibilities of expression beyond genre.">ジャンルを超えた表現の可能性を追求する。</p>
+          </div>
+          <div class="about-card">
+            <span class="about-card-icon">&#9679;</span>
+            <h3 data-ja="Mission" data-en="Mission">Mission</h3>
+            <p data-ja="好奇心を熱意をもって形にし、世界と共有する。" data-en="Shape curiosity into reality with passion and share it with the world.">好奇心を熱意をもって形にし、世界と共有する。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWS ===== -->
+  <section id="news" class="section-alt">
+    <div class="container">
+      <span class="section-label">News</span>
+      <h2 class="section-title" data-ja="お知らせ" data-en="News">お知らせ</h2>
+      <ul class="news-list">
+        <li class="news-item">
+          <time class="news-date" datetime="YYYY-MM-DD">YYYY-MM-DD</time>
+          <span class="news-tag" data-ja="お知らせ" data-en="Notice">お知らせ</span>
+          <a class="news-title" href="news/news_webpage.html" data-ja="公式Webサイトを公開しました" data-en="We have launched our official website.">公式Webサイトを公開しました</a>
+        </li>
+        <li class="news-item">
+          <time class="news-date" datetime="2026-06-01">2026.06.01</time>
+          <span class="news-tag" data-ja="活動報告" data-en="Report">活動報告</span>
+          <a class="news-title" href="news/2026-06-01.html" data-ja="Polarサーバー環境を整備しました" data-en="Polar server environment has been set up">Polarサーバー環境を整備しました</a>
+        </li>
+        <li class="news-item">
+          <time class="news-date" datetime="2026-05-14">2026.05.14</time>
+          <span class="news-tag" data-ja="お知らせ" data-en="Notice">お知らせ</span>
+          <a class="news-title" href="news/2026-05-14.html" data-ja="Polar プロジェクト始動" data-en="Polar project launched">Polar プロジェクト始動</a>
+        </li>
+      </ul>
+      <div class="news-footer">
+        <a href="news.html" class="news-all-link" data-ja="すべてのお知らせを見る →" data-en="View all news →">すべてのお知らせを見る →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY ===== -->
+  <section id="gallery">
+    <div class="container">
+      <span class="section-label">Gallery</span>
+      <h2 class="section-title" data-ja="ギャラリー" data-en="Gallery">ギャラリー</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"><div class="gallery-placeholder"><span data-ja="作品 01" data-en="Work 01">作品 01</span></div></div>
+        <div class="gallery-item"><div class="gallery-placeholder"><span data-ja="作品 02" data-en="Work 02">作品 02</span></div></div>
+        <div class="gallery-item"><div class="gallery-placeholder"><span data-ja="作品 03" data-en="Work 03">作品 03</span></div></div>
+        <div class="gallery-item"><div class="gallery-placeholder"><span data-ja="作品 04" data-en="Work 04">作品 04</span></div></div>
+        <div class="gallery-item"><div class="gallery-placeholder"><span data-ja="作品 05" data-en="Work 05">作品 05</span></div></div>
+        <div class="gallery-item"><div class="gallery-placeholder"><span data-ja="作品 06" data-en="Work 06">作品 06</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEMBERS ===== -->
+  <section id="members" class="section-alt">
+    <div class="container">
+      <span class="section-label">Members</span>
+      <h2 class="section-title" data-ja="メンバー" data-en="Members">メンバー</h2>
+      <div class="members-grid">
+        <div class="member-card">
+          <div class="member-avatar">
+            <!-- TODO: 実際の画像ファイルを images/ に配置して src を差し替えてください -->
+            <img src="images/avatar_sakunoku.png" alt="朔之 玖溟" />
+          </div>
+          <h3 class="member-name">朔之 玖溟</h3>
+          <p class="member-role" data-ja="プロジェクトマネージャー / Web制作担当" data-en="Project Manager / Web Developer">プロジェクトマネージャー / Web制作担当</p>
+          <p class="member-bio" data-ja="Polarはあなたたちを歓迎します。" data-en="Welcome to Polar.">Polarはあなたたちを歓迎します。</p>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar">
+            <!-- TODO: 実際の画像ファイルを images/ に配置して src を差し替えてください -->
+            <img src="images/avatar_ctru.png" alt="ctru" />
+          </div>
+          <h3 class="member-name">Ctru</h3>
+          <p class="member-role" data-ja="プロジェクトマネージャー / Web制作協力" data-en="Project Manager / Web Developer (Support)">プロジェクトマネージャー / Web制作協力</p>
+          <p class="member-bio" data-ja="一言コメントをここに入力してください。" data-en="Enter a short comment here.">一言コメントをここに入力してください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="container">
+      <span class="section-label">Contact</span>
+      <h2 class="section-title" data-ja="参加・お問い合わせ" data-en="Join / Contact">参加・お問い合わせ</h2>
+      <p class="contact-desc" data-ja="Polarへの参加希望・お問い合わせはこちらから。まずはお気軽にご連絡ください。" data-en="Interested in joining Polar or have a question? Feel free to reach out.">Polarへの参加希望・お問い合わせはこちらから。まずはお気軽にご連絡ください。</p>
+      <!-- SSGForm: https://ssgform.com/s/ewKwQXtld52x -->
+      <form class="contact-form" action="https://ssgform.com/s/ewKwQXtld52x" method="POST" novalidate>
+        <div class="form-group">
+          <label for="name" data-ja="お名前" data-en="Name">お名前</label>
+          <input type="text" id="name" name="name" required
+            placeholder="お名前"
+            data-placeholder-ja="お名前"
+            data-placeholder-en="Your name"
+            autocomplete="name" />
+          <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group">
+          <label for="email" data-ja="メールアドレス" data-en="Email">メールアドレス</label>
+          <input type="email" id="email" name="email" required
+            placeholder="example@email.com"
+            data-placeholder-ja="example@email.com"
+            data-placeholder-en="example@email.com"
+            autocomplete="email" />
+          <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
+        </div>
+        <div class="form-group">
+          <label for="message" data-ja="メッセージ" data-en="Message">メッセージ</label>
+          <textarea id="message" name="message" rows="5" required
+            placeholder="お問い合わせ内容をご記入ください"
+            data-placeholder-ja="お問い合わせ内容をご記入ください"
+            data-placeholder-en="Enter your message here"></textarea>
+          <span class="form-error" id="message-error" role="alert" aria-live="polite"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" data-ja="送信する" data-en="Send">送信する</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo">Polar</span>
+          <p data-ja="熱意で知を研ぎ澄ます" data-en="Curiosity, shaped by passion.">熱意で知を研ぎ澄ます</p>
+        </div>
+        <div class="footer-newsletter">
+          <p data-ja="ニュースレター登録" data-en="Newsletter">ニュースレター登録</p>
+          <form class="newsletter-form" aria-label="ニュースレター登録フォーム" action="https://ssgform.com/s/R5aicIbEf7uJ" method="POST" novalidate>
+            <label for="newsletter-email" class="sr-only" data-ja="メールアドレス" data-en="Email address">メールアドレス</label>
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <input type="email" id="newsletter-email" name="email" placeholder="example@email.com" required />
+              <span class="form-error" id="newsletter-email-error" role="alert" aria-live="polite"></span>
+            </div>
+            <button type="submit" class="btn btn-primary" data-ja="登録" data-en="Subscribe">登録</button>
+          </form>
+        </div>
+        <div class="footer-links">
+          <a href="privacy-policy.html" aria-label="プライバシーポリシーを確認する" data-ja="プライバシーポリシー" data-en="Privacy Policy">プライバシーポリシー</a>
+          <a href="terms.html" aria-label="利用規約を確認する" data-ja="利用規約" data-en="Terms of Use">利用規約</a>
+        </div>
+      </div>
+      <p class="copyright">Copyright &copy; 2026 Polar. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- back-to-top ボタン -->
+  <button id="backToTop" class="back-to-top" aria-label="ページトップへ戻る">
+    <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

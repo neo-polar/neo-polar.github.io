@@ -1,0 +1,205 @@
+/* ============================================================
+   Polar — article.css
+   記事ページ専用スタイル
+   使い方: style.css の後に追加で読み込む
+     <link rel="stylesheet" href="css/style.css" />
+     <link rel="stylesheet" href="css/article.css" />
+============================================================ */
+
+/* ────────────────────────────────────────
+   記事ページ 共通レイアウト
+──────────────────────────────────────── */
+.article-page {
+  padding-top: calc(var(--nav-h) + 56px);
+  padding-bottom: 96px;
+}
+
+/* パンくず */
+.article-breadcrumb {
+  font-size: 0.78rem;
+  color: var(--clr-muted);
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.article-breadcrumb a { color: var(--clr-muted); transition: color 0.2s; }
+.article-breadcrumb a:hover { color: var(--clr-accent); }
+.article-breadcrumb .sep { opacity: 0.4; }
+
+/* 記事ヘッダー */
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.article-date {
+  font-size: 0.78rem;
+  color: var(--clr-muted);
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+.article-tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(8, 145, 178, 0.08);
+  color: var(--clr-accent);
+}
+.article-title {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-bottom: 40px;
+}
+
+/* ────────────────────────────────────────
+   TYPE A：メイン写真（ヘッダー直下）
+──────────────────────────────────────── */
+.article-hero-img {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 48px;
+  display: block;
+  background: var(--clr-alt);
+}
+
+/* ────────────────────────────────────────
+   本文エリア（全タイプ共通）
+──────────────────────────────────────── */
+.article-body {
+  max-width: 680px;
+}
+.article-body h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 48px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid var(--clr-border);
+}
+.article-body h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 32px 0 12px;
+  color: var(--clr-accent);
+}
+.article-body p {
+  font-size: 0.975rem;
+  line-height: 2.0;
+  color: var(--clr-muted);
+  margin-bottom: 20px;
+}
+.article-body ul,
+.article-body ol {
+  padding-left: 1.4em;
+  margin-bottom: 20px;
+}
+.article-body li {
+  font-size: 0.975rem;
+  line-height: 1.9;
+  color: var(--clr-muted);
+  margin-bottom: 6px;
+}
+.article-body blockquote {
+  border-left: 3px solid var(--clr-accent);
+  padding: 2px 0 2px 20px;
+  margin: 28px 0;
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: var(--clr-muted);
+}
+.article-divider {
+  border: none;
+  border-top: 1px solid var(--clr-border);
+  margin: 40px 0;
+}
+
+/* ────────────────────────────────────────
+   TYPE C / D：本文中の画像
+──────────────────────────────────────── */
+
+/* 全幅インライン画像 */
+.article-img {
+  width: 100%;
+  border-radius: 10px;
+  margin: 32px 0 8px;
+  object-fit: cover;
+  display: block;
+  background: var(--clr-alt);
+}
+.article-img-caption {
+  font-size: 0.75rem;
+  color: var(--clr-muted);
+  text-align: center;
+  margin-bottom: 32px;
+  opacity: 0.75;
+}
+
+/* 右回り込み */
+.article-img-float {
+  float: right;
+  width: 44%;
+  border-radius: 10px;
+  margin: 4px 0 24px 32px;
+  object-fit: cover;
+  display: block;
+  background: var(--clr-alt);
+}
+/* 左回り込み */
+.article-img-float-left {
+  float: left;
+  width: 44%;
+  border-radius: 10px;
+  margin: 4px 32px 24px 0;
+  object-fit: cover;
+  display: block;
+  background: var(--clr-alt);
+}
+/* float 解除 */
+.article-body::after { content: ''; display: table; clear: both; }
+
+/* ────────────────────────────────────────
+   記事フッター（一覧へ戻るボタン）
+──────────────────────────────────────── */
+.article-footer {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--clr-border);
+  max-width: 680px;
+}
+.article-back {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--clr-muted);
+  transition: color 0.2s;
+}
+.article-back:hover { color: var(--clr-accent); }
+
+/* ────────────────────────────────────────
+   レスポンシブ
+──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .article-hero-img { aspect-ratio: 16 / 9; border-radius: 8px; }
+  .article-img-float,
+  .article-img-float-left { float: none; width: 100%; margin: 24px 0; }
+}
+@media (max-width: 480px) {
+  .article-page { padding-top: calc(var(--nav-h) + 32px); padding-bottom: 64px; }
+  .article-title { font-size: 1.4rem; }
+}
+
+/* ────────────────────────────────────────
+   ダークモード
+──────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  .article-hero-img,
+  .article-img,
+  .article-img-float,
+  .article-img-float-left { background: #1e1e1e; }
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ★ title を記事タイトルに変更 -->
+  <title>公式Webサイトを公開しました — Polar</title>
+  <meta name="description" content="Polarの公式Webサイトを公開しました" />
+
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self';
+             style-src 'self' https://fonts.googleapis.com;
+             font-src https://fonts.gstatic.com;
+             img-src 'self' data: https:;
+             form-action https://ssgform.com;
+             connect-src 'self';
+             frame-ancestors 'none';" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <link rel="icon" href="../Polar_favicon.png" type="image/svg+xml" />
+  <link rel="alternate icon" href="../Polar_favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/article.css" />
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo"><img src="../images/Polar_logo.png" alt="Polar"></a>
+      <nav class="nav-links" id="navLinks" aria-label="メインナビゲーション">
+        <a href="../index.html#about"   data-ja="About"   data-en="About">About</a>
+        <a href="../news.html"          data-ja="News"    data-en="News" class="active">News</a>
+        <a href="../index.html#gallery" data-ja="Gallery" data-en="Gallery">Gallery</a>
+        <a href="../index.html#members" data-ja="Members" data-en="Members">Members</a>
+        <a href="../index.html#contact" data-ja="Contact" data-en="Contact">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <button class="lang-btn" id="langBtn" aria-label="Switch to English">EN</button>
+        <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== 記事本文 ===== -->
+  <main class="article-page">
+    <div class="container">
+
+      <!-- パンくずリスト -->
+      <nav class="article-breadcrumb" aria-label="パンくずリスト">
+        <a href="../index.html" data-ja="トップ" data-en="Top">トップ</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a href="../news.html" data-ja="お知らせ" data-en="News">お知らせ</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <!-- ★ 記事タイトルを日英両方入れる -->
+        <span data-ja="公式Webサイトを公開しました" data-en="We have launched our official website.">公式Webサイトを公開しました</span>
+      </nav>
+
+      <!-- 記事ヘッダー -->
+      <header class="article-header">
+        <div class="article-meta">
+          <!-- ★ datetime="YYYY-MM-DD" と表示テキスト YYYY.MM.DD を実際の日付に変更 -->
+          <time class="article-date" datetime="YYYY-MM-DD">YYYY.MM.DD</time>
+          <!-- ★ タグは「お知らせ/Notice」「活動報告/Report」「イベント/Event」「リリース/Release」から選ぶ -->
+          <span class="article-tag" data-ja="お知らせ" data-en="Notice">お知らせ</span>
+        </div>
+        <!-- ★ 記事タイトルを日英両方入れる -->
+        <h1 class="article-title"
+            data-ja="公式Webサイトを公開しました"
+            data-en="We have launched our official website.">公式Webサイトを公開しました</h1>
+      </header>
+
+      <!--
+        ================================================================
+        TYPE A の特徴：タイトル直下にメイン画像を1枚配置する
+        ・公開発表・リリースなど「見た目で伝えたい」記事に最適
+        ・日英で画像を切り替えたい場合は data-src-ja / data-src-en を使う
+        ・1枚の共通画像でよい場合は src だけ設定して data-src-* は削除してよい
+        ================================================================
+      -->
+      <img
+        class="article-hero-img"
+        id="heroImg"
+        src="../images/PolarMainWebsite_ja.png"
+        data-src-ja="../images/PolarMainWebsite_ja.png"
+        data-src-en="../images/PolarMainWebsite_en.png"
+        alt="Polar公式ホームページのファーストビュー"
+        loading="eager"
+      />
+
+      <!-- 本文 -->
+      <div class="article-body">
+
+        <!-- ★ 本文段落をここに追加（data-ja / data-en で日英切替対応） -->
+        <p data-ja="リード文をここに書く。読者が最初に目にする文章なので、記事の要点を簡潔に伝える。"
+           data-en="Lead paragraph goes here. Summarize the key point of the article.">
+          リード文をここに書く。読者が最初に目にする文章なので、記事の要点を簡潔に伝える。
+        </p>
+
+        <p data-ja="詳細の説明をここに書く。"
+           data-en="Detailed description goes here.">
+          詳細の説明をここに書く。
+        </p>
+
+        <p data-ja="締めの文章をここに書く。"
+           data-en="Closing paragraph goes here.">
+          締めの文章をここに書く。
+        </p>
+
+      </div>
+
+      <!-- 記事フッター -->
+      <footer class="article-footer">
+        <a href="../news.html" class="article-back"
+           data-ja="← お知らせ一覧へ"
+           data-en="← Back to News">← お知らせ一覧へ</a>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo">Polar</span>
+          <p data-ja="熱意で知を研ぎ澄ます" data-en="Curiosity, shaped by passion.">熱意で知を研ぎ澄ます</p>
+        </div>
+        <div class="footer-newsletter">
+          <p data-ja="ニュースレター登録" data-en="Newsletter">ニュースレター登録</p>
+          <form class="newsletter-form" aria-label="ニュースレター登録フォーム"
+                action="https://ssgform.com/s/R5aicIbEf7uJ" method="POST" novalidate>
+            <label for="newsletter-email" class="sr-only">メールアドレス</label>
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <input type="email" id="newsletter-email" name="email"
+                     placeholder="example@email.com" required />
+              <span class="form-error" id="newsletter-email-error"
+                    role="alert" aria-live="polite"></span>
+            </div>
+            <button type="submit" class="btn btn-primary"
+                    data-ja="登録" data-en="Subscribe">登録</button>
+          </form>
+        </div>
+        <div class="footer-links">
+          <a href="../privacy-policy.html" aria-label="プライバシーポリシーを確認する" data-ja="プライバシーポリシー" data-en="Privacy Policy">プライバシーポリシー</a>
+          <a href="terms.html" aria-label="利用規約を確認する" data-ja="利用規約" data-en="Terms of Use">利用規約</a>
+        </div>
+      </div>
+      <p class="copyright">Copyright &copy; 2026 Polar. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/news.js"></script>
+</body>
+</html>
