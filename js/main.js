@@ -149,7 +149,11 @@ function applyLang(lang) {
   runTypewriter(lang);
 }
 const savedLang = localStorage.getItem('polar-lang') || 'ja';
-if (savedLang !== 'ja') applyLang(savedLang);
+if (savedLang !== 'ja') {
+  applyLang(savedLang);   // 英語保存時: 言語適用 → タイプライターも起動
+} else {
+  runTypewriter('ja');    // 日本語デフォルト時: タイプライターだけ起動
+}
 document.getElementById('langBtn').addEventListener('click', () => {
   applyLang(currentLang === 'ja' ? 'en' : 'ja');
 });
