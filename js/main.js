@@ -254,6 +254,7 @@ if (!prefersReduced && 'IntersectionObserver' in window) {
     { sel: '.about-card',      cls: 'fade-up',    stagger: true  },
     { sel: '.about-text p',    cls: 'fade-left',  stagger: false },
     { sel: '.news-item',       cls: 'fade-up',    stagger: true  },
+    { sel: '.note-card',       cls: 'fade-up',    stagger: false },
     { sel: '.gallery-item',    cls: 'fade-scale', stagger: true  },
     { sel: '.member-card',     cls: 'fade-up',    stagger: true  },
     { sel: '.section-label',   cls: 'fade-left',  stagger: false },

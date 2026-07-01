@@ -130,6 +130,21 @@ button { cursor: pointer; font-family: inherit; }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+.logo,
+.logo img,
+.btn,
+.lang-btn,
+.hamburger {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}.btn-primary:hover {
+  background: linear-gradient(135deg, #0d7b98, #5a63d7);
+  box-shadow: 0 4px 10px rgba(8, 145, 178, 0.14);
+  filter: none;
+}
+
 /* ════════════════════════════════════════ BUTTONS ════════════════════════════════════════ */
 .btn {
   display: inline-block; padding: 13px 30px; border-radius: var(--radius);
@@ -146,6 +161,19 @@ button { cursor: pointer; font-family: inherit; }
 .btn-primary:hover { box-shadow: 0 6px 20px rgba(8, 145, 178, 0.45); filter: brightness(1.08); }
 .btn-outline { background: transparent; color: var(--clr-text); border: 2px solid #cccccc; }
 .btn-outline:hover { border-color: var(--clr-accent); color: var(--clr-accent); }
+
+/* フォーム用送信ボタン（シンプル・ホバー光らせなし） */
+.btn-form {
+  display: inline-block; padding: 10px 24px; border-radius: var(--radius);
+  font-size: 0.875rem; font-weight: 500; letter-spacing: 0.03em;
+  background: #1f883d; color: #fff; border: none;
+  transition: background 0.2s, opacity 0.2s;
+  box-shadow: none;
+}
+.btn-form:hover { background: #1f883d; opacity: 0.82; }
+.btn-form:active { transform: scale(0.97); }
+.btn-form:focus-visible { outline: 2px solid #1f883d; outline-offset: 3px; }
+.btn-form:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* ════════════════════════════════════════ SECTION 共通 ════════════════════════════════════════ */
 section { padding: 88px 0; }
@@ -177,6 +205,10 @@ section { padding: 88px 0; }
   letter-spacing: -0.03em; line-height: 0.95; margin-bottom: 28px;
   background: linear-gradient(135deg, #111 40%, var(--clr-accent) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .hero-sub { font-size: clamp(1rem, 2.5vw, 1.35rem); color: var(--clr-muted); margin-bottom: 44px; max-width: 480px; min-height: 2em; }
 .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
@@ -203,6 +235,8 @@ section { padding: 88px 0; }
   background: var(--clr-bg); transition: box-shadow 0.3s var(--ease-out-expo), border-color 0.3s;
 }
 .about-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.07); border-color: rgba(8,145,178,0.3); }
+.about-card.no-hover { pointer-events: none; }
+.about-card.no-hover:hover { box-shadow: none; border-color: var(--clr-border); }
 .about-card-icon { font-size: 1rem; color: var(--clr-accent); display: block; margin-bottom: 12px; }
 .about-card h3 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; color: var(--clr-accent); }
 .about-card p { font-size: 0.9rem; color: var(--clr-muted); line-height: 1.8; }
@@ -237,6 +271,39 @@ section { padding: 88px 0; }
 }
 .gallery-item:hover { transform: scale(1.03); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
 .gallery-item:hover .gallery-placeholder { border-color: rgba(8,145,178,0.2); }
+
+/* note カード */
+.gallery-desc {
+  font-size: 0.95rem; color: var(--clr-muted); margin-bottom: 28px; line-height: 1.8;
+}
+.note-card {
+  display: flex; align-items: center; gap: 20px;
+  max-width: 560px;
+  padding: 24px 28px;
+  border: 1.5px solid var(--clr-border); border-radius: 14px;
+  background: var(--clr-bg); color: var(--clr-text);
+  transition: border-color 0.25s var(--ease-out-expo), box-shadow 0.25s var(--ease-out-expo), transform 0.25s var(--ease-out-expo);
+}
+.note-card:hover {
+  border-color: #41C9B4;
+  box-shadow: 0 8px 28px rgba(65,201,180,0.15);
+  transform: translateY(-2px);
+}
+.note-card:focus-visible { outline: 2px solid var(--clr-accent); outline-offset: 3px; border-radius: 14px; }
+.note-card-icon { flex-shrink: 0; }
+.note-card-body { flex: 1; min-width: 0; }
+.note-card-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #41C9B4; margin-bottom: 4px;
+}
+.note-card-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+.note-card-url { font-size: 0.75rem; color: var(--clr-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.note-card-arrow { flex-shrink: 0; color: var(--clr-muted); transition: color 0.2s, transform 0.2s; }
+.note-card:hover .note-card-arrow { color: #41C9B4; transform: translateX(3px); }
+
+@media (prefers-color-scheme: dark) {
+  .note-card { background: var(--clr-bg); }
+}
 
 /* ════════════════════════════════════════ MEMBERS ════════════════════════════════════════ */
 .members-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
@@ -297,10 +364,43 @@ section { padding: 88px 0; }
   outline: 2px solid var(--clr-accent); outline-offset: 2px;
   border-color: var(--clr-accent); box-shadow: 0 0 0 3px rgba(8,145,178,0.12);
 }
-.newsletter-form .btn { padding: 9px 18px; font-size: 0.82rem; }
+.newsletter-form .btn-form { padding: 9px 18px; font-size: 0.82rem; align-self: flex-start; height: fit-content; }
 .footer-links { display: flex; flex-direction: row; flex-wrap: wrap; gap: 16px; align-items: center; }
-.footer-links a { font-size: 0.83rem; color: var(--clr-muted); transition: color 0.2s; }
-.footer-links a:hover { color: var(--clr-accent); }
+.footer-links a { font-size: 0.83rem; color: var(--clr-muted); transition: opacity 0.2s; }
+.footer-links a:hover { color: var(--clr-muted); opacity: 0.7; }
+
+/* X ロゴ・ペアリング・ロックアップ */
+.x-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;              /* ロゴとハンドルの間隔 */
+  padding: 4px 8px;      /* クリアスペース兼ヒットターゲット */
+  margin: -4px -8px;     /* padding分の位置補正 */
+  border-radius: 4px;
+  transition: opacity 0.2s;
+}
+.x-lockup:hover { opacity: 0.7; color: var(--clr-muted); }
+.x-lockup:focus-visible { outline: 2px solid var(--clr-accent); outline-offset: 3px; }
+.x-logo {
+  --x-size: 14px;        /* ロゴサイズ = テキスト行高に合わせる */
+  display: block;
+  width: var(--x-size);
+  height: var(--x-size);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.x-handle {
+  font-size: 0.83rem;
+  line-height: var(--x-size, 14px);   /* ロゴ高さと揃える */
+  color: var(--clr-muted);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* ダークモード: 黒ロゴ → 白に反転 */
+@media (prefers-color-scheme: dark) {
+  .x-logo { filter: invert(1); }
+}
 .copyright { font-size: 0.78rem; color: var(--clr-muted); border-top: 1px solid var(--clr-border); padding-top: 28px; text-align: center; letter-spacing: 0.04em; }
 
 /* ════════════════════════════════════════ BACK TO TOP ════════════════════════════════════════ */
@@ -419,8 +519,4 @@ section { padding: 88px 0; }
 .newsletter-form > div .form-error {
   font-size: 0.75rem;
   margin-top: 4px;
-}
-.newsletter-form .btn {
-  align-self: flex-start;
-  height: fit-content;
 }
