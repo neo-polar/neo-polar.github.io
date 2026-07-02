@@ -448,69 +448,66 @@ section { padding: 88px 0; }
   .back-to-top { transition: none; }
 }
 
-/* ════════════════════════════════════════ RESPONSIVE XS (〜599px) ════════════════════════════════════════ */
-@media (max-width: 599px) {
-  .container,
-  .nav-inner,
-  .hero-inner { padding: 0 18px; }
-  .nav-links {
-    display: none; flex-direction: column; position: fixed;
-    top: var(--nav-h); left: 0; right: 0; background: var(--clr-bg);
-    border-bottom: 1px solid var(--clr-border); padding: 24px 18px; gap: 18px; z-index: 99;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-  }
-  .nav-links.open { display: flex; }
-  .nav-links a { font-size: 1rem; color: var(--clr-text); }
-  .nav-links a::after { display: none; }
-  .hamburger { display: flex; }
-  section { padding: 64px 0; }
-  .hero-title { font-size: clamp(2.6rem, 9vw, 3.8rem); }
-  .hero-sub { font-size: 1rem; margin-bottom: 32px; }
-  .hero-cta { flex-direction: column; }
-  .hero-cta .btn { width: 100%; text-align: center; }
-  .hero-scroll-hint { display: none; }
-  .about-grid { grid-template-columns: 1fr; gap: 32px; }
-  .gallery-grid { grid-template-columns: 1fr; }
-  .newsletter-form { flex-direction: column; }
-  .footer-inner { grid-template-columns: 1fr; gap: 28px; }
-  .back-to-top { bottom: 20px; right: 20px; width: 42px; height: 42px; }
+/* ════════════════════════════════════════ RESPONSIVE MOBILE-FIRST ════════════════════════════════════════ */
+.container,
+.nav-inner,
+.hero-inner { padding: 0 18px; }
+.nav-links {
+  display: none; flex-direction: column; position: fixed;
+  top: var(--nav-h); left: 0; right: 0; background: var(--clr-bg);
+  border-bottom: 1px solid var(--clr-border); padding: 24px 18px; gap: 18px; z-index: 99;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
 }
+.nav-links.open { display: flex; }
+.nav-links a { font-size: 1rem; color: var(--clr-text); }
+.nav-links a::after { display: none; }
+.hamburger { display: flex; }
+section { padding: 64px 0; }
+.hero-title { font-size: clamp(2.6rem, 9vw, 3.8rem); }
+.hero-sub { font-size: 1rem; margin-bottom: 32px; }
+.hero-cta { flex-direction: column; }
+.hero-cta .btn { width: 100%; text-align: center; }
+.hero-scroll-hint { display: none; }
+.about-grid { grid-template-columns: 1fr; gap: 32px; }
+.gallery-grid { grid-template-columns: 1fr; }
+.newsletter-form { flex-direction: column; }
+.footer-inner { grid-template-columns: 1fr; gap: 28px; }
+.back-to-top { bottom: 20px; right: 20px; width: 42px; height: 42px; }
 
-/* ════════════════════════════════════════ RESPONSIVE SM (600px〜959px) ════════════════════════════════════════ */
-@media (min-width: 600px) and (max-width: 959px) {
+@media (min-width: 600px) {
   .container,
   .nav-inner,
   .hero-inner { padding: 0 22px; }
   .nav-links {
-    display: none; flex-direction: column; position: fixed;
-    top: var(--nav-h); left: 0; right: 0; background: var(--clr-bg);
-    border-bottom: 1px solid var(--clr-border); padding: 28px 22px; gap: 20px; z-index: 99;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    display: flex; flex-direction: row; position: static;
+    background: transparent; border-bottom: none; padding: 0; gap: 28px;
+    box-shadow: none;
   }
-  .nav-links.open { display: flex; }
-  .nav-links a { font-size: 1rem; color: var(--clr-text); }
-  .nav-links a::after { display: none; }
-  .hamburger { display: flex; }
+  .nav-links a { font-size: 0.875rem; color: var(--clr-muted); }
+  .nav-links a::after { display: block; }
+  .hamburger { display: none; }
   .hero-title { font-size: clamp(3.2rem, 7vw, 4.8rem); }
-  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .hero-sub { font-size: clamp(1rem, 2.5vw, 1.35rem); margin-bottom: 44px; }
+  .hero-cta { flex-direction: row; }
+  .hero-cta .btn { width: auto; text-align: left; }
+  .hero-scroll-hint { display: flex; }
+  .about-grid { gap: 36px; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-inner { grid-template-columns: 1fr; }
   .newsletter-form { flex-direction: column; }
 }
 
-/* ════════════════════════════════════════ RESPONSIVE MD (960px〜1279px) ════════════════════════════════════════ */
-@media (min-width: 960px) and (max-width: 1279px) {
+@media (min-width: 960px) {
   .container,
   .nav-inner,
   .hero-inner { padding: 0 24px; }
   .hero-title { font-size: clamp(3.6rem, 6vw, 5.6rem); }
-  .about-grid { gap: 44px; }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-inner { gap: 28px; }
+  .about-grid { grid-template-columns: 1fr 1fr; gap: 44px; }
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr 1fr; gap: 40px; }
+  .newsletter-form { flex-direction: row; }
 }
 
-/* ════════════════════════════════════════ RESPONSIVE LG (1280px〜1919px) ════════════════════════════════════════ */
-@media (min-width: 1280px) and (max-width: 1919px) {
+@media (min-width: 1280px) {
   .container,
   .nav-inner,
   .hero-inner { padding: 0 28px; }
@@ -518,7 +515,6 @@ section { padding: 88px 0; }
   .section-title { font-size: clamp(2.1rem, 2.6vw, 2.6rem); }
 }
 
-/* ════════════════════════════════════════ RESPONSIVE XL (1920px〜) ════════════════════════════════════════ */
 @media (min-width: 1920px) {
   .container,
   .nav-inner,

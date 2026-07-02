@@ -185,31 +185,28 @@
 .article-back:hover { color: var(--clr-accent); }
 
 /* ────────────────────────────────────────
-   レスポンシブ（XS / SM / MD / LG / XL）
+   レスポンシブ（モバイルファースト）
 ──────────────────────────────────────── */
-@media (max-width: 599px) {
-  .article-page { padding-top: calc(var(--nav-h) + 32px); padding-bottom: 64px; }
-  .article-meta { flex-wrap: wrap; gap: 8px; }
-  .article-title { font-size: 1.4rem; margin-bottom: 24px; }
-  .article-hero-img { aspect-ratio: 4 / 3; border-radius: 8px; }
-  .article-img-float,
-  .article-img-float-left { float: none; width: 100%; margin: 24px 0; }
-}
+.article-page { padding-top: calc(var(--nav-h) + 32px); padding-bottom: 64px; }
+.article-meta { flex-wrap: wrap; gap: 8px; }
+.article-title { font-size: 1.4rem; margin-bottom: 24px; }
+.article-hero-img { aspect-ratio: 4 / 3; border-radius: 8px; }
+.article-img-float,
+.article-img-float-left { float: none; width: 100%; margin: 24px 0; }
+.article-body { max-width: 100%; }
 
-@media (min-width: 600px) and (max-width: 959px) {
+@media (min-width: 600px) {
   .article-page { padding-top: calc(var(--nav-h) + 40px); }
   .article-title { font-size: clamp(1.5rem, 3vw, 1.8rem); }
   .article-body { max-width: 620px; }
-  .article-img-float,
-  .article-img-float-left { float: none; width: 100%; margin: 24px 0; }
 }
 
-@media (min-width: 960px) and (max-width: 1279px) {
+@media (min-width: 960px) {
   .article-body { max-width: 700px; }
   .article-title { font-size: clamp(1.7rem, 2.8vw, 2.1rem); }
 }
 
-@media (min-width: 1280px) and (max-width: 1919px) {
+@media (min-width: 1280px) {
   .article-body { max-width: 760px; }
 }
 
