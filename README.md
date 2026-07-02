@@ -1,4 +1,4 @@
-# Polar
+﻿# Polar
 
 複数ジャンル横断型クリエイティブ組織 Polar の公式Webサイト
 
@@ -6,23 +6,29 @@
 
 ```
 Polar/
-├── index.html          メインページ（最新3件のNewsを掲載）
-├── news.html           お知らせ一覧ページ（全件アーカイブ）
-├── news/              ← 個別記事フォルダ
+├── index.html                メインページ（最新3件のNewsを掲載）
+├── news.html                 お知らせ一覧ページ（全件アーカイブ）
+├── vision_mission.html       Vision & Mission ページ
+├── privacy-policy.html       プライバシーポリシー
+├── terms.html                利用規約
+├── news/                     ← 個別記事フォルダ
 │   ├── 2026-06-DD.html
 │   ├── 2026-06-01.html
 │   └── 2026-05-14.html
-├── README.md           このファイル
-├── .nojekyll           GitHub Pages 用（空ファイル）
+├── README.md                 このファイル
+├── .nojekyll                 GitHub Pages 用（空ファイル）
 ├── css/
-│   └── style.css       スタイルシート
+│   ├── style.css             メインスタイルシート
+│   └── article.css           記事ページ用スタイルシート
 ├── js/
-│   ├── main.js         index.html 用スクリプト
-│   └── news.js         news.html 用スクリプト
+│   ├── main.js               index.html 用スクリプト
+│   └── news.js               news.html / 記事ページ用スクリプト
 └── images/
-    ├── Polar_logo.png  ロゴ
-    ├── gallery/        ギャラリー画像
-    └── avatar_*.png    メンバー写真
+    ├── Polar_logo.png        ロゴ
+    ├── logo-black.png        X ロゴ
+    ├── gallery/              ギャラリー画像
+    └── avatar_*.png          メンバー写真
+```
 
 ## セクション
 
@@ -48,7 +54,7 @@ Polar/
 
 ## 📰 News 更新ルール
 
-> ⚠️ **お知らせを追加するときは必ず2ファイルを更新してください。**
+> ⚠️ お知らせを追加するときは必ず2ファイルを更新してください。
 
 | ファイル | 役割 | 更新タイミング |
 |---|---|---|
