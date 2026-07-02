@@ -13,7 +13,6 @@ Polar/
 ├── terms.html                利用規約
 ├── README.md                 このファイル
 ├── .nojekyll                 GitHub Pages 用（空ファイル）
-├── Polar_favicon.png         ファビコン
 ├── css/
 │   ├── style.css             メインスタイルシート
 │   └── article.css           記事ページ用スタイルシート
