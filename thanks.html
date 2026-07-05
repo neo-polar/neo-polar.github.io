@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja"
+      data-title-ja="送信完了 — Polar"
+      data-title-en="Thank You — Polar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>送信完了 — Polar</title>
+  <meta name="description" content="お問い合わせありがとうございました。" />
+  <meta name="robots" content="noindex" />
+
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self';
+             style-src 'self' https://fonts.googleapis.com;
+             font-src https://fonts.gstatic.com;
+             img-src 'self' data: https:;
+             form-action https://ssgform.com;
+             connect-src 'self';
+             frame-ancestors 'none';" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <link rel="icon" type="image/png" href="./favicon-96x96.png" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="shortcut icon" href="./favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+  <link rel="manifest" href="./site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/article.css" />
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="logo"><img src="images/Polar_logo.png" alt="Polar"></a>
+      <nav class="nav-links" id="navLinks" aria-label="メインナビゲーション">
+        <a href="index.html#about"   data-ja="About"   data-en="About">About</a>
+        <a href="news.html"          data-ja="News"    data-en="News">News</a>
+        <a href="index.html#gallery" data-ja="Gallery" data-en="Gallery">Gallery</a>
+        <a href="index.html#members" data-ja="Members" data-en="Members">Members</a>
+        <a href="index.html#contact" data-ja="Contact" data-en="Contact">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <button class="lang-btn" id="langBtn" aria-label="Switch to English">EN</button>
+        <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== 本文 ===== -->
+  <main class="article-page">
+    <div class="container">
+
+      <nav class="article-breadcrumb" aria-label="パンくずリスト">
+        <a href="index.html" data-ja="トップ" data-en="Top">トップ</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span data-ja="送信完了" data-en="Thank You">送信完了</span>
+      </nav>
+
+      <header class="article-header">
+        <h1 class="article-title"
+            data-ja="お問い合わせを受け付けました"
+            data-en="Thank You for Your Message">お問い合わせを受け付けました</h1>
+      </header>
+
+      <div class="article-body">
+        <p data-ja="お問い合わせいただき、ありがとうございます。内容を確認のうえ、担当者より順次ご連絡させていただきます。"
+           data-en="Thank you for reaching out to us. We have received your message and will get back to you as soon as possible.">
+          お問い合わせいただき、ありがとうございます。内容を確認のうえ、担当者より順次ご連絡させていただきます。
+        </p>
+        <p data-ja="今しばらくお待ちいただけますと幸いです。"
+           data-en="We appreciate your patience while we review your message.">
+          今しばらくお待ちいただけますと幸いです。
+        </p>
+      </div>
+
+      <footer class="article-footer">
+        <a href="index.html" class="article-back"
+           data-ja="← トップに戻る"
+           data-en="← Back to Top">← トップに戻る</a>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo">Polar</span>
+          <p data-ja="熱意で知を研ぎ澄ます" data-en="Curiosity, shaped by passion.">熱意で知を研ぎ澄ます</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://x.com/polar_universe" target="_blank" rel="noopener noreferrer"
+             aria-label="Polar 公式X @polar_universe（外部リンク）"
+             class="x-lockup">
+            <img src="images/sns_x_logo.png" alt="X" class="x-logo" />
+            <span class="x-handle">@polar_universe</span>
+          </a>
+          <a href="https://github.com/neo-polar" target="_blank" rel="noopener noreferrer"
+             aria-label="Polar GitHub（外部リンク）"
+             class="x-lockup">
+            <img src="images/sns_GitHub_logo.png" alt="GitHub" class="x-logo" />
+            <span class="x-handle">neo-polar</span>
+          </a>
+          <a href="privacy-policy.html" aria-label="プライバシーポリシーを確認する" data-ja="プライバシーポリシー" data-en="Privacy Policy">プライバシーポリシー</a>
+          <a href="terms.html" aria-label="利用規約を確認する" data-ja="利用規約" data-en="Terms of Use">利用規約</a>
+        </div>
+      </div>
+      <p class="copyright">Copyright &copy; 2026 Polar. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/news.js"></script>
+</body>
+</html>
