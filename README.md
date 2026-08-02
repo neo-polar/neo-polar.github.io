@@ -1,113 +1,110 @@
 ﻿# Polar
 
-複数ジャンル横断型クリエイティブ組織 Polar の公式Webサイト
+複数ジャンル横断型クリエイティブ組織 Polar の公式Webサイトです。
+このリポジトリは、GitHub Pages へ公開するための静的サイトのソース一式です。
 
-## 構成
+## 現在の構成
 
+このサイトは、以下のような構成で運用しています。
+
+- 静的HTML/CSS/JSのみで構成
+- 日本語 / 英語の切り替え対応
+- トップページ、ニュース一覧、Vision & Mission、プライバシーポリシー、利用規約、送信完了ページを用意
+- お知らせ記事は `news/` 配下のHTMLとして管理
+- メンバープロフィールは `members/` 配下のHTMLとして管理
+- 問い合わせフォームは SSGForm を利用
+- GitHub Actions で GitHub Pages へ自動デプロイ
+
+## 主要ファイル
+
+```text
+.
+├── .github/workflows/static.yml   GitHub Pages へ自動デプロイするワークフロー
+├── css/                            スタイルシート
+├── images/                         画像・OGP・ロゴ・メンバー写真
+├── js/                             メインページ / ニュースページ用スクリプト
+├── members/                        メンバープロフィールページ
+├── news/                           お知らせ記事ページ
+├── index.html                      トップページ
+├── news.html                       お知らせ一覧ページ
+├── vision_mission.html            Vision & Mission
+├── privacy-policy.html            プライバシーポリシー
+├── terms.html                     利用規約
+├── thanks.html                    問い合わせ送信完了ページ
+├── .nojekyll                       GitHub Pages 用設定ファイル
+└── README.md                       このファイル
 ```
-Polar/
-├── index.html                メインページ（最新3件のNewsを掲載）
-├── news.html                 お知らせ一覧ページ（全件アーカイブ）
-├── vision_mission.html       Vision & Mission ページ
-├── privacy-policy.html       プライバシーポリシー
-├── terms.html                利用規約
-├── README.md                 このファイル
-├── .nojekyll                 GitHub Pages 用（空ファイル）
-├── css/
-│   ├── style.css             メインスタイルシート
-│   └── article.css           記事ページ用スタイルシート
-├── js/
-│   ├── main.js               index.html 用スクリプト
-│   └── news.js               news.html / 記事ページ用スクリプト
-├── news/                     お知らせ記事フォルダ（追加時に更新）
-├── members/                  メンバープロフィールフォルダ
-└── images/                   画像ファイル
-    ├── Polar_logo.png        ロゴ
-    ├── og-image.png          OGP用画像
-    ├── gallery/              ギャラリー画像
-    ├── avatar_*.png          メンバー写真
-    └── ...
-```
 
-## セクション
+## 主要ページ
 
-| セクションID | 内容 |
-|---|---|
-| `#nav` | ナビゲーション（固定ヘッダー） |
-| `#hero` | キャッチコピー・第一印象 |
-| `#about` | 組織紹介 |
-| `#news` | お知らせ（最新3件） |
-| `#gallery` | ギャラリー |
-| `#members` | メンバー紹介 |
-| `#contact` | コンタクトフォーム |
-| `#footer` | SNS・ニュースレター・コピーライト |
+- `index.html`
+  - ヒーロー、About、News、Gallery、Members、Contact を含むランディングページ
+- `news.html`
+  - お知らせ一覧のアーカイブページ
+- `news/*.html`
+  - 個別のお知らせ記事ページ
+- `members/*.html`
+  - メンバープロフィールページ
+- `vision_mission.html`
+  - Vision / Mission の説明ページ
+- `privacy-policy.html`, `terms.html`
+  - 法的ページ
 
-## 今後の対応が必要な箇所
+## 開発・更新手順
 
-- [ ] `css/style.css` の `--clr-accent` をアクセントカラー確定後に変更
-- [ ] ギャラリー画像を `images/` に配置してHTMLを更新
-- [ ] Google Analytics の設定（公開後）
+このサイトはビルドステップを持たず、HTML/CSS/JS を直接更新します。
 
-## 📰 News 更新ルール
+1. 変更したいファイルを編集する
+2. ローカルで表示確認する
+3. Git でコミットする
+4. `main` ブランチへ push すると GitHub Actions がデプロイを実行する
 
-> ⚠️ お知らせを追加するときは必ず2ファイルを更新してください。
+## お知らせの追加方法
 
-| ファイル | 役割 | 更新タイミング |
-|---|---|---|
-| `index.html` | トップページ（最新3件のみ掲載） | 新着追加・古い記事を削除して常に3件に保つ |
-| `news.html` | 全件アーカイブ | すべての記事を追加・削除しない |
+お知らせを追加する場合は、次の流れが基本です。
 
-**手順**
-1. `news.html` の `<ul class="news-list">` 先頭に新しい記事を追加する
-2. `index.html` の `<ul class="news-list">` 先頭にも同じ記事を追加する
-3. `index.html` の記事が4件以上になったら、一番古い `<li class="news-item">` を削除して3件に戻す
+1. `news/` 配下に記事ページを作成する
+2. `news.html` に新しい記事リンクを追加する
+3. 必要に応じて `index.html` の最新ニュース一覧にも反映する
 
-## ⚠️ 公開前に必ず確認するチェックリスト
+## メンバー追加方法
 
-- [ ] `index.html` の `og:url` を実際のGitHub Pages URLに差し替える
-  ```
-  https://[ユーザー名].github.io/Polar/
-  ```
-- [ ] `index.html` の `og:image` / `twitter:image` を差し替える
-  ```
-  https://[ユーザー名].github.io/Polar/images/og-image.png
-  ```
-- [ ] OGP用の画像 `images/og-image.png` を作成・配置する（推奨: 1200×630px）
+メンバーを追加する場合は、次の流れで管理します。
 
-## 🔒 セキュリティチェックリスト
+1. `members/` 配下にプロフィール用HTMLを作成する
+2. `images/` にプロフィール画像を配置する
+3. 必要に応じて `index.html` の Members セクションからリンクする
 
-### 設定済み（コードに反映）
-- [x] CSP（Content Security Policy）を `<head>` に追加済み
-- [x] Referrer Policy を `strict-origin-when-cross-origin` に設定済み
-- [x] フッターのメールアドレスをJSで組み立てる難読化を実装済み
+## デプロイ
 
-### 要確認（設定画面での作業）
-- [ ] **GitHub Pages**: Settings → Pages → "Enforce HTTPS" にチェックが入っているか確認
-- [ ] **SSGForm**: 無料プランの月間送信上限件数を確認（超過時の挙動を把握しておく）
+GitHub Actions により、`main` ブランチへの push で自動的に GitHub Pages に公開されます。
 
-### 任意
-- [ ] GitHub の Dependabot アラートをオンにする（Settings → Security → Dependabot alerts）
+- ワークフロー: `.github/workflows/static.yml`
+- 公開URL: https://neo-polar.github.io/
 
-## GitHub Pages 公開手順
+## 公開前に確認したいポイント
+
+- OGP / Twitter Card の URL と画像が正しいか
+- 問い合わせフォーム先（SSGForm）が意図したものか
+- `privacy-policy.html` / `terms.html` の内容が最新か
+- 追加した画像やリンクに破損がないか
+
+## セキュリティについて
+
+以下のような基本的なセキュリティ設定は実装済みです。
+
+- CSP（Content Security Policy）を適用
+- Referrer Policy を `strict-origin-when-cross-origin` に設定
+- メールアドレスを JavaScript で難読化して表示
+
+## 変更・公開コマンド例
 
 ```bash
-# 初回
-git clone https://github.com/[ユーザー名]/Polar.git
-cd Polar
-
-# 作業開始時
-git pull origin main
-
-# 変更後
 git add .
-git commit -m "add: ○○を追加"
+git commit -m "update: 〇〇を更新"
 git push origin main
 ```
 
-Settings → Pages → Source: Deploy from a branch → Branch: main / (root) → Save
-
-公開URL: `https://[ユーザー名].github.io/Polar/`
-
 ## バージョン
 
-v1.0 — 初回公開（Phase A: シングルページ構成）
+v1.1 — 静的サイト構成・GitHub Pages 自動デプロイ対応
