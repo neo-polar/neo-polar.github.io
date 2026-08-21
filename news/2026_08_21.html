@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja"
+      data-title-ja="【第1回】「Polar」サークルコンテストを開催します — Polar"
+      data-title-en="【1st】We Are Hosting the Polar Circle Contest — Polar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【第1回】「Polar」サークルコンテストを開催します — Polar</title>
+  <meta name="description" content="【第1回】「Polar」サークルコンテストを開催します" />
+
+  <!-- Security -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self';
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+             font-src https://fonts.gstatic.com;
+             img-src 'self' data: https:;
+             form-action https://ssgform.com;
+             connect-src 'self';
+             frame-ancestors 'none';" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/article.css" />
+
+  <style>
+    .inline-hover-link {
+      color: var(--clr-muted);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    .inline-hover-link:hover {
+      color: var(--clr-accent);
+    }
+    .article-body ul {
+    list-style-type: disc;
+    padding-left: 1.5em;
+    }
+  </style>
+  
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="logo"><img src="../images/Polar_logo.png" alt="Polar"></a>
+      <nav class="nav-links" id="navLinks" aria-label="メインナビゲーション">
+        <a href="../index.html#about"   data-ja="About"   data-en="About">About</a>
+        <a href="../news.html"          data-ja="News"    data-en="News" class="active">News</a>
+        <a href="../index.html#gallery" data-ja="Gallery" data-en="Gallery">Gallery</a>
+        <a href="../index.html#members" data-ja="Members" data-en="Members">Members</a>
+        <a href="../index.html#contact" data-ja="Contact" data-en="Contact">Contact</a>
+      </nav>
+      <div class="nav-right">
+        <button class="lang-btn" id="langBtn" aria-label="Switch to English">EN</button>
+        <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== 記事本文 ===== -->
+  <main class="article-page">
+    <div class="container">
+
+      <!-- パンくずリスト -->
+      <nav class="article-breadcrumb" aria-label="パンくずリスト">
+        <a href="../index.html" data-ja="トップ" data-en="Top">トップ</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <a href="../news.html" data-ja="お知らせ" data-en="News">お知らせ</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span data-ja="【第1回】「Polar」サークルコンテストを開催します" data-en="[1st] We Are Hosting the Polar Circle Contest">【第1回】「Polar」サークルコンテストを開催します</span>
+      </nav>
+
+      <!-- 記事ヘッダー -->
+      <header class="article-header">
+        <div class="article-meta">
+          <time class="article-date" datetime="2026-08-21">2026.08.21</time>
+          <span class="article-tag" data-ja="イベント" data-en="Event">イベント</span>
+        </div>
+        <h1 class="article-title"
+            data-ja="【第1回】「Polar」サークルコンテストを開催します"
+            data-en="[1st] We Are Hosting the Polar Circle Contest">【第1回】「Polar」サークルコンテストを開催します</h1>
+      </header>
+
+      <!--
+        ================================================================
+        TYPE A の特徴：タイトル直下にメイン画像を1枚配置する
+        ・公開発表・リリースなど「見た目で伝えたい」記事に最適
+        ・日英で画像を切り替えたい場合は data-src-ja / data-src-en を使う
+        ・1枚の共通画像でよい場合は src だけ設定して data-src-* は削除してよい
+        ================================================================
+      -->
+      <!-- <img
+        class="article-hero-img"
+        id="heroImg"
+        src="../images/PolarMainWebsite_ja.png"
+        data-src-ja="../images/PolarMainWebsite_ja.png"
+        data-src-en="../images/PolarMainWebsite_en.png"
+        alt="Polar公式ホームページのファーストビュー"
+        loading="eager"
+      /> -->
+
+      <!-- 本文 -->
+      <div class="article-body">
+
+        <p data-ja="本日から小説投稿サイト「カクヨム」にて、「Polarサークルコンテスト（第1回）」を開催します。"
+           data-en="Starting today, we are hosting the 'Polar Circle Contest (1st Edition)' on the novel posting site 'Kakuyomu'.">
+          本日から小説投稿サイト「カクヨム」にて、「Polarサークルコンテスト（第1回）」を開催します。
+        </p>
+
+        <p data-ja="参加条件は、下記の通りです。皆様のご参加をお待ちしております。"
+           data-en="The participation criteria are as follows. We look forward to your participation.">
+          参加条件は、下記の通りです。皆様のご参加をお待ちしております。
+        </p>
+
+        <ul>
+          <li data-ja="小説投稿サイト「カクヨム」にアカウントを持っていること"
+              data-en="You must have an account on the novel posting site 'Kakuyomu'.">
+            小説投稿サイト「カクヨム」にアカウントを持っていること
+          </li>
+          <li data-ja="1人1作品。完結済みの短編小説（ジャンル規定なし・1万字以下）"
+              data-en="One work per person. Completed short stories (no genre restrictions, under 10,000 characters).">
+            1人1作品。完結済みの短編小説（ジャンル規定なし・1万字以下）
+          </li>
+          <li data-ja="1次創作物であること（二次創作は不可）"
+              data-en="The work must be an original creation (derivative works are not allowed).">
+            1次創作物であること（二次創作は不可）
+          </li>
+          <li data-ja="応募締め切り日まで、本コンテストに参加していること"
+              data-en="You must be participating in this contest until the application deadline.">
+            応募締め切り日まで、本コンテストに参加していること
+          </li>
+        </ul>
+
+        <p data-ja="詳細は、下記のリンク先をご覧ください。"
+           data-en="For more details, please visit the link below.">
+          詳細は、下記のリンク先をご覧ください。
+          <br>
+          <a href="https://kakuyomu.jp/user_events/2912051606744228554" target="_blank" rel="noopener noreferrer"
+             data-ja="コンテスト詳細ページ（外部リンク）"
+             data-en="Contest Details Page (External Link)" class="inline-hover-link">コンテスト詳細ページ（外部リンク）</a>
+        </p>
+
+
+      </div>
+
+      <!-- 記事フッター -->
+      <footer class="article-footer">
+        <a href="../news.html" class="article-back"
+           data-ja="← お知らせ一覧へ"
+           data-en="← Back to News">← お知らせ一覧へ</a>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo">Polar</span>
+          <p data-ja="熱意で知を研ぎ澄ます" data-en="Curiosity, shaped by passion.">熱意で知を研ぎ澄ます</p>
+        </div>
+        <!-- Newsletter section temporarily disabled. Re-enable by uncommenting this block.
+        <div class="footer-newsletter">
+          <p data-ja="ニュースレター登録" data-en="Newsletter">ニュースレター登録</p>
+          <form class="newsletter-form" aria-label="ニュースレター登録フォーム"
+                action="https://ssgform.com/s/R5aicIbEf7uJ" method="POST" novalidate>
+            <label for="newsletter-email" class="sr-only">メールアドレス</label>
+            <div style="flex: 1; display: flex; flex-direction: column;">
+              <input type="email" id="newsletter-email" name="email"
+                     placeholder="example@email.com" required />
+              <span class="form-error" id="newsletter-email-error"
+                    role="alert" aria-live="polite"></span>
+            </div>
+            <button type="submit" class="btn btn-form"
+                    data-ja="登録" data-en="Subscribe">登録</button>
+          </form>
+        </div>
+        -->
+        <div class="footer-links">
+          <a href="https://x.com/polar_universe" target="_blank" rel="noopener noreferrer"
+             aria-label="Polar 公式X @polar_universe（外部リンク）"
+             class="x-lockup">
+            <img src="../images/sns_x_logo.png" alt="X" class="x-logo" />
+            <span class="x-handle">@polar_universe</span>
+          </a>
+          <a href="https://github.com/neo-polar" target="_blank" rel="noopener noreferrer"
+             aria-label="Polar GitHub（外部リンク）"
+             class="x-lockup">
+            <img src="../images/sns_GitHub_logo.png" alt="GitHub" class="x-logo" />
+            <span class="x-handle">neo-polar</span>
+          </a>
+          <a href="../privacy-policy.html" aria-label="プライバシーポリシーを確認する" data-ja="プライバシーポリシー" data-en="Privacy Policy">プライバシーポリシー</a>
+          <a href="../terms.html" aria-label="利用規約を確認する" data-ja="利用規約" data-en="Terms of Use">利用規約</a>
+        </div>
+      </div>
+      <p class="copyright">Copyright &copy; 2026 Polar. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/news.js"></script>
+</body>
+</html>
