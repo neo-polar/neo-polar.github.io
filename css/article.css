@@ -228,6 +228,32 @@
 /* ────────────────────────────────────────
    メンバープロフィール：SNSリンクリスト
 ──────────────────────────────────────── */
+/* 親要素：下のSNSアイコン群との間に余白を作る */
+.member-official-site {
+  margin-bottom: 24px;
+  max-width: 320px; /* カードが横に間延びするのを防ぐ */
+}
+/* 公式サイトリンク本体（現在のコードそのまま） */
+.official-site-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #fafafa;
+  text-decoration: none;
+  color: #1a202c;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+/* ホバー時のアクションを追加 */
+.official-site-link:hover {
+  background-color: #f1f5f9;      /* 背景をほんの少し濃くする */
+  border-color: #cbd5e1;          /* 枠線も少し濃くして輪郭を出す */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 軽く浮き上がらせる */
+}
+
 .member-sns-list {
   list-style: none;
   padding: 0;
