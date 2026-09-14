@@ -6,6 +6,11 @@
      <link rel="stylesheet" href="css/article.css" />
 ============================================================ */
 
+.inline-hover-link { color: var(--clr-muted); text-decoration: underline; transition: color .2s; }
+.inline-hover-link:hover { color: var(--clr-accent); }
+.vision-cards { margin-top: 8px; }
+.official-site-arrow { font-size: .9em; color: var(--clr-muted); }
+
 /* ────────────────────────────────────────
    記事ページ 共通レイアウト
 ──────────────────────────────────────── */

@@ -4,124 +4,50 @@
 ============================================================ */
 'use strict';
 
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Language persistence is optional; blocked or invalid storage must not stop UI setup.
+function readSavedLang() {
+  try {
+    const saved = localStorage.getItem('polar-lang');
+    return saved === 'en' ? 'en' : 'ja';
+  } catch { return 'ja'; }
+}
 
-/* ─────────────────────────────────────────
-   1. ヒーロー Canvas パーティクル
-───────────────────────────────────────── */
-(function initParticles() {
-  if (prefersReduced) return;
-  const canvas = document.getElementById('heroCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
-
-  let W, H, particles;
-  const COUNT    = window.innerWidth < 600 ? 40 : 80;
-  const MAX_DIST = 150;
-  const SPEED    = 0.5;
-
-  function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-
-  function createParticles() {
-    particles = Array.from({ length: COUNT }, () => ({
-      x:  Math.random() * W,
-      y:  Math.random() * H,
-      vx: (Math.random() - 0.5) * SPEED,
-      vy: (Math.random() - 0.5) * SPEED,
-      r:  Math.random() * 2.5 + 1,
-    }));
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < MAX_DIST * MAX_DIST) {
-          const d = Math.sqrt(d2); // 透明度計算にのみ使用
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(8,145,178,${(1 - d / MAX_DIST) * 0.3})`;
-          ctx.lineWidth = 1;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
-        }
-      }
-    }
-    particles.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(8,145,178,0.6)';
-      ctx.fill();
-    });
-  }
-
-  function update() {
-    particles.forEach(p => {
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < 0 || p.x > W) p.vx *= -1;
-      if (p.y < 0 || p.y > H) p.vy *= -1;
-    });
-  }
-
-  let last = 0;
-  const FPS_INTERVAL = 1000 / 30;
-  let raf;
-
-  function loop(ts) {
-    raf = requestAnimationFrame(loop);
-    if (ts - last < FPS_INTERVAL) return;
-    last = ts; update(); draw();
-  }
-
-  resize(); createParticles(); raf = requestAnimationFrame(loop);
-
-  let resizeTick = false;
-  window.addEventListener('resize', () => {
-    if (resizeTick) return;
-    resizeTick = true;
-    requestAnimationFrame(() => { resize(); createParticles(); resizeTick = false; });
+// Decorative parallax only on fine pointers; no animation loop or text movement.
+// React to preference changes as well as the preference at page load.
+(function setupStarMotion() {
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const pointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const reset = () => {
+    hero.style.setProperty('--star-x', '0px');
+    hero.style.setProperty('--star-y', '0px');
+  };
+  hero.addEventListener('pointermove', event => {
+    if (motion.matches || !pointer.matches) return;
+    const bounds = hero.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - .5;
+    const y = (event.clientY - bounds.top) / bounds.height - .5;
+    hero.style.setProperty('--star-x', `${(x * 20).toFixed(1)}px`);
+    hero.style.setProperty('--star-y', `${(y * 16).toFixed(1)}px`);
   }, { passive: true });
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { cancelAnimationFrame(raf); }
-    else { last = 0; raf = requestAnimationFrame(loop); }
+  hero.addEventListener('pointerleave', reset);
+  [motion, pointer].forEach(media => {
+    if (media.addEventListener) media.addEventListener('change', reset);
+    else if (media.addListener) media.addListener(reset);
   });
 })();
 
-/* ─────────────────────────────────────────
-   2. タイプライター（言語切替対応）
-───────────────────────────────────────── */
-let typewriterTimer = null;
-
-function runTypewriter(lang) {
-  if (prefersReduced) return;
+// Show the complete tagline immediately, including after a language switch.
+function updateHeroText(lang) {
   const el = document.querySelector('.hero-sub');
-  if (!el) return;
-  if (typewriterTimer !== null) { clearTimeout(typewriterTimer); typewriterTimer = null; }
-  const text = lang === 'en' ? (el.dataset.en || '') : (el.dataset.ja || '');
-  if (!text) return;
-  el.textContent = '';
-  let i = 0;
-  function type() {
-    if (i <= text.length) { el.textContent = text.slice(0, i); i++; typewriterTimer = setTimeout(type, 60); }
-    else { typewriterTimer = null; }
-  }
-  typewriterTimer = setTimeout(type, 600);
+  if (el && el.dataset[lang]) el.textContent = el.dataset[lang];
 }
 
-/* ─────────────────────────────────────────
-   3. 日英切り替え
-───────────────────────────────────────── */
 let currentLang = 'ja';
 
 function applyLang(lang) {
+  lang = lang === 'en' ? 'en' : 'ja';
   const heroSub = document.querySelector('.hero-sub');
   const TEXT_TAGS = new Set(['P','SPAN','H1','H2','H3','H4','LABEL','BUTTON','A','LI','TIME']);
   document.querySelectorAll('[data-ja]').forEach(el => {
@@ -144,20 +70,20 @@ function applyLang(lang) {
   btn.textContent = lang === 'ja' ? 'EN' : 'JA';
   btn.setAttribute('aria-label', lang === 'ja' ? 'Switch to English' : '日本語に切り替える');
   document.documentElement.lang = lang === 'ja' ? 'ja' : 'en';
-  localStorage.setItem('polar-lang', lang);
+  try { localStorage.setItem('polar-lang', lang); } catch { /* Continue without persistence. */ }
   currentLang = lang;
   // タイトル切り替え
   const titleJa = document.documentElement.dataset.titleJa;
   const titleEn = document.documentElement.dataset.titleEn;
   if (lang === 'en' && titleEn) document.title = titleEn;
   else if (lang === 'ja' && titleJa) document.title = titleJa;
-  runTypewriter(lang);
+  updateHeroText(lang);
 }
-const savedLang = localStorage.getItem('polar-lang') || 'ja';
+const savedLang = readSavedLang();
 if (savedLang !== 'ja') {
-  applyLang(savedLang);   // 英語保存時: 言語適用 → タイプライターも起動
+  applyLang(savedLang);
 } else {
-  runTypewriter('ja');    // 日本語デフォルト時: タイプライターだけ起動
+  updateHeroText('ja');
 }
 document.getElementById('langBtn').addEventListener('click', () => {
   applyLang(currentLang === 'ja' ? 'en' : 'ja');
@@ -183,7 +109,7 @@ navLinks.querySelectorAll('a').forEach(link => {
   });
 });
 window.addEventListener('resize', () => {
-  if (window.innerWidth > 768) {
+  if (window.innerWidth >= 960) {
     navLinks.classList.remove('open'); hamburger.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false');
     hamburger.setAttribute('aria-label', 'メニューを開く');
@@ -191,25 +117,10 @@ window.addEventListener('resize', () => {
 }, { passive: true });
 
 /* ─────────────────────────────────────────
-   5. スムーズスクロール（JS 実装）
+   5. ページ内リンク（ブラウザー標準）
 ───────────────────────────────────────── */
-function smoothScrollTo(targetId) {
-  const target = document.getElementById(targetId);
-  if (!target) return;
-  const navHeight = parseInt(
-    getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '64', 10
-  );
-  const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
-  window.scrollTo({ top, behavior: prefersReduced ? 'instant' : 'smooth' });
-}
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', e => {
-    const targetId = link.getAttribute('href').slice(1);
-    if (!targetId || !document.getElementById(targetId)) return;
-    e.preventDefault();
-    smoothScrollTo(targetId);
-  });
-});
+// Native anchor navigation preserves URL fragments, focus and browser history.
+// CSS scroll-padding-top accounts for the fixed navigation.
 
 /* ─────────────────────────────────────────
    6. ナビ スクロール強調 + アクティブ + back-to-top
@@ -232,7 +143,7 @@ window.addEventListener('scroll', () => {
 
 if (bttBtn) {
   bttBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: prefersReduced ? 'instant' : 'smooth' });
+    window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   });
 }
 
@@ -251,41 +162,9 @@ if ('IntersectionObserver' in window) {
 }
 
 /* ─────────────────────────────────────────
-   7. スクロール フェードイン
+   7. 本文の即時表示
 ───────────────────────────────────────── */
-if (!prefersReduced && 'IntersectionObserver' in window) {
-  const fadeMap = [
-    { sel: '.hero-inner > *',  cls: 'fade-up',    stagger: true  },
-    { sel: '.about-card',      cls: 'fade-up',    stagger: true  },
-    { sel: '.about-text p',    cls: 'fade-left',  stagger: false },
-    { sel: '.news-item',       cls: 'fade-up',    stagger: true  },
-    { sel: '.note-card',       cls: 'fade-up',    stagger: false },
-    { sel: '.gallery-item',    cls: 'fade-scale', stagger: true  },
-    { sel: '.member-card',     cls: 'fade-up',    stagger: true  },
-    { sel: '.section-label',   cls: 'fade-left',  stagger: false },
-    { sel: '.section-title',   cls: 'fade-up',    stagger: false },
-    { sel: '.contact-desc',    cls: 'fade-up',    stagger: false },
-    { sel: '.form-group',      cls: 'fade-up',    stagger: true  },
-  ];
-  const fadeObs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); fadeObs.unobserve(entry.target); }
-    });
-  }, { rootMargin: '0px 0px -60px 0px', threshold: 0.08 });
-  fadeMap.forEach(({ sel, cls, stagger }) => {
-    document.querySelectorAll(sel).forEach((el, i) => {
-      el.classList.add('will-fade', cls);
-      if (stagger) el.style.transitionDelay = `${i * 0.07}s`;
-      fadeObs.observe(el);
-    });
-  });
-} else {
-  document.querySelectorAll([
-    '.hero-inner > *','.about-card','.about-text p','.news-item',
-    '.gallery-item','.member-card','.section-label','.section-title',
-    '.contact-desc','.form-group',
-  ].join(', ')).forEach(el => el.classList.add('is-visible'));
-}
+// Text stays visible: reading never waits for an intersection or animation.
 
 /* ─────────────────────────────────────────
    8. フォーム カスタムバリデーション + 二重送信防止
@@ -299,12 +178,14 @@ function getMsg(key) { return (MESSAGES[currentLang] || MESSAGES.ja)[key]; }
 function setError(input, msg) {
   const el = document.getElementById(`${input.id}-error`);
   input.classList.add('is-invalid');
+  input.setAttribute('aria-invalid', 'true');
   input.setAttribute('aria-describedby', `${input.id}-error`);
   if (el) el.textContent = msg;
 }
 function clearError(input) {
   const el = document.getElementById(`${input.id}-error`);
   input.classList.remove('is-invalid');
+  input.removeAttribute('aria-invalid');
   input.removeAttribute('aria-describedby');
   if (el) el.textContent = '';
 }
@@ -317,22 +198,36 @@ function validateField(input) {
 }
 function setupValidation(form) {
   const fields = form.querySelectorAll('input[required], textarea[required]');
+  const btn = form.querySelector('[type="submit"]');
+  const originalLabel = btn ? btn.textContent : '';
+  let submitting = false;
+  let resetTimer = null;
+  function resetSubmission() {
+    if (resetTimer !== null) clearTimeout(resetTimer);
+    resetTimer = null;
+    submitting = false;
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = btn.dataset[currentLang] || originalLabel;
+    }
+  }
+  window.addEventListener('pageshow', resetSubmission);
   fields.forEach(field => {
     field.addEventListener('blur', () => validateField(field));
     field.addEventListener('input', () => { if (field.classList.contains('is-invalid')) validateField(field); });
   });
   form.addEventListener('submit', function (e) {
+    if (submitting) { e.preventDefault(); return; }
     let valid = true;
     fields.forEach(f => { if (!validateField(f)) valid = false; });
     if (!valid) { e.preventDefault(); const first = form.querySelector('.is-invalid'); if (first) first.focus(); return; }
-    const btn = this.querySelector('[type="submit"]');
     if (!btn) return;
+    submitting = true;
     btn.disabled = true;
-    const orig = btn.textContent;
     btn.textContent = getMsg('sending');
     // SSGForm は POST 後にページ遷移するためタイムアウトはフォールバック用
     // 将来 Fetch に切り替える場合はレスポンス受信後に disabled を解除してください
-    setTimeout(() => { btn.disabled = false; btn.textContent = orig; }, 8000);
+    resetTimer = setTimeout(resetSubmission, 8000);
   });
 }
 
@@ -422,3 +317,11 @@ function updateDocumentTitles(lang) {
 //   updateDocumentTitles(newLang);
 //   // 既存のテキスト置換処理があればそちらも呼ぶ
 // });
+
+// Dismiss the mobile navigation and return focus to its trigger.
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && navLinks.classList.contains('open')) {
+    hamburger.click();
+    hamburger.focus();
+  }
+});

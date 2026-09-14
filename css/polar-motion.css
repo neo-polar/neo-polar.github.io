@@ -1,0 +1,105 @@
+/* Motion budget: transform/opacity only. No animated filters, shadows or layout.
+   Mobile: one aurora, one orbit, one meteor and one snow group in the hero.
+   --motion-state is inherited by every animation, including pseudo-elements. */
+.motion-scene { --motion-state: paused; pointer-events: none; user-select: none; }
+.motion-scene.is-motion-active { --motion-state: running; }
+.motion-scene span { display: block; }
+.motion-scene *, .motion-scene::before, .motion-scene::after {
+  animation-play-state: var(--motion-state) !important;
+}
+#hero.has-polar-sky::before { display: none; }
+.polar-sky {
+  position: absolute; z-index: -1; display: block;
+  width: 440px; height: 440px; top: 52%; right: max(3%, calc((100vw - 1200px) / 2));
+  transform: translate(var(--star-x, 0px), calc(-50% + var(--star-y, 0px)));
+  transition: transform .8s ease-out; overflow: hidden; border-radius: 50%;
+}
+.polar-aurora {
+  position: absolute; width: 330px; height: 210px; left: 40px; top: 90px;
+  border-radius: 50% 20% 50% 30%; opacity: .65;
+  background: linear-gradient(125deg, transparent 8%, #93d5c455 29%, #70b9c177 47%, #b9cfd955 67%, transparent 85%);
+  transform-origin: 50% 65%; animation: aurora-sway 9s ease-in-out infinite alternate;
+}
+.aurora-two { top: 120px; left: 70px; width: 260px; height: 190px; animation-delay: -5s; animation-duration: 13s; }
+.sky-guide { position: absolute; border: 1px solid #9cd8e644; border-radius: 50%; }
+.guide-outer { inset: 45px; border-style: dashed; }
+.guide-inner { inset: 104px; }
+.star-orbit { position: absolute; border-radius: 50%; animation: star-orbit 28s linear infinite; }
+.orbit-outer { inset: 45px; }
+.orbit-inner { inset: 104px; animation-direction: reverse; animation-duration: 19s; }
+.orbit-star { position: absolute; width: 14px; height: 14px; top: 50%; left: -7px; background: var(--clr-accent); clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
+.star-opposite { top: 4%; left: 72%; width: 9px; height: 9px; }
+.north-star {
+  position: absolute; width: 56px; height: 74px; left: calc(50% - 28px); top: calc(50% - 37px);
+  background: var(--clr-accent); clip-path: polygon(50% 0, 58% 40%, 100% 50%, 58% 60%, 50% 100%, 42% 60%, 0 50%, 42% 40%);
+  animation: polar-beacon 3.6s ease-in-out infinite;
+}
+.shooting-star {
+  position: absolute; left: 18%; top: 15%; width: 92px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--clr-accent)); opacity: 0;
+  transform: translate(-80px, -40px) rotate(30deg);
+  animation: shooting-star 7s ease-out infinite;
+}
+.meteor-two { left: 40%; top: 35%; width: 64px; animation-duration: 11s; animation-delay: -4s; }
+.snow-drift {
+  position: absolute; width: 3px; height: 3px; top: 25%; left: 12%; border-radius: 50%;
+  background: var(--clr-accent); opacity: .4;
+  box-shadow: 48px -22px var(--clr-accent), 102px 15px var(--clr-accent), 166px -45px var(--clr-accent), 230px 0 var(--clr-accent), 290px -34px var(--clr-accent);
+  animation: snow-drift 10s linear infinite;
+}
+.snow-two { left: 20%; top: 35%; animation-delay: -6s; animation-duration: 14s; }
+.section-compass { display: inline-block; position: relative; width: 22px; height: 22px; margin-left: 14px; vertical-align: -3px; }
+.compass-star { width: 16px; height: 16px; margin: 3px; background: var(--clr-accent); clip-path: polygon(50% 0, 61% 38%, 100% 50%, 61% 62%, 50% 100%, 39% 62%, 0 50%, 39% 38%); animation: compass-wink 5s ease-in-out infinite; }
+
+/* A small arctic scene below the gallery link, outside the reading column. */
+.arctic-scene { position: relative; display: block; height: 210px; margin-top: 36px; overflow: hidden; border-bottom: 1px solid var(--clr-border); }
+.arctic-mountains { position: absolute; inset: auto 0 34px; height: 130px; background: url('../images/polar-ridge.svg') center bottom / 100% 100% no-repeat; opacity: .6; }
+.arctic-moon { position: absolute; width: 30px; height: 30px; border-radius: 50%; background: #d8e8dd; left: 66%; top: 10px; }
+.arctic-star { position: absolute; width: 9px; height: 9px; background: var(--clr-accent); clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); animation: polar-beacon 4s ease-in-out infinite; }
+.star-a { top: 26px; left: 24%; }
+.star-b { top: 10px; left: 85%; animation-delay: -2s; }
+.arctic-water { position: absolute; width: calc(100% + 80px); height: 30px; left: -40px; bottom: 10px; border-top: 1px solid #60999c66; border-radius: 50%; background: #b5d9d32b; animation: water-drift 8s ease-in-out infinite alternate; }
+.water-back { bottom: 27px; animation-duration: 11s; animation-delay: -4s; }
+.bear-floe { position: absolute; width: 220px; height: 136px; left: 31%; bottom: 0; background: url('../images/polar-bear.svg') center / contain no-repeat; transform-origin: 50% 85%; animation: floe-bob 6s ease-in-out infinite; }
+
+@keyframes star-orbit { to { transform: rotate(360deg); } }
+@keyframes polar-beacon { 0%, 100% { opacity: .5; transform: scale(.92); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes aurora-sway { from { transform: translate(-18px, -14px) rotate(-12deg) scaleX(.86); opacity: .45; } to { transform: translate(22px, 20px) rotate(13deg) scaleX(1.08); opacity: .9; } }
+@keyframes shooting-star { 0%, 9% { opacity: 0; transform: translate(-80px, -40px) rotate(30deg); } 12% { opacity: .9; } 24% { opacity: 0; transform: translate(235px, 142px) rotate(30deg); } 100% { opacity: 0; transform: translate(235px, 142px) rotate(30deg); } }
+@keyframes snow-drift { 0% { transform: translate(0, 0); opacity: 0; } 15% { opacity: .4; } 80% { opacity: .4; } 100% { transform: translate(24px, 120px); opacity: 0; } }
+@keyframes compass-wink { 0%, 100% { transform: rotate(-15deg) scale(.85); opacity: .55; } 50% { transform: rotate(75deg) scale(1); opacity: 1; } }
+@keyframes water-drift { from { transform: translateX(-18px) scaleY(.85); } to { transform: translateX(18px) scaleY(1.12); } }
+@keyframes floe-bob { 0%, 100% { transform: translate(-10px, 0) rotate(-2deg); } 50% { transform: translate(12px, -7px) rotate(2deg); } }
+
+@media (max-width: 959px) {
+  .polar-sky { width: 300px; height: 360px; right: 2%; }
+  .polar-aurora { width: 240px; height: 180px; left: 20px; }
+  .guide-outer, .orbit-outer { inset: 35px 15px; }
+  .guide-inner, .orbit-inner { inset: 90px 70px; }
+}
+@media (max-width: 599px) {
+  /* Reserve the illustration space before deferred JS runs to avoid layout shift. */
+  #hero { padding-bottom: 280px; }
+  #hero::before { width: 300px; max-width: 100%; height: 240px; top: auto; bottom: 14px; right: calc(50% - 150px); transform: none; }
+  .polar-sky { width: 300px; max-width: 100%; height: 240px; top: auto; bottom: 14px; right: calc(50% - 150px); transform: none; }
+  .polar-aurora { top: 28px; left: 30px; height: 160px; width: 240px; }
+  .guide-outer, .orbit-outer { inset: 15px 45px; }
+  .guide-inner { inset: 52px 82px; }
+  .north-star { width: 34px; height: 48px; left: calc(50% - 17px); top: calc(50% - 24px); }
+  .snow-one { left: 0; }
+  .arctic-scene { height: 170px; margin-top: 24px; }
+  .arctic-mountains { height: 95px; background-size: auto 100%; }
+  .bear-floe { width: 180px; height: 112px; left: calc(50% - 90px); }
+}
+/* Touch devices keep the smaller motion budget even in landscape orientation. */
+@media (max-width: 599px), (hover: none) and (pointer: coarse) {
+  .aurora-two, .orbit-inner, .meteor-two, .snow-two, .water-back, .star-b { display: none; animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-scene *, .motion-scene::before, .motion-scene::after { animation: none !important; transition: none !important; }
+  .shooting-star, .snow-drift { display: none; }
+  .north-star, .arctic-star, .compass-star { opacity: 1; }
+  .polar-sky { transition: none; }
+}
+@media (update: slow) { .motion-scene * { animation: none !important; } }
+@media print { .motion-scene { display: none !important; } #hero.has-polar-sky { padding-bottom: 40px; } }

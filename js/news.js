@@ -4,12 +4,19 @@
 ============================================================ */
 'use strict';
 
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Language persistence is optional; blocked or invalid storage must not stop UI setup.
+function readSavedLang() {
+  try {
+    const saved = localStorage.getItem('polar-lang');
+    return saved === 'en' ? 'en' : 'ja';
+  } catch { return 'ja'; }
+}
 
 /* ─── 日英切り替え ─── */
-let currentLang = localStorage.getItem('polar-lang') || 'ja';
+let currentLang = readSavedLang();
 
 function applyLang(lang) {
+  lang = lang === 'en' ? 'en' : 'ja';
   const TEXT_TAGS = new Set(['P','SPAN','H1','H2','H3','H4','LABEL','BUTTON','A','LI','TIME']);
   document.querySelectorAll('[data-ja]').forEach(el => {
     if (!TEXT_TAGS.has(el.tagName) || !el.dataset[lang]) return;
@@ -36,7 +43,7 @@ function applyLang(lang) {
     const src = lang === 'ja' ? img.dataset.srcJa : img.dataset.srcEn;
     if (src) img.src = src;
   });
-  localStorage.setItem('polar-lang', lang);
+  try { localStorage.setItem('polar-lang', lang); } catch { /* Continue without persistence. */ }
   currentLang = lang;
 }
 
@@ -65,9 +72,10 @@ navLinks.querySelectorAll('a').forEach(link => {
   });
 });
 window.addEventListener('resize', () => {
-  if (window.innerWidth > 768) {
+  if (window.innerWidth >= 960) {
     navLinks.classList.remove('open'); hamburger.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'メニューを開く');
   }
 }, { passive: true });
 
@@ -123,19 +131,12 @@ if (newsletterForm) {
 }
 */
 
-/* ─── ニュースリストのフェードイン ─── */
-if (!prefersReduced && 'IntersectionObserver' in window) {
-  const fadeObs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); fadeObs.unobserve(entry.target); }
-    });
-  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
+// News is immediately readable without waiting for scroll-triggered effects.
 
-  document.querySelectorAll('.news-item').forEach((el, i) => {
-    el.classList.add('will-fade', 'fade-up');
-    el.style.transitionDelay = `${i * 0.05}s`;
-    fadeObs.observe(el);
-  });
-} else {
-  document.querySelectorAll('.news-item').forEach(el => el.classList.add('is-visible'));
-}
+// Dismiss the mobile navigation and return focus to its trigger.
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && navLinks.classList.contains('open')) {
+    hamburger.click();
+    hamburger.focus();
+  }
+});
