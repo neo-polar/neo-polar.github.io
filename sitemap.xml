@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://neo-polar.github.io/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
   </url>
   <url>
     <loc>https://neo-polar.github.io/news.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
+  </url>
+  <url>
+    <loc>https://neo-polar.github.io/news/2026_10_03.html</loc>
+    <lastmod>2026-10-03</lastmod>
   </url>
   <url>
     <loc>https://neo-polar.github.io/news/2026_09_04.html</loc>
