@@ -63,7 +63,7 @@ def main():
         relative = path.relative_to(ROOT).as_posix()
         if page.inline_styles:
             errors.append(f'{relative}: inline styles conflict with the site CSP; use an external stylesheet')
-        if any(tag == 'link' and value.endswith('css/design.css') for tag, key, value in page.links):
+        if any(tag == 'link' and urlsplit(value).path.endswith('css/design.css') for tag, key, value in page.links):
             social_count += 1
             image_url = page.meta.get('og:image', '')
             parsed = urlsplit(image_url)
@@ -120,6 +120,8 @@ def main():
                 normalized = []
                 for link in links:
                     value = link[2].removeprefix('../')
+                    if link[0] == 'link' and urlsplit(value).path.endswith('.css'):
+                        value = urlsplit(value).path
                     if value == '/favicon-polar.png':
                         value = './favicon-96x96.png'
                     candidate = (link[0], link[1], value)
