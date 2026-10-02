@@ -60,7 +60,7 @@
 .star-b { top: 10px; left: 85%; animation-delay: -2s; }
 .arctic-water { position: absolute; width: calc(100% + 80px); height: 30px; left: -40px; bottom: 10px; border-top: 1px solid #60999c66; border-radius: 50%; background: #b5d9d32b; animation: water-drift 8s ease-in-out infinite alternate; }
 .water-back { bottom: 27px; animation-duration: 11s; animation-delay: -4s; }
-.bear-floe { position: absolute; width: 220px; height: 136px; left: 31%; bottom: 0; background: url('../images/polar-bear.svg') center / contain no-repeat; transform-origin: 50% 85%; animation: floe-bob 6s ease-in-out infinite; }
+.bear-floe { position: absolute; width: 220px; height: 136px; left: 31%; bottom: 0; background: url('../images/polar-penguins.svg') center / contain no-repeat; transform-origin: 50% 85%; animation: floe-bob 6s ease-in-out infinite; }
 
 @keyframes star-orbit { to { transform: rotate(360deg); } }
 @keyframes polar-beacon { 0%, 100% { opacity: .5; transform: scale(.92); } 50% { opacity: 1; transform: scale(1.08); } }
