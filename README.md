@@ -147,7 +147,7 @@ node scripts/check_behavior.cjs
 
 ### OG画像
 
-共有用画像は `images/og-polar-home-20261003.png`（65536 × 4292542531、PNG）です。10ページの `og:image` と `twitter:image` がこの画像を参照します。更新時には `og:image:width` / `height` / `type` / `alt` も確認してください。`check_site.py` はローカルの実ファイルと寸法を検証します。旧 `og-image.png` と公開当時の記事画像は互換性と記録を維持するため残しています。
+共有用画像は `images/og-polar-home-20261003.png`（1245 × 699、PNG）です。10ページの `og:image` と `twitter:image` がこの画像を参照します。更新時には `og:image:width` / `height` / `type` / `alt` も確認してください。`check_site.py` はローカルの実ファイルと寸法を検証します。旧 `og-image.png` と公開当時の記事画像は互換性と記録を維持するため残しています。
 
 ```bash
 python scripts/check_site.py --compare HEAD
