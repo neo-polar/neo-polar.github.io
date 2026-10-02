@@ -35,7 +35,7 @@ section { padding-block: 88px; }
 #nav { background: var(--surface); border-bottom-color: var(--clr-border); }
 .nav-inner { gap: 64px; }
 .logo { background: none; -webkit-text-fill-color: currentColor; color: var(--clr-text); }
-.logo img { height: 46px; filter: brightness(0) saturate(100%); }
+.logo img { width: 180px; height: 60px; max-width: none; filter: none; }
 .x-logo { filter: brightness(0) saturate(100%); }
 .member-sns-item a { background: #fff; padding: 10px; }
 .member-sns-icon img[src*="sns_x_logo"] { filter: none; }
@@ -159,6 +159,7 @@ section { padding-block: 88px; }
   :root { --nav-h: 72px; }
   .container, .nav-inner, .hero-inner { padding-inline: 28px; }
   .nav-inner { gap: 24px; justify-content: space-between; }
+  .logo img { width: 156px; height: 52px; }
   .nav-right { margin-left: auto; gap: 16px; }
   .hamburger { display: flex; }
   .nav-links { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; flex-direction: column; background: var(--surface); padding: 24px 28px; gap: 4px; border-bottom: 1px solid var(--clr-border); box-shadow: 0 12px 24px #102d4010; max-height: calc(100vh - var(--nav-h)); overflow-y: auto; }

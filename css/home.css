@@ -14,7 +14,7 @@ body {
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
-#nav .logo img { height: 42px; }
+
 #nav .nav-links a { color: #496471; }
 #nav .nav-links a:hover,
 #nav .nav-links a.active { color: #183544; }
