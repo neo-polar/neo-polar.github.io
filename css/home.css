@@ -9,25 +9,25 @@ body {
 
 /* The navigation belongs visually to the night-sky cover. */
 #nav {
-  background: rgba(10, 28, 39, .78);
-  border-bottom-color: rgba(156, 216, 230, .13);
+  background: rgba(247, 250, 251, .96);
+  border-bottom-color: #b6ccd5;
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
 #nav .logo img { height: 42px; }
-#nav .nav-links a { color: #c4d8df; }
+#nav .nav-links a { color: #496471; }
 #nav .nav-links a:hover,
-#nav .nav-links a.active { color: #f3fbfd; }
-#nav .lang-btn { color: #d9eef3; border-left-color: rgba(156, 216, 230, .2); }
-#nav .hamburger span { background: #e2edf2; }
+#nav .nav-links a.active { color: #183544; }
+#nav .lang-btn { color: #183544; border-left-color: rgba(156, 216, 230, .2); }
+#nav .hamburger span { background: #183544; }
 
 /* Cover */
 #hero {
-  min-height: max(720px, 100svh);
+  min-height: max(660px, 88svh);
   padding-block: calc(var(--nav-h) + clamp(54px, 8vh, 92px)) clamp(72px, 10vh, 108px);
   background:
     radial-gradient(ellipse at 87% 44%, rgba(72, 172, 177, .13), transparent 31%),
-    linear-gradient(118deg, #0b1b27 0%, #102634 56%, #0d202d 100%);
+    linear-gradient(118deg, #244960 0%, #30677d 56%, #326c80 100%);
   border-bottom: 1px solid rgba(156, 216, 230, .2);
   overflow: hidden;
 }
@@ -42,7 +42,7 @@ body {
 }
 #hero .hero-inner {
   display: flex;
-  min-height: 510px;
+  min-height: 440px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
@@ -50,7 +50,7 @@ body {
 #hero .hero-eyebrow {
   max-width: 52%;
   margin-bottom: 18px;
-  color: #bfd4dc;
+  color: #e0f0f6;
   font-size: clamp(1rem, 1.65vw, 1.35rem);
   letter-spacing: .045em;
 }
@@ -61,7 +61,7 @@ body {
   margin: 0 0 14px -8px;
   color: #edf7fa;
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(10rem, 22vw, 20rem);
+  font-size: clamp(8rem, 17vw, 15rem);
   font-weight: 400;
   line-height: .92;
   letter-spacing: -.065em;
@@ -86,7 +86,7 @@ body {
 }
 #hero .btn-primary { color: #102431; background: #cbeaf0; }
 #hero .btn-primary:hover { color: #0a202d; background: #f0fbfd; }
-#hero .btn-outline { color: #dcecf1; border-color: rgba(197, 229, 237, .35); }
+#hero .btn-outline { color: #dcecf1; border-color: rgba(225, 245, 252, .75); }
 #hero .btn-outline:hover { color: #fff; background: rgba(255, 255, 255, .07); border-color: #9cd8e6; }
 #hero .hero-scroll-hint { right: 40px; bottom: 47px; color: #9cd8e6; opacity: .75; }
 
@@ -197,14 +197,14 @@ body {
 /* The rest of the home page remains quiet enough to read. */
 #about,
 #gallery,
-#contact { background: #101e28; }
+#contact { background: var(--clr-bg); }
 #news,
-#members { background: #142733; }
+#members { background: var(--clr-alt); }
 #about,
 #news,
 #gallery,
 #members,
-#contact { border-bottom: 1px solid rgba(156, 216, 230, .08); }
+#contact { border-bottom: 1px solid var(--clr-border); }
 
 @keyframes home-aurora-breathe {
   from { opacity: .42; transform: translate3d(-2%, 2%, 0) scale(.96); }
@@ -216,7 +216,7 @@ body {
 }
 
 @media (max-width: 959px) {
-  #nav .nav-links { background: rgba(15, 35, 47, .98); }
+  #nav .nav-links { background: #f7fafb; }
   #hero .hero-eyebrow,
   #hero .hero-title,
   #hero .hero-sub { max-width: 61%; }
@@ -227,7 +227,7 @@ body {
 
 @media (max-width: 599px) {
   #hero {
-    min-height: 100svh;
+    min-height: 0;
     padding-top: calc(var(--nav-h) + 44px);
     padding-bottom: 290px;
   }
@@ -269,3 +269,21 @@ body {
   #hero .hero-eyebrow { color: #203e49; }
   #hero::after { background: #203e49; }
 }
+
+/* Antarctic horizon: an asymmetric ice shelf beneath the star atlas. */
+#hero::after {
+  z-index: -1; left: 0; right: 0; bottom: -1px; height: 100px;
+  background: #f7fafb;
+  clip-path: polygon(0 72%, 9% 62%, 18% 70%, 32% 48%, 43% 64%, 57% 43%, 68% 58%, 81% 18%, 90% 42%, 100% 30%, 100% 100%, 0 100%);
+}
+#hero { padding-bottom: 120px; }
+#hero .hero-scroll-hint { bottom: 108px; opacity: 1; color: #e0f0f6; }
+#hero .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; }
+#nav .nav-links a:hover, #nav .nav-links a.active { color: #183544; }
+#nav .lang-btn { border-left-color: #b6ccd5; }
+@media (max-width: 599px) {
+  #hero { padding-bottom: 320px; }
+  #hero .polar-sky { bottom: 30px; }
+  #hero::after { left: 0; right: 0; bottom: -1px; height: 64px; }
+}
+@media print { #hero::after { display: none; } }

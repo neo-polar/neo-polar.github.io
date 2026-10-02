@@ -2,15 +2,15 @@
    Content and behavior remain in their existing HTML/JS files.
    Sections: tokens, navigation, landing, reading, responsive, preferences. */
 :root {
-  color-scheme: dark;
-  --clr-bg: #101e28;
-  --clr-text: #e2edf2;
-  --clr-muted: #afc1cb;
-  --clr-accent: #9cd8e6;
-  --clr-accent2: #9cd8e6;
-  --clr-border: #344854;
-  --clr-alt: #162832;
-  --surface: #192d39;
+  color-scheme: light;
+  --clr-bg: #f7fafb;
+  --clr-text: #183544;
+  --clr-muted: #496471;
+  --clr-accent: #176b80;
+  --clr-accent2: #5268a2;
+  --clr-border: #b6ccd5;
+  --clr-alt: #e7f1f5;
+  --surface: #ffffff;
   --ink: #102d40;
   --ice: #a4dfeb;
   --nav-h: 80px;
@@ -35,8 +35,8 @@ section { padding-block: 88px; }
 #nav { background: var(--surface); border-bottom-color: var(--clr-border); }
 .nav-inner { gap: 64px; }
 .logo { background: none; -webkit-text-fill-color: currentColor; color: var(--clr-text); }
-.logo img { height: 46px; filter: brightness(0) invert(1); }
-.x-logo { filter: brightness(0) invert(1); }
+.logo img { height: 46px; filter: brightness(0) saturate(100%); }
+.x-logo { filter: brightness(0) saturate(100%); }
 .member-sns-item a { background: #fff; padding: 10px; }
 .member-sns-icon img[src*="sns_x_logo"] { filter: none; }
 .nav-links { justify-content: flex-end; gap: 32px; }
@@ -69,8 +69,8 @@ section { padding-block: 88px; }
 .hero-sub { color: var(--clr-text); font-size: clamp(1.125rem, 1.8vw, 1.5rem); line-height: 1.8; letter-spacing: .03em; max-width: 54%; margin-bottom: 36px; }
 .hero-cta { gap: 12px; }
 .btn { padding: 14px 28px; font-size: .9375rem; border-radius: 2px; }
-.btn-primary, .btn-form { color: var(--surface); background: var(--clr-text); box-shadow: none; border: 1px solid transparent; }
-.btn-primary:hover, .btn-form:hover { background: var(--clr-accent); color: var(--surface); box-shadow: none; filter: none; opacity: 1; }
+.btn-primary, .btn-form { color: #fff; background: var(--clr-accent); box-shadow: none; border: 1px solid transparent; }
+.btn-primary:hover, .btn-form:hover { background: #12566a; color: #fff; box-shadow: none; filter: none; opacity: 1; }
 .btn-outline { border: 1px solid var(--clr-border); color: var(--clr-text); }
 .btn-outline:hover { color: var(--clr-accent); border-color: var(--clr-accent); background: var(--surface); }
 .hero-scroll-hint { left: auto; right: 44px; bottom: 28px; color: var(--clr-muted); animation: none; }
@@ -121,8 +121,8 @@ section { padding-block: 88px; }
 .contact-form { grid-column: 2; grid-row: 1 / span 4; width: 100%; max-width: none; }
 .form-group input, .form-group textarea { background: var(--surface); border-width: 1px; padding: 15px; font-size: 1rem; }
 .form-group label { font-size: .9375rem; }
-.form-error { color: #ffaaaa; font-size: .875rem; }
-.form-group input.is-invalid, .form-group textarea.is-invalid { border-color: #ffaaaa; }
+.form-error { color: #b42336; font-size: .875rem; }
+.form-group input.is-invalid, .form-group textarea.is-invalid { border-color: #b42336; }
 .contact-desc, .gallery-desc { font-size: 1rem; line-height: 1.9; }
 .btn-form { padding: 15px 30px; font-weight: 700; }
 #footer { background: var(--surface); padding-top: 64px; }
@@ -217,3 +217,17 @@ section { padding-block: 88px; }
   .x-logo, .logo img { filter: none; }
   .form-error { color: #b91c1c; }
 }
+
+/* Snow, blue ice and ink: the reading surface stays light in every OS theme. */
+#nav { background: rgba(247, 250, 251, .96); }
+#footer { background: #e7f1f5; }
+.form-group input, .form-group textarea { color: var(--clr-text); border-color: #90adb9; }
+.form-group input::placeholder, .form-group textarea::placeholder { color: #58717e; opacity: 1; }
+.news-item:hover { background: #dcebf1; }
+.about-card:hover, .member-card:hover { background: #ffffff80; }
+.article-img-caption { opacity: 1; }
+.article-breadcrumb .sep { opacity: 1; }
+.article-hero-img, .article-img, .article-img-float, .article-img-float-left { background: var(--clr-alt); }
+.arctic-mountains { opacity: 1; }
+.arctic-moon { background: #fff; border: 1px solid #b6ccd5; }
+.bear-floe { background-image: url('../images/polar-penguins.svg'); }
