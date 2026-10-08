@@ -25,6 +25,7 @@
 ├── js/                             メインページ / ニュースページ用スクリプト
 ├── members/                        メンバープロフィールページ
 ├── news/                           お知らせ記事ページ
+├── video/                          動画の制作データ（朔之玖溟チャンネル紹介動画など）
 ├── index.html                      トップページ
 ├── news.html                       お知らせ一覧ページ
 ├── vision_mission.html            Vision & Mission

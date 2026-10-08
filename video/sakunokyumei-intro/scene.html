@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>朔之玖溟 — チャンネル紹介動画</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Shippori+Mincho:wght@500;700;800&display=block" rel="stylesheet" />
+  <link rel="stylesheet" href="scene.css" />
+</head>
+<body>
+  <!--
+    1920×1080 の紹介動画の各場面。時間は秒。
+    .scene の data-in / data-out で場面の表示区間、
+    data-fx の要素は data-at で現れ始める時刻を指定します（scene.js が描画）。
+  -->
+  <div id="stage">
+    <canvas id="sky" width="1920" height="1080"></canvas>
+
+    <!-- 0:00 オープニング -->
+    <section class="scene" id="s-title" data-in="0" data-out="7">
+      <p class="kicker title-kicker" data-fx="fade" data-at="3" data-dur="1.4">Official Channel</p>
+      <h1 class="title-v" data-fx="chars" data-at="2.9" data-stagger="0.28" data-dur="1.3">朔之玖溟</h1>
+      <p class="title-en" data-fx="rise" data-at="4.4" data-dur="1.3">Sakuno Kyumei</p>
+    </section>
+
+    <!-- 0:07 キャッチコピー -->
+    <section class="scene" id="s-tagline" data-in="7" data-out="13.8">
+      <div class="tagline">
+        <p class="tag-col" data-fx="chars" data-at="7.6" data-stagger="0.11" data-dur="0.9">ことばから、</p>
+        <p class="tag-col" data-fx="chars" data-at="8.5" data-stagger="0.11" data-dur="0.9">まだ見ぬ景色へ。</p>
+        <p class="tag-sub" data-fx="rise" data-at="10.2" data-dur="1.2">物語を書き、文章を綴り、</p>
+        <p class="tag-sub" data-fx="rise" data-at="10.6" data-dur="1.2">Webをつくる。</p>
+      </div>
+      <p class="tag-en" data-fx="fade" data-at="11" data-dur="1.2">From words, toward landscapes yet unseen.</p>
+    </section>
+
+    <!-- 0:14 プロフィール -->
+    <section class="scene" id="s-profile" data-in="13.8" data-out="23.8">
+      <div class="profile">
+        <p class="label" data-fx="rise" data-at="14.3">01 — Profile</p>
+        <h2 class="profile-name" data-fx="chars" data-at="14.6" data-stagger="0.14" data-dur="1">朔之 玖溟</h2>
+        <p class="profile-reading" data-fx="rise" data-at="15.5"><span class="en">Sakuno Kyumei</span>さくの きゅうめい</p>
+        <span class="rule" data-fx="lineX" data-at="16" data-dur="1.1"></span>
+        <ul class="profile-list">
+          <li data-fx="rise" data-at="16.6">2008年、大阪生まれ。</li>
+          <li data-fx="rise" data-at="17.4">小説・文芸活動と Web制作に取り組む。</li>
+          <li data-fx="rise" data-at="18.2">第31回 岐阜県文芸祭 優秀賞 受賞。</li>
+          <li data-fx="rise" data-at="19">創作組織「Polar」共同創設者。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 0:24 作品の抜粋（縦書き） -->
+    <section class="scene" id="s-writing" data-in="23.8" data-out="39">
+      <p class="label corner-label" data-fx="rise" data-at="24.2">02 — Writing</p>
+      <div class="excerpts">
+        <figure class="excerpt">
+          <blockquote data-fx="chars" data-at="24.8" data-stagger="0.05" data-dur="0.8">おまえの度胸には驚嘆させられるねえ、と伯母は云った。眼窩はじっとおれを見つめ、死んだ魚のように思えてくるものの、伯母の興奮はかなりのものである。</blockquote>
+          <figcaption data-fx="fade" data-at="28.8">—— アウトサイダー</figcaption>
+        </figure>
+        <figure class="excerpt">
+          <blockquote data-fx="chars" data-at="29.6" data-stagger="0.05" data-dur="0.8">狂気か、はたまた悪夢であろうか、<br>安田道夫は、二人の人間——男と女——を亡骸に変えたことがある。</blockquote>
+          <figcaption data-fx="fade" data-at="32.4">—— 心理遺伝</figcaption>
+        </figure>
+        <figure class="excerpt">
+          <blockquote data-fx="chars" data-at="33" data-stagger="0.05" data-dur="0.8">日常で積もった困憊は酒で落とす。男がオン・ザ・ロックを注文すると彼女もならった。夜の帳が面白そうにしている。</blockquote>
+          <figcaption data-fx="fade" data-at="35.8">—— 人間という騙し絵</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 0:39 創作論 -->
+    <section class="scene" id="s-essay" data-in="39" data-out="46.6">
+      <div class="essay">
+        <p class="label" data-fx="rise" data-at="39.4">Essay — 創作論「書く」ということ</p>
+        <p class="essay-lead" data-fx="chars" data-at="39.9" data-stagger="0.07" data-dur="0.9">僕は、完璧な文章が書けない。</p>
+        <p class="essay-key" data-fx="chars" data-at="42" data-stagger="0.1" data-dur="1.1">文章の根底には、個人がいる。</p>
+        <p class="essay-en" data-fx="fade" data-at="44.2" data-dur="1.2">At the root of every sentence, there is a person.</p>
+      </div>
+    </section>
+
+    <!-- 0:47 読書 -->
+    <section class="scene" id="s-reading" data-in="46.6" data-out="56">
+      <div class="reading">
+        <p class="label" data-fx="rise" data-at="47">03 — Reading</p>
+        <p class="reading-lead" data-fx="rise" data-at="47.4">最も敬愛する小説家</p>
+        <p class="reading-name" data-fx="chars" data-at="47.9" data-stagger="0.1" data-dur="1">H・P・ラヴクラフト</p>
+        <p class="reading-en" data-fx="rise" data-at="49.4">H. P. Lovecraft</p>
+        <p class="reading-note" data-fx="fade" data-at="50.4" data-dur="1.2">挙げればきりがないほど、多くの作家から影響を受けてきた。</p>
+      </div>
+      <div class="marquee marquee-a" data-fx="marquee" data-at="47.6" data-speed="-38">江戸川乱歩　中原中也　太宰治　エドガー・アラン・ポー　安里アサト　綾辻行人　貴志祐介　今村昌弘　星新一　ダレン・シャン　江戸川乱歩　中原中也　太宰治　エドガー・アラン・ポー　安里アサト　綾辻行人</div>
+      <div class="marquee marquee-b" data-fx="marquee" data-at="48.2" data-speed="30">鈴木光司　芥川龍之介　村上春樹　東野圭吾　スティーヴン・キング　ブライアン・ラムレイ　重松清　伊坂幸太郎　相田みつを　鈴木光司　芥川龍之介　村上春樹　東野圭吾</div>
+    </section>
+
+    <!-- 0:56 活動 -->
+    <section class="scene" id="s-works" data-in="56" data-out="66.6">
+      <p class="label corner-label" data-fx="rise" data-at="56.4">04 — Works &amp; Activities</p>
+      <h2 class="works-title" data-fx="chars" data-at="56.7" data-stagger="0.08" data-dur="1">言葉を紡ぎ、かたちにする。</h2>
+      <div class="cards">
+        <article class="card" data-fx="rise" data-at="58">
+          <p class="card-cat"><span class="num">01</span>Novel / 小説</p>
+          <h3>カクヨム</h3>
+          <p class="card-desc">小説・作品一覧</p>
+        </article>
+        <article class="card" data-fx="rise" data-at="58.3">
+          <p class="card-cat"><span class="num">02</span>Essay / エッセイ</p>
+          <h3>note</h3>
+          <p class="card-desc">創作論・エッセイ</p>
+        </article>
+        <article class="card" data-fx="rise" data-at="58.6">
+          <p class="card-cat"><span class="num">03</span>Web / 共同運営</p>
+          <h3>Polar</h3>
+          <p class="card-desc">クリエイティブ組織・Web制作</p>
+        </article>
+        <article class="card" data-fx="rise" data-at="58.9">
+          <p class="card-cat"><span class="num">04</span>Development / 開発</p>
+          <h3>GitHub</h3>
+          <p class="card-desc">制作物・リポジトリ</p>
+        </article>
+        <article class="card" data-fx="rise" data-at="59.2">
+          <p class="card-cat"><span class="num">05</span>Learning / LLM</p>
+          <h3 class="long">ゼロから、LLMを研究する。</h3>
+          <p class="card-desc">算数からLLMの実装・研究へ進む日本語教材<span class="badge">AI生成コンテンツ</span></p>
+        </article>
+        <article class="card" data-fx="rise" data-at="59.5">
+          <p class="card-cat"><span class="num">06</span>Learning / アルゴリズム</p>
+          <h3>蒼径</h3>
+          <p class="card-desc">Pythonの基本から競技プログラミングを学ぶ教材<span class="badge">AI生成コンテンツ</span></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 1:07 チャンネルについて -->
+    <section class="scene" id="s-channel" data-in="66.6" data-out="73.6">
+      <div class="channel">
+        <p class="kicker" data-fx="fade" data-at="67" data-dur="1.2">Official Channel</p>
+        <p class="channel-line" data-fx="chars" data-at="67.3" data-stagger="0.07" data-dur="0.9">このチャンネルでは、</p>
+        <p class="channel-line" data-fx="chars" data-at="68.1" data-stagger="0.07" data-dur="0.9">朔之玖溟の創作と活動を</p>
+        <p class="channel-line" data-fx="chars" data-at="68.9" data-stagger="0.07" data-dur="0.9">お届けしていきます。</p>
+        <p class="subscribe" data-fx="rise" data-at="70.4"><span class="pill">チャンネル登録</span>よろしくお願いします</p>
+      </div>
+    </section>
+
+    <!-- 1:14 エンドカード -->
+    <section class="scene" id="s-end" data-in="73.6" data-out="83">
+      <div class="end">
+        <h2 class="end-name" data-fx="chars" data-at="74.2" data-stagger="0.14" data-dur="1">朔之玖溟</h2>
+        <p class="end-en" data-fx="rise" data-at="74.9">Sakuno Kyumei</p>
+        <p class="end-tag" data-fx="rise" data-at="75.3">ことばから、まだ見ぬ景色へ。</p>
+        <span class="rule" data-fx="lineX" data-at="75.6" data-dur="1.1"></span>
+        <dl class="links">
+          <div data-fx="rise" data-at="76"><dt>Official Site</dt><dd>sakunokyumei.github.io</dd></div>
+          <div data-fx="rise" data-at="76.25"><dt>X</dt><dd>@sakunokyumei</dd></div>
+          <div data-fx="rise" data-at="76.5"><dt>note</dt><dd>note.com/sakunokyumei</dd></div>
+          <div data-fx="rise" data-at="76.75"><dt>Kakuyomu</dt><dd>kakuyomu.jp/users/cnw</dd></div>
+          <div data-fx="rise" data-at="77"><dt>GitHub</dt><dd>github.com/sakunokyumei</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- サムネイル（scene.html?thumb のときだけ表示） -->
+    <section class="thumb" id="thumb">
+      <p class="kicker">Sakuno Kyumei · Official Channel</p>
+      <h2 class="thumb-name">朔之玖溟</h2>
+      <p class="thumb-pill">チャンネル紹介</p>
+      <p class="thumb-tag">ことばから、まだ見ぬ景色へ。</p>
+    </section>
+
+    <div id="vignette"></div>
+    <canvas id="grain" width="1920" height="1080"></canvas>
+    <div id="fade"></div>
+  </div>
+  <script src="scene.js"></script>
+</body>
+</html>
