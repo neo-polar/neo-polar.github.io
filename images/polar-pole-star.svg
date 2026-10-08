@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+<!-- The pole star: long tapered rays, short diagonals and a bright core. -->
+<defs>
+<radialGradient id="g" cx="100" cy="100" r="96" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#d9f8ff"/><stop offset="1" stop-color="#8ad8ea" stop-opacity=".2"/></radialGradient>
+<radialGradient id="c" cx="100" cy="100" r="16" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".85"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+</defs>
+<path d="M100 4 104.5 95.5 196 100 104.5 104.5 100 196 95.5 104.5 4 100 95.5 95.5Z" fill="url(#g)"/>
+<path d="M131.1 68.9 103.2 100 131.1 131.1 100 103.2 68.9 131.1 96.8 100 68.9 68.9 100 96.8Z" fill="#e6fbff" fill-opacity=".6"/>
+<circle cx="100" cy="100" r="16" fill="url(#c)"/>
+</svg>

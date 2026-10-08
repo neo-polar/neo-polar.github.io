@@ -82,10 +82,17 @@ window.addEventListener('resize', () => {
 /* ─── ナビ スクロール強調 ─── */
 const nav = document.getElementById('nav');
 let scrollTick = false;
+// The navigation is transparent over the night header and turns solid once the page scrolls.
+function updateNav() {
+  const y = window.scrollY;
+  nav.classList.toggle('is-top', y <= 20);
+  nav.style.boxShadow = y > 20 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
+}
+updateNav();
 window.addEventListener('scroll', () => {
   if (!scrollTick) {
     requestAnimationFrame(() => {
-      nav.style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
+      updateNav();
       scrollTick = false;
     });
     scrollTick = true;

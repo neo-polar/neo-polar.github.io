@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" fill="none">
+<!-- Soft aurora ribbons; the blur is rendered once, motion is CSS transform only. -->
+<defs>
+<linearGradient id="a" x1="40" y1="0" x2="760" y2="0" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#5fe3c4" stop-opacity="0"/><stop offset=".28" stop-color="#5fe3c4" stop-opacity=".55"/>
+<stop offset=".58" stop-color="#49c6d6" stop-opacity=".42"/><stop offset=".86" stop-color="#8fa4f4" stop-opacity=".2"/>
+<stop offset="1" stop-color="#8fa4f4" stop-opacity="0"/></linearGradient>
+<linearGradient id="b" x1="80" y1="0" x2="720" y2="0" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#7cf0d2" stop-opacity="0"/><stop offset=".45" stop-color="#7cf0d2" stop-opacity=".5"/>
+<stop offset="1" stop-color="#7cf0d2" stop-opacity="0"/></linearGradient>
+<filter id="s" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="16"/></filter>
+<filter id="t" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<g filter="url(#s)">
+<path d="M40 250C180 150 300 290 430 200S650 120 760 170" stroke="url(#a)" stroke-width="70" stroke-linecap="round"/>
+<path d="M90 300C230 240 340 330 470 260S660 210 740 240" stroke="url(#a)" stroke-width="40" stroke-linecap="round" opacity=".6"/>
+</g>
+<path d="M80 236C210 150 310 268 440 190S640 118 730 156" stroke="url(#b)" stroke-width="3" filter="url(#t)"/>
+</svg>

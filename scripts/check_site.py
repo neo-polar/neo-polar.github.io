@@ -124,6 +124,9 @@ def main():
                         value = urlsplit(value).path
                     if value == '/favicon-polar.png':
                         value = './favicon-96x96.png'
+                    # Typeface choices may change; it stays one Google Fonts stylesheet.
+                    if urlsplit(value).netloc == 'fonts.googleapis.com' and urlsplit(value).path == '/css2':
+                        value = 'https://fonts.googleapis.com/css2'
                     candidate = (link[0], link[1], value)
                     if (candidate[0], candidate[2]) not in added:
                         normalized.append(candidate)
