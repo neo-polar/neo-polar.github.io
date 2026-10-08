@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Polar — Promotion Film</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600;700&display=block" rel="stylesheet" />
+  <link rel="stylesheet" href="promo.css" />
+</head>
+<body>
+  <!-- 1920×1080 stage. Every frame is drawn by promo.js from a single time value. -->
+  <div id="stage" aria-label="Polar promotion film">
+    <canvas id="sky" width="1920" height="1080"></canvas>
+
+    <div id="hud" aria-hidden="true">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <p class="hud-chapter"><span class="hud-no" id="hudNo">01</span><span class="hud-name" id="hudName">PROLOGUE</span></p>
+      <p class="hud-coord" id="hudCoord">RA 00h 00m 00s · DEC +90° 00′ 00″</p>
+    </div>
+
+    <div class="caption" id="cap1">
+      <p class="jp">夜空のすべての星は、</p>
+      <p class="en">Every star in the night sky</p>
+    </div>
+    <div class="caption" id="cap2">
+      <p class="jp">ひとつの点を中心に、巡っている。</p>
+      <p class="en">turns around a single point.</p>
+    </div>
+    <div class="caption" id="cap3">
+      <p class="jp">ジャンルの違う光が、ひとつの場所に集う。</p>
+      <p class="en">Different lights, drawn to one place.</p>
+    </div>
+
+    <div id="tagline">
+      <p class="col col-1"><span class="warm">熱意</span>で知を</p>
+      <p class="col col-2">研ぎ澄ます</p>
+      <p class="en">Curiosity, shaped by passion.</p>
+    </div>
+
+    <section id="values">
+      <p class="eyebrow"><span class="mono">OUR VALUES</span><span class="jp">行動指針</span></p>
+      <div class="value-grid">
+        <article class="value">
+          <p class="num">01</p>
+          <span class="glyph glyph-tri"></span>
+          <h3>ジャンルを越える</h3>
+          <p class="en">Beyond Genre</p>
+          <p class="body">表現の可能性を、<br />ジャンルの枠に閉じ込めない。</p>
+        </article>
+        <article class="value">
+          <p class="num">02</p>
+          <span class="glyph glyph-dot"></span>
+          <h3>熱意を形にする</h3>
+          <p class="en">Turn Passion into Form</p>
+          <p class="body">好奇心を熱意をもって形にし、<br />世界と共有する。</p>
+        </article>
+        <article class="value">
+          <p class="num">03</p>
+          <span class="glyph glyph-sq"></span>
+          <h3>小さな実績を積む</h3>
+          <p class="en">Build Achievements</p>
+          <p class="body">大きな理想に向けて、<br />まず1つの実績を作る。</p>
+        </article>
+      </div>
+    </section>
+
+    <div id="trajectory">
+      <div class="traj-title">
+        <p class="mono">TRAJECTORY</p>
+        <h2>ひとつずつ、<br />軌跡を描いていく。</h2>
+        <p class="en">Tracing our orbit, one step at a time.</p>
+      </div>
+      <div class="milestone" id="ms0"><p class="date">2026.07</p><p class="what">公式Webサイト公開</p></div>
+      <div class="milestone" id="ms1"><p class="date">2026.08</p><p class="what">第1回 Polarサークルコンテスト開催</p></div>
+      <div class="milestone" id="ms2"><p class="date">2026.09</p><p class="what">コンテスト受賞作品決定</p></div>
+      <div class="milestone" id="ms3"><p class="date">2026.10</p><p class="what">公式Webサイト リニューアル</p></div>
+      <div class="milestone next" id="ms4"><p class="date">NEXT</p><p class="what">次の軌跡へ</p></div>
+    </div>
+
+    <div id="logoSub">
+      <p class="jp">複数ジャンル横断型クリエイティブ組織</p>
+      <p class="mono">CROSS-GENRE CREATIVE ORGANIZATION</p>
+    </div>
+
+    <div id="join">
+      <h2>あなたの「好き」を、ここで形に。</h2>
+      <p class="en">Shape what you love — with Polar.</p>
+      <span class="rule"></span>
+      <div class="join-row">
+        <div class="join-item"><p class="mono">JOIN</p><p class="val jp">参加・お問い合わせ受付中</p></div>
+        <div class="join-item"><p class="mono">WEB</p><p class="val latin">neo-polar.github.io</p></div>
+        <div class="join-item"><p class="mono">X</p><p class="val latin">@polar_universe</p></div>
+      </div>
+    </div>
+
+    <canvas id="grain" width="960" height="540"></canvas>
+    <div id="vignette"></div>
+    <div id="flash"></div>
+    <div id="fade"></div>
+  </div>
+
+  <button id="play" type="button">▶&#xFE0E; Play</button>
+
+  <script src="promo.js"></script>
+</body>
+</html>

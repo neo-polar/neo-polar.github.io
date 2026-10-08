@@ -25,6 +25,7 @@
 ├── js/                             メインページ / ニュースページ用スクリプト
 ├── members/                        メンバープロフィールページ
 ├── news/                           お知らせ記事ページ
+├── promo/                          プロモーション映像の制作ソースと完成版（promo/README.md）
 ├── index.html                      トップページ
 ├── news.html                       お知らせ一覧ページ
 ├── vision_mission.html            Vision & Mission

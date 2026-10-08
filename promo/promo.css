@@ -1,0 +1,103 @@
+/* Polar promotion film — layout of the 1920×1080 stage. Motion is set per frame by promo.js. */
+:root {
+  --ice-white: #eef8fb;
+  --ice: #a4dfeb;
+  --ice-line: rgba(200, 234, 243, .24);
+  --muted: rgba(226, 241, 246, .74);
+  --font-mincho: 'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-latin: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+body { color: var(--ice-white); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+
+#stage { position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; overflow: hidden; background: #03080c; transform-origin: 0 0; }
+#stage > * { position: absolute; }
+#sky { top: 0; left: 0; width: 1920px; height: 1080px; }
+
+.c { display: inline-block; white-space: pre; will-change: transform, opacity, filter; }
+.mono { font-family: var(--font-mono); font-weight: 400; letter-spacing: .32em; }
+
+/* ---------- HUD ---------- */
+#hud { inset: 0; color: rgba(214, 238, 245, .62); font-family: var(--font-mono); font-size: 12px; letter-spacing: .3em; }
+#hud .corner { position: absolute; width: 26px; height: 26px; border-color: rgba(200, 234, 243, .38); border-style: solid; border-width: 0; }
+#hud .tl { top: 48px; left: 48px; border-top-width: 1px; border-left-width: 1px; }
+#hud .tr { top: 48px; right: 48px; border-top-width: 1px; border-right-width: 1px; }
+#hud .bl { bottom: 48px; left: 48px; border-bottom-width: 1px; border-left-width: 1px; }
+#hud .br { bottom: 48px; right: 48px; border-bottom-width: 1px; border-right-width: 1px; }
+.hud-chapter { position: absolute; top: 66px; left: 92px; display: flex; gap: 22px; }
+.hud-no { color: var(--ice); }
+.hud-coord { position: absolute; right: 92px; bottom: 64px; font-variant-numeric: tabular-nums; }
+
+/* ---------- Captions (prologue) ---------- */
+.caption { top: 798px; left: 0; width: 1920px; text-align: center; text-shadow: 0 0 28px rgba(3, 10, 16, .9); }
+.caption .jp { font-family: var(--font-mincho); font-weight: 500; font-size: 46px; letter-spacing: .16em; line-height: 1.2; padding-left: .16em; }
+.caption .en { margin-top: 18px; color: rgba(214, 236, 243, .66); font-family: var(--font-latin); font-style: italic; font-weight: 500; font-size: 27px; letter-spacing: .05em; }
+
+/* ---------- Tagline (vertical) ---------- */
+#tagline { top: 0; left: 0; width: 1920px; height: 1080px; }
+#tagline .col { position: absolute; writing-mode: vertical-rl; font-family: var(--font-mincho); font-weight: 600; font-size: 120px; line-height: 1; letter-spacing: .06em; color: var(--ice-white); text-shadow: 0 0 40px rgba(3, 12, 20, .55); }
+#tagline .col-1 { left: 994px; top: 150px; }
+#tagline .col-2 { left: 806px; top: 277px; }
+#tagline .warm .c { background: linear-gradient(180deg, #ffe4c2 0%, #ffbf8f 55%, #f09477 100%); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; }
+#tagline .en { position: absolute; top: 958px; left: 0; width: 1920px; text-align: center; color: rgba(222, 240, 246, .8); font-family: var(--font-latin); font-style: italic; font-weight: 500; font-size: 33px; letter-spacing: .06em; }
+
+/* ---------- Values ---------- */
+#values { top: 0; left: 0; width: 1920px; height: 1080px; }
+#values .eyebrow { position: absolute; top: 214px; left: 210px; display: flex; align-items: baseline; gap: 26px; }
+#values .eyebrow .mono { color: var(--ice); font-size: 13px; }
+#values .eyebrow .jp { color: var(--muted); font-size: 15px; letter-spacing: .3em; }
+#values .value-grid { position: absolute; top: 288px; left: 210px; width: 1500px; display: grid; grid-template-columns: repeat(3, 1fr); }
+#values .value { position: relative; padding: 4px 40px 0 52px; }
+#values .vrule { position: absolute; top: 0; left: 0; width: 1px; height: 420px; background: linear-gradient(180deg, rgba(200, 234, 243, .5), rgba(200, 234, 243, .06)); transform-origin: 0 0; }
+#values .num { font-family: var(--font-latin); font-variant-numeric: lining-nums; font-weight: 500; font-size: 118px; line-height: .9; letter-spacing: .02em; color: transparent; -webkit-text-stroke: 1.2px rgba(200, 236, 245, .7); }
+#values .glyph { display: block; width: 14px; height: 14px; margin-top: 34px; background: var(--ice); }
+#values .glyph-tri { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+#values .glyph-dot { border-radius: 50%; }
+#values h3 { margin-top: 22px; font-family: var(--font-mincho); font-weight: 600; font-size: 46px; line-height: 1.3; letter-spacing: .08em; color: var(--ice-white); }
+#values .en { margin-top: 8px; color: var(--ice); font-family: var(--font-latin); font-style: italic; font-weight: 500; font-size: 27px; letter-spacing: .03em; }
+#values .body { margin-top: 30px; color: var(--muted); font-size: 19px; line-height: 1.95; letter-spacing: .05em; }
+
+/* ---------- Trajectory ---------- */
+#trajectory { top: 0; left: 0; width: 1920px; height: 1080px; }
+.traj-title { position: absolute; top: 138px; left: 150px; }
+.traj-title .mono { color: var(--ice); font-size: 13px; }
+.traj-title h2 { margin-top: 22px; font-family: var(--font-mincho); font-weight: 600; font-size: 56px; line-height: 1.45; letter-spacing: .1em; color: var(--ice-white); }
+.traj-title .en { margin-top: 16px; color: rgba(214, 236, 243, .7); font-family: var(--font-latin); font-style: italic; font-weight: 500; font-size: 26px; letter-spacing: .04em; }
+.milestone { position: absolute; top: 0; left: 0; white-space: nowrap; text-shadow: 0 0 18px rgba(3, 10, 16, .9); }
+.milestone .date { color: var(--ice); font-family: var(--font-mono); font-size: 14px; letter-spacing: .3em; }
+.milestone .what { margin-top: 8px; font-size: 22px; font-weight: 500; letter-spacing: .06em; color: var(--ice-white); }
+.milestone.right { text-align: right; }
+.milestone.next .date { color: #ffd2a6; }
+.milestone.next .what { font-family: var(--font-mincho); font-weight: 600; font-size: 26px; letter-spacing: .12em; }
+
+/* ---------- Logo subtitle ---------- */
+#logoSub { top: 676px; left: 0; width: 1920px; text-align: center; }
+#logoSub .jp { font-size: 25px; font-weight: 500; letter-spacing: .5em; padding-left: .5em; color: var(--ice-white); }
+#logoSub .mono { margin-top: 18px; padding-left: .36em; color: rgba(164, 223, 235, .78); font-size: 13px; letter-spacing: .36em; }
+
+/* ---------- Join ---------- */
+#join { top: 492px; left: 0; width: 1920px; text-align: center; }
+#join h2 { font-family: var(--font-mincho); font-weight: 600; font-size: 60px; letter-spacing: .12em; padding-left: .12em; line-height: 1.25; color: var(--ice-white); }
+#join .en { margin-top: 16px; color: rgba(214, 236, 243, .74); font-family: var(--font-latin); font-style: italic; font-weight: 500; font-size: 30px; letter-spacing: .04em; }
+#join .rule { display: block; width: 420px; height: 1px; margin: 46px auto 42px; background: linear-gradient(90deg, rgba(200, 234, 243, 0), rgba(200, 234, 243, .6), rgba(200, 234, 243, 0)); }
+#join .join-row { display: flex; justify-content: center; }
+#join .join-item { padding: 0 54px; border-left: 1px solid var(--ice-line); }
+#join .join-item:first-child { border-left: 0; }
+#join .join-item .mono { color: var(--ice); font-size: 12px; letter-spacing: .36em; padding-left: .36em; }
+#join .val { margin-top: 12px; color: var(--ice-white); }
+#join .val.jp { font-size: 23px; font-weight: 500; letter-spacing: .1em; line-height: 36px; }
+#join .val.latin { font-family: var(--font-latin); font-weight: 600; font-size: 31px; letter-spacing: .04em; line-height: 36px; }
+
+/* ---------- Finishing layers ---------- */
+#grain { top: 0; left: 0; width: 1920px; height: 1080px; mix-blend-mode: overlay; opacity: .36; pointer-events: none; }
+#vignette { inset: 0; background: radial-gradient(ellipse 72% 72% at 50% 50%, rgba(0, 0, 0, 0) 58%, rgba(0, 3, 6, .5) 100%); pointer-events: none; }
+#flash { inset: 0; opacity: 0; background: radial-gradient(circle at 50% 50%, #f4fcff 0%, #d8f3fa 34%, #a9dcea 100%); mix-blend-mode: screen; pointer-events: none; }
+#fade { inset: 0; opacity: 0; background: #000; pointer-events: none; }
+
+/* Preview button (hidden while rendering frames). */
+#play { position: fixed; right: 24px; bottom: 24px; z-index: 10; padding: 12px 22px; border: 1px solid rgba(200, 234, 243, .5); border-radius: 999px; background: rgba(6, 18, 26, .7); color: var(--ice-white); font: 500 14px/1 var(--font-mono); letter-spacing: .2em; cursor: pointer; }
+.is-render #play, .is-playing #play { display: none; }
