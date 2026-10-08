@@ -129,12 +129,19 @@ const nav    = document.getElementById('nav');
 const bttBtn = document.getElementById('backToTop'); // スクロール毎に取得しないよう上部で1回だけ
 let scrollTick = false;
 
+// The navigation is transparent over the night header and turns solid once the page scrolls.
+function updateNav() {
+  const y = window.scrollY;
+  nav.classList.toggle('is-top', y <= 20);
+  nav.style.boxShadow = y > 20 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
+  if (bttBtn) bttBtn.classList.toggle('visible', y > 400);
+}
+updateNav();
+
 window.addEventListener('scroll', () => {
   if (!scrollTick) {
     requestAnimationFrame(() => {
-      const y = window.scrollY;
-      nav.style.boxShadow = y > 20 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
-      if (bttBtn) bttBtn.classList.toggle('visible', y > 400);
+      updateNav();
       scrollTick = false;
     });
     scrollTick = true;

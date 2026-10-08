@@ -1,289 +1,321 @@
 /* Home page art direction based on the Polar star-chart cover.
-   This file is loaded by index.html only. */
+   This file is loaded by index.html only.
+   Sections: cover, star chart, section rhythm, about, news, gallery, members, contact. */
 
-body {
-  background:
-    radial-gradient(circle at 76% 7%, rgba(92, 185, 191, .08), transparent 24rem),
-    var(--clr-bg);
-}
-
-/* The navigation belongs visually to the night-sky cover. */
-#nav {
-  background: rgba(247, 250, 251, .96);
-  border-bottom-color: #b6ccd5;
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-}
-
-#nav .nav-links a { color: #496471; }
-#nav .nav-links a:hover,
-#nav .nav-links a.active { color: #183544; }
-#nav .lang-btn { color: #183544; border-left-color: rgba(156, 216, 230, .2); }
-#nav .hamburger span { background: #183544; }
+body { counter-reset: polar-section; }
 
 /* Cover */
 #hero {
-  min-height: max(660px, 88svh);
-  padding-block: calc(var(--nav-h) + clamp(54px, 8vh, 92px)) clamp(72px, 10vh, 108px);
+  min-height: max(700px, 100svh);
+  padding-block: calc(var(--nav-h) + clamp(56px, 9vh, 104px)) 160px;
   background:
-    radial-gradient(ellipse at 87% 44%, rgba(72, 172, 177, .13), transparent 31%),
-    linear-gradient(118deg, #244960 0%, #30677d 56%, #326c80 100%);
-  border-bottom: 1px solid rgba(156, 216, 230, .2);
+    radial-gradient(ellipse at 84% 42%, rgba(72, 172, 177, .16), transparent 34%),
+    radial-gradient(ellipse at 8% 0%, rgba(17, 40, 56, .55), transparent 46%),
+    var(--night-gradient);
+  color: var(--night-text);
+  border-bottom: 0;
   overflow: hidden;
+  isolation: isolate;
 }
+#heroCanvas { display: none; }
+/* Antarctic horizon: an asymmetric ice shelf beneath the star atlas. */
 #hero::after {
-  content: '';
-  position: absolute;
-  left: max(24px, calc((100vw - var(--max-w)) / 2 + 40px));
-  right: max(24px, calc((100vw - var(--max-w)) / 2 + 40px));
-  bottom: 34px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(156, 216, 230, .72), rgba(156, 216, 230, .2));
+  content: ''; position: absolute; z-index: -1; left: 0; right: 0; bottom: -1px; height: 104px;
+  background: var(--clr-bg); clip-path: var(--ridge);
 }
 #hero .hero-inner {
-  display: flex;
-  min-height: 440px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  position: relative;
+  display: flex; min-height: 460px; flex-direction: column; justify-content: center; align-items: flex-start;
+  width: 100%; max-width: var(--max-w); margin-inline: auto;
+}
+/* A quiet coordinate mark: Polar's south pole, purely decorative. */
+#hero .hero-inner::after {
+  content: '90°00′00″S';
+  content: '90°00′00″S' / '';
+  position: absolute; left: 40px; bottom: -88px;
+  color: var(--night-muted); font-family: var(--font-latin); font-size: .9375rem; font-weight: 600;
+  letter-spacing: .32em; font-variant-numeric: lining-nums; opacity: .8;
 }
 #hero .hero-eyebrow {
-  max-width: 52%;
-  margin-bottom: 18px;
-  color: #e0f0f6;
-  font-size: clamp(1rem, 1.65vw, 1.35rem);
-  letter-spacing: .045em;
+  display: flex; align-items: center; gap: 16px;
+  max-width: 52%; margin-bottom: 26px;
+  color: var(--night-muted); font-size: clamp(.875rem, 1.2vw, 1rem); font-weight: 500;
+  letter-spacing: .18em; text-transform: none;
 }
+#hero .hero-eyebrow::before { content: ''; flex: none; width: 40px; height: 1px; background: var(--ice); }
 #hero .hero-title {
-  position: relative;
-  z-index: 2;
-  max-width: 58%;
-  margin: 0 0 14px -8px;
-  color: #edf7fa;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(8rem, 17vw, 15rem);
-  font-weight: 400;
-  line-height: .92;
-  letter-spacing: -.065em;
-  text-shadow: 0 0 40px rgba(156, 216, 230, .05);
+  position: relative; z-index: 2; max-width: 60%;
+  margin: 0 0 18px -6px;
+  color: #f2fafc; background: none; -webkit-text-fill-color: currentColor;
+  font-family: var(--font-latin); font-weight: 500;
+  font-size: clamp(8rem, 16vw, 14.5rem); line-height: .86; letter-spacing: -.02em;
 }
 #hero .hero-sub {
-  max-width: 54%;
-  margin-bottom: 28px;
-  color: #e1edf1;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: clamp(1.45rem, 3.2vw, 2.6rem);
-  font-weight: 400;
-  line-height: 1.65;
-  letter-spacing: .055em;
+  max-width: 54%; margin-bottom: 44px;
+  color: var(--night-text);
+  font-family: var(--font-mincho); font-weight: 500;
+  font-size: clamp(1.5rem, 2.7vw, 2.375rem); line-height: 1.6; letter-spacing: .14em;
+  font-feature-settings: 'palt';
 }
-#hero .hero-cta { position: relative; z-index: 3; gap: 10px; }
-#hero .btn {
-  min-width: 116px;
-  padding: 11px 21px;
-  border-radius: 2px;
-  font-size: .875rem;
-}
-#hero .btn-primary { color: #102431; background: #cbeaf0; }
-#hero .btn-primary:hover { color: #0a202d; background: #f0fbfd; }
-#hero .btn-outline { color: #dcecf1; border-color: rgba(225, 245, 252, .75); }
-#hero .btn-outline:hover { color: #fff; background: rgba(255, 255, 255, .07); border-color: #9cd8e6; }
-#hero .hero-scroll-hint { right: 40px; bottom: 47px; color: #9cd8e6; opacity: .75; }
+#hero .hero-cta { position: relative; z-index: 3; gap: 12px; }
+#hero .btn { min-width: 156px; min-height: 54px; }
+#hero .btn-primary { --sweep: #fff; color: var(--ink); background: var(--ice-soft); border-color: var(--ice-soft); }
+#hero .btn-primary:hover { color: var(--ink); background: var(--ice-soft); border-color: #fff; }
+#hero .btn-outline { --sweep: #fff; color: var(--night-text); border-color: rgba(232, 244, 247, .5); }
+#hero .btn-outline:hover { color: var(--ink); background: transparent; border-color: #fff; }
+#hero .hero-scroll-hint { left: auto; right: 40px; bottom: 132px; color: var(--night-text); opacity: .8; animation: none; }
 
-/* Star-chart stage generated by polar-motion.js. */
-#hero .polar-sky {
-  width: min(49vw, 610px);
-  height: min(49vw, 610px);
-  top: 52%;
-  right: max(1.5%, calc((100vw - 1320px) / 2));
-  overflow: visible;
+/* Opening sequence: the horizon rises, the title assembles, then the chart lights up. */
+#hero::after { animation: hero-rise 1.4s cubic-bezier(.16, 1, .3, 1) backwards; }
+#hero .hero-eyebrow { animation: hero-rise 1s .2s cubic-bezier(.16, 1, .3, 1) backwards; }
+#hero .hero-eyebrow::before { transform-origin: 0 50%; animation: hero-draw 1s .3s cubic-bezier(.65, 0, .35, 1) backwards; }
+#hero .hero-title { animation: hero-fade .4s .15s backwards; }
+#hero .hero-char {
+  display: inline-block;
+  animation: hero-letter 1.3s cubic-bezier(.16, 1, .3, 1) backwards;
+  transition: transform .5s cubic-bezier(.34, 1.56, .64, 1);
 }
-#hero .polar-sky::before,
-#hero .polar-sky::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(93, 205, 197, .2), rgba(39, 132, 149, .07) 42%, transparent 70%);
+#hero .hero-char:nth-child(1) { animation-delay: .35s; }
+#hero .hero-char:nth-child(2) { animation-delay: .43s; }
+#hero .hero-char:nth-child(3) { animation-delay: .51s; }
+#hero .hero-char:nth-child(4) { animation-delay: .59s; }
+#hero .hero-char:nth-child(5) { animation-delay: .67s; }
+@media (hover: hover) and (pointer: fine) {
+  #hero .hero-char:hover { transform: translate3d(0, -14px, 0) rotate(-3deg); }
+}
+#hero .hero-sub { animation: hero-rise 1.1s .85s cubic-bezier(.16, 1, .3, 1) backwards; }
+#hero .hero-cta { animation: hero-rise 1.1s 1s cubic-bezier(.16, 1, .3, 1) backwards; }
+#hero .hero-inner::after { animation: hero-fade 1.2s 1.3s backwards; }
+#hero .polar-sky { animation: hero-fade 1.6s .45s backwards; }
+#hero .sky-dial { animation: hero-orbit 2.4s .4s cubic-bezier(.16, 1, .3, 1) backwards; }
+#hero .north-star { animation: hero-star 1.8s .9s cubic-bezier(.16, 1, .3, 1) backwards; }
+#hero .hero-scroll-hint { animation: hero-fade 1s 1.8s backwards; }
+/* While scrolling away, the cover copy drifts down and fades (scroll-driven, where supported). */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    #hero .hero-inner { animation: hero-leave linear both; animation-timeline: scroll(root); animation-range: 0 90vh; }
+  }
+}
+
+/* Star-chart stage generated by polar-motion.js. Layers drift at different depths with the pointer. */
+#hero .polar-sky {
+  width: min(46vw, 620px); height: min(46vw, 620px);
+  top: 50%; right: max(2%, calc((100vw - 1320px) / 2));
+  overflow: visible; border-radius: 0;
+}
+#hero .polar-sky::before {
+  content: ''; position: absolute; z-index: -1; inset: -20%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(93, 205, 197, .16), rgba(39, 132, 149, .06) 45%, transparent 68%);
   animation: home-aurora-breathe 10s ease-in-out infinite alternate;
 }
-#hero .polar-sky::before { inset: 8% -12% 12% 0; }
-#hero .polar-sky::after { inset: 25% -20% -4% 20%; animation-delay: -5s; animation-duration: 14s; }
-#hero .polar-aurora {
-  left: -2%;
-  top: 21%;
-  width: 102%;
-  height: 48%;
-  opacity: .62;
-  background:
-    linear-gradient(151deg, transparent 8%, rgba(75, 190, 177, .12) 28%, rgba(92, 213, 190, .42) 43%, rgba(72, 162, 183, .2) 57%, transparent 79%);
-  border-radius: 58% 18% 55% 24%;
+/* Faint glass face of the instrument. */
+#hero .polar-sky::after {
+  content: ''; position: absolute; z-index: -1; inset: 5%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(214, 242, 248, .07), rgba(214, 242, 248, .025) 62%, rgba(214, 242, 248, .06) 100%);
 }
-#hero .aurora-two { left: 9%; top: 31%; width: 88%; height: 39%; opacity: .35; }
-#hero .sky-guide { border-color: rgba(156, 216, 230, .64); }
-#hero .guide-outer { inset: 8%; border-style: dashed; }
-#hero .guide-inner { inset: 27%; border-style: dotted; }
-#hero .orbit-outer { inset: 8%; }
-#hero .orbit-inner { inset: 27%; }
-#hero .north-star {
-  width: 88px;
-  height: 118px;
-  left: calc(50% - 44px);
-  top: calc(50% - 59px);
-  background: #b7f1fb;
-  filter: drop-shadow(0 0 8px rgba(151, 232, 241, .38));
+#hero .polar-aurora, #hero .sky-chart, #hero .north-star, #hero .star-halo, #hero .star-flare {
+  transition: translate 1.2s cubic-bezier(.2, .7, .2, 1);
 }
-#hero .north-star::after {
-  content: '';
-  position: absolute;
-  width: 13px;
-  height: 13px;
-  left: calc(50% - 6.5px);
-  top: calc(50% - 6.5px);
-  border-radius: 50%;
-  background: #102532;
-}
-#hero .orbit-star { background: #b9eff7; }
-#hero .shooting-star {
-  width: 128px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #b8f1fb 70%, #fff);
-  filter: drop-shadow(0 0 3px rgba(159, 236, 247, .75));
-}
-#hero .snow-drift { color: #a9e7ef; opacity: .7; }
-#hero .sky-starfield {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  left: 18%;
-  top: 18%;
-  border-radius: 50%;
-  background: #b8edf4;
-  opacity: .82;
-  box-shadow:
-    45px 38px #d8f8fb, 94px -25px #9edce8, 151px 48px #d8f8fb,
-    212px -12px #9edce8, 272px 31px #d8f8fb, 350px -27px #9edce8,
-    391px 62px #d8f8fb, 35px 184px #9edce8, 106px 229px #d8f8fb,
-    187px 176px #9edce8, 286px 219px #d8f8fb, 371px 183px #9edce8,
-    63px 322px #d8f8fb, 156px 358px #9edce8, 253px 317px #d8f8fb,
-    344px 362px #9edce8, 414px 296px #d8f8fb;
-  animation: home-starfield-pulse 6s ease-in-out infinite alternate;
-}
-#hero .constellation { position: absolute; width: 130px; height: 92px; opacity: .78; }
-#hero .constellation-a { left: 4%; top: 25%; transform: rotate(8deg); }
-#hero .constellation-b { right: 1%; bottom: 14%; transform: rotate(-9deg) scale(.88); }
-#hero .constellation-line {
-  position: absolute;
-  height: 1px;
-  background: rgba(180, 235, 244, .72);
-  transform-origin: left center;
-}
-#hero .line-a1 { width: 51px; left: 12px; top: 16px; transform: rotate(30deg); }
-#hero .line-a2 { width: 48px; left: 56px; top: 41px; transform: rotate(65deg); }
-#hero .line-a3 { width: 53px; left: 75px; top: 84px; transform: rotate(-27deg); }
-#hero .line-b1 { width: 60px; left: 6px; top: 54px; transform: rotate(-42deg); }
-#hero .line-b2 { width: 58px; left: 48px; top: 10px; transform: rotate(38deg); }
-#hero .constellation-nodes {
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #bdf2f8;
-  box-shadow: 46px 25px #bdf2f8, 64px 68px #bdf2f8, 110px 46px #bdf2f8;
-}
-#hero .nodes-a { left: 8px; top: 12px; }
-#hero .nodes-b { left: 2px; top: 50px; transform: rotate(2deg); }
+#hero .polar-aurora { translate: calc(var(--star-x, 0px) * 1.4) calc(var(--star-y, 0px) * 1.4); }
+#hero .sky-chart { translate: calc(var(--star-x, 0px) * -.5) calc(var(--star-y, 0px) * -.5); }
+#hero .north-star, #hero .star-halo, #hero .star-flare { translate: calc(var(--star-x, 0px) * .7) calc(var(--star-y, 0px) * .7); }
 
-/* The rest of the home page remains quiet enough to read. */
-#about,
-#gallery,
-#contact { background: var(--clr-bg); }
-#news,
-#members { background: var(--clr-alt); }
-#about,
-#news,
-#gallery,
-#members,
-#contact { border-bottom: 1px solid var(--clr-border); }
+/* Section rhythm: numbered catalogue labels and alternating ice tones. */
+#about, #news, #gallery, #members, #contact { counter-increment: polar-section; border-bottom: 0; }
+#about, #gallery, #contact { background: var(--clr-bg); }
+#news, #members { background: var(--clr-alt); }
+#about .section-label::before, #news .section-label::before, #gallery .section-label::before,
+#members .section-label::before, #contact .section-label::before {
+  content: counter(polar-section, decimal-leading-zero);
+  width: auto; height: auto; padding-right: 56px;
+  background: linear-gradient(currentColor, currentColor) right center / 40px 1px no-repeat;
+  letter-spacing: .08em;
+}
+
+/* About: heading and lead side by side, Vision and Mission as a pair of plates. */
+#about .container {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-rows: auto auto 1fr; column-gap: 80px;
+}
+#about .section-label { grid-column: 1; grid-row: 1; justify-self: start; }
+#about .section-title { grid-column: 1; grid-row: 2; }
+#about .about-grid { display: contents; }
+#about .about-text { grid-column: 2; grid-row: 1 / span 3; align-self: start; padding-top: 44px; }
+#about .about-text p {
+  max-width: 26em; color: var(--ink);
+  font-family: var(--font-mincho); font-weight: 500;
+  font-size: clamp(1.25rem, 2vw, 1.625rem); line-height: 2.1; letter-spacing: .06em;
+  font-feature-settings: 'palt';
+}
+#about .about-cards {
+  grid-column: 1 / -1; grid-row: 4;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 64px;
+}
+#about .about-card { position: relative; padding: 0; }
+#about .about-card-link { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 4px 24px; height: 100%; padding: 40px 40px 44px; }
+#about .about-card-icon { grid-column: 1; grid-row: 1; margin: 0 0 20px; }
+#about .about-card h3 { grid-column: 1; grid-row: 2; margin-bottom: 12px; font-size: 2.5rem; }
+#about .about-card p { grid-column: 1; grid-row: 3; font-size: 1.0625rem; }
+#about .about-card-link::after {
+  content: '→'; grid-column: 2; grid-row: 1 / span 3; align-self: center;
+  display: grid; place-items: center; width: 48px; height: 48px;
+  border: 1px solid var(--clr-border); border-radius: 50%; color: var(--clr-accent);
+  transition: background-color .3s, color .3s, border-color .3s;
+}
+#about .about-card:hover { border-color: var(--clr-accent); box-shadow: var(--shadow-lift); transform: translateY(-2px); background: var(--surface); }
+#about .about-card:hover .about-card-link::after { color: #fff; background: var(--clr-accent); border-color: var(--clr-accent); }
+
+/* News: heading column and an index of entries. */
+#news .container { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-template-rows: auto auto 1fr; column-gap: 80px; }
+#news .section-label { grid-column: 1; grid-row: 1; justify-self: start; }
+#news .section-title { grid-column: 1; grid-row: 2; }
+#news .news-list { grid-column: 2; grid-row: 1 / span 3; }
+#news .news-footer { grid-column: 1; grid-row: 3; align-self: start; margin-top: 0; text-align: left; }
+
+/* Gallery: the note link beside a small polar scene. */
+#gallery .container {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-rows: auto auto auto 1fr; column-gap: 80px;
+}
+#gallery .section-label { grid-column: 1; grid-row: 1; justify-self: start; }
+#gallery .section-title { grid-column: 1; grid-row: 2; }
+#gallery .gallery-desc { grid-column: 1; grid-row: 3; margin-bottom: 32px; }
+#gallery .note-card { grid-column: 1; grid-row: 4; align-self: start; }
+#gallery .arctic-scene {
+  grid-column: 2; grid-row: 1 / span 4; align-self: stretch;
+  height: auto; min-height: 380px; margin: 0;
+  border: 1px solid var(--clr-border); border-radius: var(--radius);
+  background: linear-gradient(180deg, #d7e9ef 0%, #e9f3f6 52%, #f6fafb 100%);
+}
+#gallery .arctic-mountains { inset: auto 0 64px; height: 170px; opacity: 1; }
+#gallery .arctic-moon { width: 44px; height: 44px; left: 72%; top: 48px; background: #fff; border: 0; box-shadow: 0 0 0 10px rgba(255, 255, 255, .35), 0 0 0 22px rgba(255, 255, 255, .16); }
+#gallery .star-a { top: 64px; left: 18%; }
+#gallery .star-b { top: 120px; left: 88%; }
+#gallery .arctic-water { bottom: 28px; }
+#gallery .water-back { bottom: 52px; }
+#gallery .bear-floe { width: 260px; height: 160px; left: calc(50% - 130px); bottom: 14px; }
+
+/* Members: profile cards with a portrait, role and a short note. */
+#members .members-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+#members .members-grid > a { display: block; border-radius: var(--radius); }
+#members .member-card {
+  position: relative; height: 100%;
+  display: grid; grid-template-columns: 120px minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 32px;
+  padding: 36px; text-align: left;
+}
+#members .member-avatar { grid-column: 1; grid-row: 1 / span 3; width: 120px; height: 120px; margin: 0; transition: transform .4s var(--ease); }
+#members .member-name { grid-column: 2; margin: 4px 0 6px; }
+#members .member-role { grid-column: 2; margin-bottom: 18px; }
+#members .member-bio { grid-column: 2; align-self: start; margin: 0; padding: 16px 0 0; border-top: 1px solid var(--clr-border); }
+#members .member-card::after {
+  content: '→'; position: absolute; top: 32px; right: 32px; color: var(--clr-accent);
+  opacity: .5; transition: transform .3s var(--ease), opacity .3s;
+}
+@media (hover: hover) and (pointer: fine) {
+  #members .member-card:hover { border-color: var(--clr-accent); box-shadow: var(--shadow-lift); transform: translateY(-2px); background: var(--surface); }
+  #members .member-card:hover::after { opacity: 1; transform: translateX(4px); }
+  #members .member-card:hover .member-avatar { transform: none; }
+  #members .member-card:hover .member-name { color: var(--clr-accent); text-decoration: none; }
+}
+
+/* Contact: invitation on the left, the form on a raised sheet. */
+#contact { position: relative; overflow: hidden; }
+#contact .container { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: auto auto auto 1fr; column-gap: 80px; }
+#contact .section-label { grid-column: 1; grid-row: 1; justify-self: start; }
+#contact .section-title { grid-column: 1; grid-row: 2; margin-bottom: 24px; }
+#contact .contact-desc { grid-column: 1; grid-row: 3; max-width: 24em; margin-bottom: 0; }
+#contact .container::after {
+  content: ''; grid-column: 1; grid-row: 4; align-self: end; justify-self: start;
+  width: 260px; height: 286px; margin-top: 48px;
+  background: url('../images/polar-stars.svg') left bottom / contain no-repeat; opacity: .55;
+}
+.contact-form {
+  grid-column: 2; grid-row: 1 / span 4; width: 100%; max-width: none;
+  padding: 48px; background: var(--surface); border: 1px solid var(--clr-border); border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+.contact-form .form-group:last-of-type { margin-bottom: 32px; }
 
 @keyframes home-aurora-breathe {
   from { opacity: .42; transform: translate3d(-2%, 2%, 0) scale(.96); }
   to { opacity: .75; transform: translate3d(3%, -2%, 0) scale(1.04); }
 }
-@keyframes home-starfield-pulse {
-  from { opacity: .48; transform: scale(.985); }
-  to { opacity: .9; transform: scale(1.015); }
+@keyframes hero-rise { from { opacity: 0; transform: translate3d(0, 32px, 0); } }
+@keyframes hero-fade { from { opacity: 0; } }
+@keyframes hero-draw { from { transform: scaleX(0); } }
+@keyframes hero-letter { from { opacity: 0; transform: translate3d(0, .45em, 0) rotate(6deg); } }
+@keyframes hero-star { from { opacity: 0; transform: scale(.2) rotate(-135deg); } }
+@keyframes hero-orbit { from { opacity: 0; transform: scale(.72) rotate(-40deg); } }
+@keyframes hero-leave { to { opacity: .15; transform: translate3d(0, 140px, 0); } }
+
+
+@media (max-width: 1199px) {
+  #about .container, #news .container, #gallery .container, #contact .container { column-gap: 48px; }
+  #members .member-card { grid-template-columns: 96px minmax(0, 1fr); column-gap: 24px; padding: 28px; }
+  #members .member-avatar { width: 96px; height: 96px; }
 }
 
 @media (max-width: 959px) {
-  #nav .nav-links { background: #f7fafb; }
-  #hero .hero-eyebrow,
-  #hero .hero-title,
-  #hero .hero-sub { max-width: 61%; }
-  #hero .hero-title { font-size: clamp(6rem, 15vw, 9rem); }
+  #hero .hero-eyebrow, #hero .hero-title, #hero .hero-sub { max-width: 62%; }
+  #hero .hero-title { font-size: clamp(6.5rem, 15vw, 9rem); }
   #hero .polar-sky { width: 48vw; height: 48vw; right: -3%; }
-  #hero .north-star { width: 62px; height: 86px; left: calc(50% - 31px); top: calc(50% - 43px); }
+  #hero .hero-inner::after { left: 28px; }
+  #about .container, #news .container, #gallery .container, #contact .container { display: block; }
+  #about .about-text { padding-top: 0; }
+  #about .about-cards { margin-top: 48px; }
+  #news .news-footer { margin-top: 32px; text-align: right; }
+  #gallery .note-card { margin-bottom: 32px; }
+  #gallery .arctic-scene { min-height: 300px; }
+  #members .members-grid { grid-template-columns: 1fr; }
+  #contact .contact-desc { margin-bottom: 40px; }
+  #contact .container::after { display: none; }
 }
 
 @media (max-width: 599px) {
   #hero {
     min-height: 0;
     padding-top: calc(var(--nav-h) + 44px);
-    padding-bottom: 290px;
+    padding-bottom: 330px;
   }
+  #hero::after { height: 64px; }
   #hero .hero-inner { min-height: auto; justify-content: flex-start; }
-  #hero .hero-eyebrow,
-  #hero .hero-title,
-  #hero .hero-sub { max-width: 100%; }
-  #hero .hero-eyebrow { padding-right: 20px; font-size: .82rem; line-height: 1.8; }
-  #hero .hero-title { margin-left: -4px; font-size: clamp(5.8rem, 27vw, 7.5rem); }
-  #hero .hero-sub { margin-bottom: 24px; font-size: 1.12rem; letter-spacing: .025em; }
-  #hero .hero-cta { flex-direction: row; }
-  #hero .hero-cta .btn { width: auto; min-width: 108px; padding: 11px 17px; }
-  #hero .polar-sky {
-    width: 290px;
-    height: 290px;
-    top: auto;
-    right: calc(50% - 145px);
-    bottom: 10px;
-  }
-  #hero .north-star { width: 48px; height: 66px; left: calc(50% - 24px); top: calc(50% - 33px); }
-  #hero .constellation { transform: scale(.7); }
-  #hero .constellation-a { left: 3%; top: 20%; }
-  #hero .constellation-b { right: -4%; bottom: 12%; }
-  #hero::after { left: 22px; right: 22px; bottom: 21px; }
+  #hero .hero-inner::after { display: none; }
+  #hero .hero-eyebrow, #hero .hero-title, #hero .hero-sub { max-width: 100%; }
+  #hero .hero-eyebrow { gap: 12px; margin-bottom: 18px; font-size: .8125rem; letter-spacing: .1em; }
+  #hero .hero-eyebrow::before { width: 24px; }
+  #hero .hero-title { margin-left: -4px; font-size: clamp(6rem, 30vw, 8rem); }
+  #hero .hero-sub { margin-bottom: 32px; font-size: 1.375rem; letter-spacing: .1em; }
+  #hero .hero-cta { flex-direction: row; width: 100%; }
+  #hero .hero-cta .btn { flex: 1; width: auto; min-width: 0; padding: 0 16px; }
+  #hero .polar-sky { width: 290px; height: 290px; top: auto; right: calc(50% - 145px); bottom: 40px; }
   #hero .hero-scroll-hint { display: none; }
+  #about .about-text p { font-size: 1.1875rem; line-height: 2; }
+  #about .about-cards { grid-template-columns: 1fr; gap: 16px; margin-top: 40px; }
+  #about .about-card-link { padding: 28px 24px 30px; gap: 4px 16px; }
+  #about .about-card h3 { font-size: 2.125rem; }
+  #about .about-card-link::after { width: 40px; height: 40px; }
+  #gallery .arctic-scene { min-height: 220px; }
+  #gallery .arctic-mountains { height: 110px; bottom: 44px; }
+  #gallery .arctic-moon { width: 32px; height: 32px; top: 28px; }
+  #gallery .bear-floe { width: 190px; height: 118px; left: calc(50% - 95px); bottom: 8px; }
+  #members .member-card { grid-template-columns: 72px minmax(0, 1fr); column-gap: 18px; padding: 24px 22px; }
+  #members .member-avatar { width: 72px; height: 72px; grid-row: 1 / span 2; }
+  #members .member-name { font-size: 1.3125rem; padding-right: 20px; }
+  #members .member-bio { grid-column: 1 / -1; margin-top: 4px; }
+  #members .member-card::after { top: 24px; right: 22px; }
+  .contact-form { padding: 28px 22px; }
 }
 
 @media (prefers-reduced-motion: reduce), (update: slow) {
-  #hero .polar-sky::before,
-  #hero .polar-sky::after,
-  #hero .sky-starfield { animation: none; }
+  #hero .polar-sky::before { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #about .about-card:hover, #members .member-card:hover { transform: none; }
 }
 
 @media print {
-  #nav { background: #fff; }
-  #hero { min-height: auto; background: #fff; }
-  #hero .hero-title,
-  #hero .hero-sub,
-  #hero .hero-eyebrow { color: #203e49; }
-  #hero::after { background: #203e49; }
+  #hero { min-height: auto; padding-block: 40px; background: #fff; color: #203e49; }
+  #hero .hero-title, #hero .hero-sub, #hero .hero-eyebrow { color: #203e49; }
+  #hero::after, #hero .hero-inner::after, #contact .container::after { display: none; }
+  .contact-form { box-shadow: none; }
 }
-
-/* Antarctic horizon: an asymmetric ice shelf beneath the star atlas. */
-#hero::after {
-  z-index: -1; left: 0; right: 0; bottom: -1px; height: 100px;
-  background: #f7fafb;
-  clip-path: polygon(0 72%, 9% 62%, 18% 70%, 32% 48%, 43% 64%, 57% 43%, 68% 58%, 81% 18%, 90% 42%, 100% 30%, 100% 100%, 0 100%);
-}
-#hero { padding-bottom: 120px; }
-#hero .hero-scroll-hint { bottom: 108px; opacity: 1; color: #e0f0f6; }
-#hero .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; }
-#nav .nav-links a:hover, #nav .nav-links a.active { color: #183544; }
-#nav .lang-btn { border-left-color: #b6ccd5; }
-@media (max-width: 599px) {
-  #hero { padding-bottom: 320px; }
-  #hero .polar-sky { bottom: 30px; }
-  #hero::after { left: 0; right: 0; bottom: -1px; height: 64px; }
-}
-@media print { #hero::after { display: none; } }
