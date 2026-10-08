@@ -1,1 +1,5 @@
 build/
+# YouTube へのアップロード用の1080p版は node render.cjs で作り直せるため含めない
+sakunokyumei-channel-intro.mp4
+sakunokyumei-channel-intro-1080p.mp4
+sakunokyumei-channel-intro-720p.mp4

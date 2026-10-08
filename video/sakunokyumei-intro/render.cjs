@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* scene.html を Chromium（Playwright）で1フレームずつ撮影し、ffmpeg で MP4 にします。
  *
- *   node render.cjs                    動画（build/music.wav があれば音声も合成）
+ *   node render.cjs                    動画（build/music.wav があれば音声も合成）と公式サイト用の720p版
  *   node render.cjs --stills 5,20,40   指定秒の静止画を build/still-*.png に保存
  *   node render.cjs --thumb            サムネイル（1280×720 JPEG）
  *
@@ -24,7 +24,8 @@ function loadPlaywright() {
 const DIR = __dirname;
 const BUILD = path.join(DIR, 'build');
 const FPS = 30;
-const OUT = path.join(DIR, 'sakunokyumei-channel-intro.mp4');
+const OUT = path.join(DIR, 'sakunokyumei-channel-intro.mp4'); // YouTube へのアップロード用（1080p）
+const WEB = path.join(DIR, 'sakunokyumei-channel-intro-720p.mp4'); // 公式サイトでの再生用
 const THUMB = path.join(DIR, 'thumbnail.jpg');
 
 const args = process.argv.slice(2);
@@ -102,6 +103,15 @@ async function renderVideo(browser) {
     await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', silent, '-c', 'copy', '-movflags', '+faststart', OUT]);
   }
   console.log('wrote', path.relative(process.cwd(), OUT));
+
+  await run('ffmpeg', [
+    '-y', '-loglevel', 'error', '-i', OUT, '-map', '0',
+    '-vf', 'scale=1280:720:flags=lanczos:out_color_matrix=bt709',
+    '-c:v', 'libx264', '-preset', 'slow', '-crf', '23', '-profile:v', 'high', '-level', '4.0', '-g', '60', '-bf', '2', '-pix_fmt', 'yuv420p',
+    '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv',
+    '-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart', WEB,
+  ]);
+  console.log('wrote', path.relative(process.cwd(), WEB));
 }
 
 async function renderStills(browser, times) {
