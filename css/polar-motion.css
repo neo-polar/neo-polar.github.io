@@ -94,15 +94,17 @@
 /* Night sky over the footer. */
 .footer-sky { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 #footer > .container { position: relative; z-index: 1; }
+/* Stars stay in the open sky above the footer copy so they never sit behind text. */
+.footer-sky { -webkit-mask-image: linear-gradient(#000 0, #000 70px, transparent 96px); mask-image: linear-gradient(#000 0, #000 70px, transparent 96px); }
 .footer-stars {
-  position: absolute; width: 2px; height: 2px; left: 6%; top: 18%; border-radius: 50%; background: #d4f2f8;
-  box-shadow: 64px 40px #d4f2f8, 180px -12px #9fd4e2, 260px 88px #d4f2f8, 390px 20px #9fd4e2, 520px 120px #d4f2f8,
-    610px 6px #9fd4e2, 760px 74px #d4f2f8, 880px 150px #9fd4e2, 1010px 30px #d4f2f8, 1130px 110px #9fd4e2,
-    1260px 54px #d4f2f8, 1390px 160px #9fd4e2, 1520px 18px #d4f2f8, 120px 210px #9fd4e2, 700px 230px #d4f2f8;
+  position: absolute; width: 2px; height: 2px; left: 4%; top: 14px; border-radius: 50%; background: #d4f2f8;
+  box-shadow: 64px 26px #d4f2f8, 180px 4px #9fd4e2, 260px 44px #d4f2f8, 390px 12px #9fd4e2, 520px 52px #d4f2f8,
+    610px 2px #9fd4e2, 760px 36px #d4f2f8, 880px 58px #9fd4e2, 1010px 16px #d4f2f8, 1130px 48px #9fd4e2,
+    1260px 22px #d4f2f8, 1390px 60px #9fd4e2, 1520px 8px #d4f2f8, 120px 64px #9fd4e2, 700px 62px #d4f2f8;
   animation: star-twinkle 4.5s ease-in-out infinite alternate;
 }
-.footer-stars.stars-two { left: 11%; top: 32%; transform: scale(1.4); animation-duration: 6s; animation-delay: -3s; }
-.footer-meteor { left: 58%; top: 14%; width: 140px; height: 1px; background: linear-gradient(90deg, transparent, #e2f8fc); animation-duration: 9s; animation-delay: -2s; }
+.footer-stars.stars-two { left: 9%; top: 30px; transform: scale(1.4); animation-duration: 6s; animation-delay: -3s; }
+.footer-meteor { left: 58%; top: 20px; width: 140px; height: 1px; background: linear-gradient(90deg, transparent, #e2f8fc); animation-duration: 9s; animation-delay: -2s; }
 .arctic-snow { left: 8%; top: 8%; background: #9fc2cf; opacity: .6; box-shadow: 70px -20px #9fc2cf, 150px 30px #9fc2cf, 240px -10px #9fc2cf, 330px 40px #9fc2cf, 420px 0 #9fc2cf, 500px 26px #9fc2cf; animation-duration: 12s; }
 .arctic-snow.snow-two { left: 3%; top: 22%; animation-duration: 16s; animation-delay: -7s; }
 

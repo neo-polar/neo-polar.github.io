@@ -115,6 +115,7 @@ git push origin main
 - 書体は Google Fonts の1リクエストで読み込みます。本文は Noto Sans JP、見出しは Shippori Mincho、欧文の大見出し・数字・ラベルは Cormorant Garamond です（英語表示では見出しも Cormorant Garamond）。書体を変える場合は全ページの `fonts.googleapis.com` のURLをそろえて更新してください。
 - 表紙・記事ページの見出し帯・フッターは「極夜」の濃紺（`--night-*` トークン）、本文は氷白と淡い青で構成します。記事ページの見出し帯は `.article-header` / `.member-header` / `.news-page-header` の `border-image` で全幅に描いており、追加のHTMLは不要です。
 - ナビは濃紺の見出しの上では透明・白文字になり、スクロールすると半透明の白に切り替わります（`main.js` / `news.js` が `#nav` に `is-top` を付け外しします）。JSがない場合は常に白いナビです。
+- 文字の視認性: 明るい背景の文字は WCAG AAA（7:1）以上、濃紺の上の文字は 5.5:1 以上を目安にしています。本文以外の小さな文字も 13px 以上です。日本語の見出し・短い文は `word-break: auto-phrase` と `text-wrap` で文節単位の自然な改行にしています（未対応ブラウザーでは通常の改行）。色を変える場合はコントラストを再確認してください。
 - `design.css` 冒頭の CSS 変数で色・書体・本文幅・ナビ高さを調整できます。モバイルナビの境界は CSS / JS ともに 960px です。印刷時は明るい配色に切り替わります。モーション低減、キーボードフォーカス、Escape によるメニュー閉鎖にも対応します。
 - 自動アニメーションの生成と停止・再開は `js/polar-motion.js`、ポインターへの反応は `js/main.js` で管理します。`images/polar-stars.svg` はJSがない場合の静止画です。氷とペンギンのSVGも `images/` にあります。
 - 表紙の星図は「天体観測儀」をイメージした4枚のSVGで構成します。`polar-sky-chart.svg`（赤緯円・時角線・南十字星などの星図。天の極を中心にゆっくり回転）、`polar-sky-dial.svg`（固定の目盛りと時角の外枠）、`polar-aurora.svg`（ぼかしたオーロラ）、`polar-pole-star.svg`（中心の極星）。`python3 scripts/make_sky.py` で再生成できます。マウスに合わせて層ごとに異なる量だけ動き、奥行きが出ます。
