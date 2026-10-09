@@ -75,6 +75,14 @@
 2. `images/` にプロフィール画像を配置する
 3. 必要に応じて `index.html` の Members セクションからリンクする
 
+## ギャラリーへのリンク追加方法
+
+Gallery セクションには、note の活動マガジンと Polar 深海文献庫（クトゥルフ神話アーカイブ）へのカードを並べています。
+
+1. `index.html` の `.gallery-links` 内にある `.note-card` を1つ複製する
+2. リンク先・ラベル・タイトル・URL表示を書き換える（日本語 / 英語は `data-ja` / `data-en`）
+3. アイコン画像を `images/` に配置して差し替える
+
 ## デプロイ
 
 GitHub Actions により、`main` ブランチへの push で自動的に GitHub Pages に公開されます。
