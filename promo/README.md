@@ -3,6 +3,7 @@
 Polar 公式アカウントで告知に使うプロモーション映像の制作ソースです。
 
 - 書き出し: `dist/polar-promo-1080p60.mp4`（1920×1080 / 60fps / H.264 + AAC / 51.2秒）
+- YouTube サムネイル: `dist/polar-promo-thumbnail.png`（1280×720、2MB未満。`.jpg` も同じ絵柄）
 - 映像・音楽ともにこのフォルダのコードから生成しています。音楽もオリジナルなので、権利関係を気にせず投稿できます。
 
 ## コンセプト
@@ -38,6 +39,7 @@ promo/
 ├── music.py            BGM の合成（numpy のみ）
 ├── render.cjs          Chromium でフレームを書き出し ffmpeg へ渡す
 ├── build.sh            音楽 → フレーム → mp4 を一括で作る
+├── thumbnail.html/.css/.js  YouTube サムネイル（ロゴのドットを中心に星が巡る構図）
 ├── tools/split_logo.py images/Polar_logo.png をアニメーション用パーツに分解
 ├── assets/             ロゴのパーツ、プレビュー用の音声
 └── dist/               完成した映像
@@ -63,7 +65,7 @@ npm i -g playwright && npx playwright install chromium   # 初回のみ
 NODE_PATH="$(npm root -g)" promo/build.sh                # → promo/dist/polar-promo-1080p60.mp4
 ```
 
-4並列でおよそ10〜15分かかります。静止画だけ確認したいときは
+4並列でおよそ10〜15分かかります。サムネイルは `NODE_PATH="$(npm root -g)" node promo/render.cjs thumbnail` で作り直せます。静止画だけ確認したいときは
 `NODE_PATH="$(npm root -g)" node promo/render.cjs stills 2.5 21 42` で `promo/build/stills/` に出力されます。
 
 ## 修正するときは

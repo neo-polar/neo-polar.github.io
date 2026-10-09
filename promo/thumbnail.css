@@ -1,0 +1,21 @@
+/* Polar promotion film — YouTube thumbnail (1280×720). The sky and logo are drawn by thumbnail.js. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1280px; height: 720px; overflow: hidden; background: #03080c; }
+
+#thumb { position: relative; width: 1280px; height: 720px; overflow: hidden; color: #eef8fb; font-family: 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
+#thumb > * { position: absolute; }
+#sky { top: 0; left: 0; width: 1280px; height: 720px; }
+
+.corner { width: 22px; height: 22px; border: 0 solid rgba(200, 234, 243, .5); }
+.tl { top: 30px; left: 30px; border-top-width: 1.5px; border-left-width: 1.5px; }
+.tr { top: 30px; right: 30px; border-top-width: 1.5px; border-right-width: 1.5px; }
+.bl { bottom: 30px; left: 30px; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.br { bottom: 30px; right: 30px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+.label { top: 44px; left: 66px; display: flex; align-items: center; gap: 14px; color: #a4dfeb; font: 500 15px/1 'IBM Plex Mono', monospace; letter-spacing: .3em; }
+.label-mark { position: static; width: 34px; height: 1.5px; background: #a4dfeb; }
+
+.tagline { top: 392px; left: 0; width: 1280px; text-align: center; padding-left: .08em; font-family: 'Shippori Mincho', serif; font-weight: 800; font-size: 82px; line-height: 1; letter-spacing: .08em; text-shadow: 0 2px 26px rgba(2, 8, 13, .85); }
+.tagline .warm { background: linear-gradient(180deg, #ffe7c8 0%, #ffbd8a 55%, #f28e70 100%); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; filter: drop-shadow(0 2px 18px rgba(2, 8, 13, .7)); }
+
+.sub { top: 506px; left: 0; width: 1280px; text-align: center; padding-left: .42em; color: rgba(232, 245, 249, .9); font-size: 24px; font-weight: 700; letter-spacing: .42em; text-shadow: 0 1px 16px rgba(2, 8, 13, .9); }

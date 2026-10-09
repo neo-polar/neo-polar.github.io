@@ -5,6 +5,7 @@
 //   node promo/render.cjs stills 2.5 9 21 ...        PNG stills → promo/build/stills/
 //   node promo/render.cjs video [--fps 60] [--workers 4] [--from 0] [--to 51.2]
 //                                                   → promo/build/frames-*.mkv (lossless chunks)
+//   node promo/render.cjs thumbnail                  → promo/dist/polar-promo-thumbnail.{png,jpg}
 //
 // Needs Playwright (npm i -g playwright, or NODE_PATH pointing at it) and ffmpeg.
 // The page loads its typefaces from Google Fonts; HTTPS_PROXY is honoured when set.
@@ -106,14 +107,37 @@ async function video(args, extra) {
   console.log(`rendered ${total} frames in ${((Date.now() - started) / 1000).toFixed(0)} s → ${path.join(BUILD, 'frames.txt')}`);
 }
 
+// YouTube thumbnail: drawn at 2× and downsampled for clean edges, 1280×720 and under 2 MB.
+async function thumbnail() {
+  const proxy = process.env.HTTPS_PROXY || process.env.https_proxy;
+  const browser = await chromium.launch({ proxy: proxy ? { server: proxy } : undefined, args: ['--force-color-profile=srgb'] });
+  const page = await browser.newPage({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 2 });
+  page.on('pageerror', error => console.error('page error:', error.message));
+  await page.goto(pathToFileURL(path.join(ROOT, 'thumbnail.html')).href, { waitUntil: 'load' });
+  await page.evaluate(() => window.__thumb.ready);
+  fs.mkdirSync(BUILD, { recursive: true });
+  const raw = path.join(BUILD, 'thumbnail@2x.png');
+  await page.screenshot({ path: raw });
+  await browser.close();
+  const dist = path.join(ROOT, 'dist');
+  fs.mkdirSync(dist, { recursive: true });
+  for (const [file, quality] of [['polar-promo-thumbnail.png', []], ['polar-promo-thumbnail.jpg', ['-q:v', '2']]]) {
+    await new Promise((resolve, reject) => spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-i', raw,
+      '-vf', 'scale=1280:720:flags=lanczos', ...quality, path.join(dist, file)], { stdio: 'inherit' })
+      .on('close', code => (code ? reject(new Error(`ffmpeg exited ${code}`)) : resolve())));
+    console.log(path.join(dist, file));
+  }
+}
+
 (async () => {
   const [mode, ...args] = process.argv.slice(2);
   const extra = args.includes('--nograin') ? '&nograin' : '';
   const rest = args.filter(a => a !== '--nograin');
   if (mode === 'stills') await stills(rest, extra);
   else if (mode === 'video') await video(rest, extra);
+  else if (mode === 'thumbnail') await thumbnail();
   else {
-    console.error('usage: render.cjs stills <t...> | video [--fps 60] [--workers 4] [--from s] [--to s] [--nograin]');
+    console.error('usage: render.cjs stills <t...> | video [--fps 60] [--workers 4] [--from s] [--to s] [--nograin] | thumbnail');
     process.exit(2);
   }
 })().catch(error => {
