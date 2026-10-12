@@ -1,6 +1,7 @@
 """Dependency-free local link checks; --compare REF also protects published copy."""
 import argparse
 from html.parser import HTMLParser
+import json
 from pathlib import Path
 import subprocess
 import re
@@ -9,6 +10,7 @@ import xml.etree.ElementTree as ET
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
+SITE = 'https://neo-polar.github.io/'
 
 
 class Page(HTMLParser):
@@ -20,6 +22,9 @@ class Page(HTMLParser):
         self.ids = set()
         self.meta = {}
         self.icon_links = []
+        self.canonical = None
+        self.structured_data = []
+        self.in_structured_data = False
         self.inline_styles = 0
         self.feed(source)
 
@@ -31,6 +36,11 @@ class Page(HTMLParser):
             self.meta[attrs.get('property', attrs.get('name', ''))] = attrs.get('content', '')
         if tag == 'link' and 'icon' in attrs.get('rel', '').split():
             self.icon_links.append(attrs)
+        if tag == 'link' and attrs.get('rel') == 'canonical':
+            self.canonical = attrs.get('href')
+        if tag == 'script' and attrs.get('type') == 'application/ld+json':
+            self.in_structured_data = True
+            self.structured_data.append('')
         if tag in ('script', 'style'):
             self.hidden += 1
         if 'id' in attrs:
@@ -45,10 +55,18 @@ class Page(HTMLParser):
     def handle_endtag(self, tag):
         if tag in ('script', 'style'):
             self.hidden -= 1
+        if tag == 'script':
+            self.in_structured_data = False
 
     def handle_data(self, data):
+        if self.in_structured_data:
+            self.structured_data[-1] += data
         if not self.hidden and data.strip():
             self.copy.append(('text', data.strip()))
+
+
+def uses_site_css(page):
+    return any(tag == 'link' and urlsplit(value).path.endswith('css/design.css') for tag, key, value in page.links)
 
 
 def main():
@@ -63,7 +81,7 @@ def main():
         relative = path.relative_to(ROOT).as_posix()
         if page.inline_styles:
             errors.append(f'{relative}: inline styles conflict with the site CSP; use an external stylesheet')
-        if any(tag == 'link' and urlsplit(value).path.endswith('css/design.css') for tag, key, value in page.links):
+        if uses_site_css(page):
             social_count += 1
             image_url = page.meta.get('og:image', '')
             parsed = urlsplit(image_url)
@@ -156,6 +174,7 @@ def main():
         if 'User-agent: *' not in robots_text or 'Sitemap: https://neo-polar.github.io/sitemap.xml' not in robots_text:
             errors.append('robots.txt must allow general crawling and declare the sitemap')
 
+    locations = []
     sitemap = ROOT / 'sitemap.xml'
     if not sitemap.is_file():
         errors.append('missing sitemap.xml')
@@ -168,6 +187,33 @@ def main():
                 errors.append('sitemap.xml must include the canonical home page')
         except ET.ParseError as error:
             errors.append(f'sitemap.xml: invalid XML ({error})')
+
+    # Public pages need their own canonical URL, snippet and sitemap entry; a page copied
+    # from another one must not keep that page's canonical URL, or search engines skip it.
+    search_count = 0
+    for path, page in pages.items():
+        relative = path.relative_to(ROOT).as_posix()
+        if not uses_site_css(page) or 'noindex' in page.meta.get('robots', ''):
+            continue
+        search_count += 1
+        expected = SITE + ('' if relative == 'index.html' else relative)
+        if page.canonical != expected:
+            errors.append(f'{relative}: canonical URL must be {expected}')
+        if page.meta.get('og:url', expected) != expected:
+            errors.append(f'{relative}: og:url must be {expected}')
+        if not page.meta.get('description'):
+            errors.append(f'{relative}: missing meta description')
+        if expected not in locations:
+            errors.append(f'{relative}: add {expected} to sitemap.xml')
+        for block in page.structured_data:
+            try:
+                json.loads(block)
+            except json.JSONDecodeError as error:
+                errors.append(f'{relative}: invalid JSON-LD structured data ({error})')
+    for location in locations:
+        target = ROOT / (urlsplit(location).path.lstrip('/') or 'index.html')
+        if target not in pages or 'noindex' in pages[target].meta.get('robots', ''):
+            errors.append(f'sitemap.xml: {location} is not a public page')
     for css in (ROOT / 'css').glob('*.css'):
         for value in re.findall(r'url\(\s*[\"\']?([^\"\')\s]+)', css.read_text(encoding='utf-8')):
             if not urlsplit(value).scheme and not value.startswith('#'):
@@ -177,6 +223,7 @@ def main():
     print(f'Checked {len(pages)} HTML files and {count} local references.')
     print(f'Checked social PNG references and dimensions on {social_count} pages.')
     print('Checked Google favicon, robots.txt and sitemap.xml discovery.')
+    print(f'Checked canonical URLs, descriptions and structured data on {search_count} public pages.')
     if args.compare:
         print(f'Compared text, translations and original links with {args.compare}.')
     for error in errors:
