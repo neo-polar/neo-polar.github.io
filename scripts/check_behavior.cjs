@@ -77,13 +77,15 @@ for (const file of ['main.js', 'news.js']) {
       window.innerWidth = 390;
       const storage = {'polar-lang': storageMode === 'invalid' ? 'invalid-value' : lang};
       const initialLang = storageMode === 'normal' ? lang : 'ja';
+      // Timers are queued, not run, so tests decide when time passes.
+      const timers = [];
       const context = {
         document, window, Node: {TEXT_NODE: 3},
         localStorage: {
           getItem(key) { if (storageMode === 'blocked') throw new Error('Storage access denied'); return storage[key]; },
           setItem(key, value) { if (storageMode === 'blocked') throw new Error('Storage access denied'); storage[key] = value; },
         },
-        setTimeout() { return 1; }, clearTimeout() {}, requestAnimationFrame(callback) { callback(); },
+        setTimeout(callback) { return timers.push(callback); }, clearTimeout() {}, requestAnimationFrame(callback) { callback(); },
       };
       const source = fs.readFileSync(path.join(__dirname, '..', 'js', file), 'utf8');
       vm.runInNewContext(source, context, {filename: file});
@@ -109,16 +111,24 @@ for (const file of ['main.js', 'news.js']) {
       assert.equal(ids.navLinks.classList.contains('open'), false);
       assert.equal(ids.hamburger.attrs['aria-label'], 'メニューを開く', 'Resize resets the accessible label');
       if (file === 'main.js') {
+        // Pointer depth is written to the star chart only, so the cover copy is not restyled.
+        const sky = node();
+        ids.hero.querySelector = selector => selector === '.polar-sky' ? sky : null;
+        ids.hero.emit('pointermove', {clientX: 0, clientY: 0});
         ids.hero.emit('pointermove', {clientX: 1000, clientY: 600});
-        assert.equal(ids.hero.style['--star-x'], reduced ? undefined : '10.0px');
-        assert.equal(ids.hero.style['--star-y'], reduced ? undefined : '8.0px');
+        assert.ok(timers.length <= 1, 'Pointer moves are batched into one pending update');
+        timers.splice(0).forEach(run => run());
+        assert.equal(sky.style['--star-x'], reduced ? undefined : '10.0px');
+        assert.equal(sky.style['--star-y'], reduced ? undefined : '8.0px');
+        assert.equal(ids.hero.style['--star-x'], undefined);
         ids.hero.emit('pointerleave');
-        assert.equal(ids.hero.style['--star-x'], '0px');
+        assert.equal(sky.style['--star-x'], '0px');
         const preference = media['(prefers-reduced-motion: reduce)'];
         preference.matches = true;
         preference.emit('change');
         ids.hero.emit('pointermove', {clientX: 1000, clientY: 600});
-        assert.equal(ids.hero.style['--star-x'], '0px');
+        timers.splice(0).forEach(run => run());
+        assert.equal(sky.style['--star-x'], '0px');
         let prevented = false;
         const event = {preventDefault() { prevented = true; }};
         form.emit('submit', event);
@@ -236,7 +246,8 @@ while ((match = keyframes.exec(motionCSS))) {
   keyframes.lastIndex = cursor;
 }
 assert.ok(keyframeCount > 0);
-const motionFiles = ['css/polar-motion.css', 'css/home.css', 'js/polar-motion.js', 'images/polar-bear.svg', 'images/polar-ridge.svg',
+// Files the pages actually load (the unused polar-bear.svg is not delivered).
+const motionFiles = ['css/polar-motion.css', 'css/home.css', 'js/polar-motion.js', 'images/polar-ridge.svg',
   'images/polar-sky-chart.svg', 'images/polar-sky-dial.svg', 'images/polar-aurora.svg', 'images/polar-pole-star.svg'];
 const motionBytes = motionFiles.reduce((total, file) => total + fs.statSync(path.join(__dirname, '..', file)).size, 0);
 // The home layout, opening sequence, reveals and ribbon live here too; still no libraries.

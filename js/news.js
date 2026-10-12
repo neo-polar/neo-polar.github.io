@@ -83,10 +83,14 @@ window.addEventListener('resize', () => {
 const nav = document.getElementById('nav');
 let scrollTick = false;
 // The navigation is transparent over the night header and turns solid once the page scrolls.
+// The DOM is touched only when the threshold is crossed, not on every scrolled frame.
+let navIsTop = null;
 function updateNav() {
-  const y = window.scrollY;
-  nav.classList.toggle('is-top', y <= 20);
-  nav.style.boxShadow = y > 20 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
+  const isTop = window.scrollY <= 20;
+  if (isTop === navIsTop) return;
+  navIsTop = isTop;
+  nav.classList.toggle('is-top', isTop);
+  nav.style.boxShadow = isTop ? 'none' : '0 2px 20px rgba(0,0,0,0.07)';
 }
 updateNav();
 window.addEventListener('scroll', () => {
