@@ -114,12 +114,10 @@ body { counter-reset: polar-section; }
   content: ''; position: absolute; z-index: -1; inset: 5%; border-radius: 50%;
   background: radial-gradient(circle, rgba(214, 242, 248, .07), rgba(214, 242, 248, .025) 62%, rgba(214, 242, 248, .06) 100%);
 }
-#hero .polar-aurora, #hero .sky-chart, #hero .north-star, #hero .star-halo, #hero .star-flare {
-  transition: translate 1.2s cubic-bezier(.2, .7, .2, 1);
-}
-#hero .polar-aurora { translate: calc(var(--star-x, 0px) * 1.4) calc(var(--star-y, 0px) * 1.4); }
-#hero .sky-chart { translate: calc(var(--star-x, 0px) * -.5) calc(var(--star-y, 0px) * -.5); }
-#hero .north-star, #hero .star-halo, #hero .star-flare { translate: calc(var(--star-x, 0px) * .7) calc(var(--star-y, 0px) * .7); }
+#hero .sky-depth { position: absolute; inset: 0; transition: translate 1.2s cubic-bezier(.2, .7, .2, 1); }
+#hero .depth-far { translate: calc(var(--star-x, 0px) * 1.4) calc(var(--star-y, 0px) * 1.4); }
+#hero .depth-back { translate: calc(var(--star-x, 0px) * -.5) calc(var(--star-y, 0px) * -.5); }
+#hero .depth-near { translate: calc(var(--star-x, 0px) * .7) calc(var(--star-y, 0px) * .7); }
 
 /* Section rhythm: numbered catalogue labels and alternating ice tones. */
 #about, #news, #gallery, #members, #contact { counter-increment: polar-section; border-bottom: 0; }

@@ -11,8 +11,8 @@
 .polar-sky {
   position: absolute; z-index: -1; display: block;
   width: 440px; height: 440px; top: 52%; right: max(3%, calc((100vw - 1200px) / 2));
-  transform: translate(var(--star-x, 0px), calc(-50% + var(--star-y, 0px)));
-  transition: transform .8s ease-out; overflow: hidden; border-radius: 50%;
+  transform: translateY(-50%); translate: var(--star-x, 0px) var(--star-y, 0px);
+  transition: translate .8s ease-out; overflow: hidden; border-radius: 50%;
 }
 /* Hero sky: a celestial instrument. Artwork lives in SVG files; only transform/opacity move. */
 .polar-aurora {
@@ -163,7 +163,7 @@
   /* Reserve the illustration space before deferred JS runs to avoid layout shift. */
   #hero { padding-bottom: 280px; }
   #hero::before { width: 300px; max-width: 100%; height: 240px; top: auto; bottom: 14px; right: calc(50% - 150px); transform: none; }
-  .polar-sky { width: 280px; max-width: 100%; height: 280px; top: auto; bottom: 14px; right: calc(50% - 140px); transform: none; }
+  .polar-sky { width: 280px; max-width: 100%; height: 280px; top: auto; bottom: 14px; right: calc(50% - 140px); transform: none; translate: none; }
   .arctic-scene { height: 170px; margin-top: 24px; }
   .arctic-mountains { height: 95px; background-size: auto 100%; }
   .bear-floe { width: 180px; height: 112px; left: calc(50% - 90px); }

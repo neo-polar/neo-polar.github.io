@@ -24,19 +24,22 @@
   if (hero) {
     // A celestial instrument: aurora, a slowly turning star chart inside a fixed dial,
     // orbiting markers and the pole star with its halo and light streaks.
+    // Pointer depth moves wrappers, so each artwork's own animation stays composited.
     const sky = scene('polar-sky', hero);
-    decoration('polar-aurora aurora-one', sky);
-    decoration('polar-aurora aurora-two', sky);
-    decoration('sky-chart', sky);
+    const far = decoration('sky-depth depth-far', sky);
+    decoration('polar-aurora aurora-one', far);
+    decoration('polar-aurora aurora-two', far);
+    decoration('sky-chart', decoration('sky-depth depth-back', sky));
     decoration('sky-dial', sky);
     const outer = decoration('star-orbit orbit-outer', sky);
     decoration('orbit-star', outer);
     decoration('orbit-star star-opposite', outer);
     const inner = decoration('star-orbit orbit-inner', sky);
     decoration('orbit-star', inner);
-    decoration('star-halo', sky);
-    decoration('star-flare', sky);
-    decoration('north-star', sky);
+    const near = decoration('sky-depth depth-near', sky);
+    decoration('star-halo', near);
+    decoration('star-flare', near);
+    decoration('north-star', near);
     decoration('shooting-star meteor-one', sky);
     decoration('shooting-star meteor-two', sky);
     decoration('sky-twinkle twinkle-a', sky);

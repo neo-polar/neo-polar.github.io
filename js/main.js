@@ -14,22 +14,36 @@ function readSavedLang() {
 
 // Decorative parallax only on fine pointers; no animation loop or text movement.
 // React to preference changes as well as the preference at page load.
+// Written to the star chart (added later by polar-motion.js) so the cover copy is not
+// restyled, and at most every 50ms: the layers ease over ~1s, so the steps never show.
 (function setupStarMotion() {
   const hero = document.getElementById('hero');
   if (!hero) return;
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const pointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let latest = null;
+  const write = (x, y) => {
+    const target = hero.querySelector('.polar-sky') || hero;
+    target.style.setProperty('--star-x', x);
+    target.style.setProperty('--star-y', y);
+  };
   const reset = () => {
-    hero.style.setProperty('--star-x', '0px');
-    hero.style.setProperty('--star-y', '0px');
+    latest = null;
+    write('0px', '0px');
+  };
+  const update = () => {
+    if (!latest) return;
+    const bounds = hero.getBoundingClientRect();
+    const x = (latest.clientX - bounds.left) / bounds.width - .5;
+    const y = (latest.clientY - bounds.top) / bounds.height - .5;
+    latest = null;
+    write(`${(x * 20).toFixed(1)}px`, `${(y * 16).toFixed(1)}px`);
   };
   hero.addEventListener('pointermove', event => {
     if (motion.matches || !pointer.matches) return;
-    const bounds = hero.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - .5;
-    const y = (event.clientY - bounds.top) / bounds.height - .5;
-    hero.style.setProperty('--star-x', `${(x * 20).toFixed(1)}px`);
-    hero.style.setProperty('--star-y', `${(y * 16).toFixed(1)}px`);
+    const scheduled = latest !== null;
+    latest = { clientX: event.clientX, clientY: event.clientY };
+    if (!scheduled) setTimeout(update, 50);
   }, { passive: true });
   hero.addEventListener('pointerleave', reset);
   [motion, pointer].forEach(media => {
@@ -130,8 +144,13 @@ const bttBtn = document.getElementById('backToTop'); // スクロール毎に取
 let scrollTick = false;
 
 // The navigation is transparent over the night header and turns solid once the page scrolls.
+// The DOM is touched only when a threshold is crossed, not on every scrolled frame.
+let navState = '';
 function updateNav() {
   const y = window.scrollY;
+  const state = `${y <= 20}${y > 400}`;
+  if (state === navState) return;
+  navState = state;
   nav.classList.toggle('is-top', y <= 20);
   nav.style.boxShadow = y > 20 ? '0 2px 20px rgba(0,0,0,0.07)' : 'none';
   if (bttBtn) bttBtn.classList.toggle('visible', y > 400);
