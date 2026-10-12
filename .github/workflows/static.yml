@@ -31,6 +31,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history lets the IndexNow step list only the pages changed by this push.
+          fetch-depth: 0
       - name: Check local links and assets
         run: python3 scripts/check_site.py
       - name: Check navigation and language behavior
@@ -45,3 +48,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+      - name: Notify Bing and other search engines (IndexNow)
+        # A failed notification must not mark the deployment as failed.
+        continue-on-error: true
+        run: python3 scripts/indexnow.py "${{ github.event_name == 'push' && github.event.before || '' }}"

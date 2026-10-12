@@ -63,17 +63,22 @@
 
 お知らせを追加する場合は、次の流れが基本です。
 
-1. `news/` 配下に記事ページを作成する
-2. `news.html` に新しい記事リンクを追加する
-3. 必要に応じて `index.html` の最新ニュース一覧にも反映する
+1. `news/` 配下に記事ページを作成する（既存の記事を複製すると、検索用のタグもそろいます）
+2. `<head>` の `title`・`description`・`canonical`・`og:*`・`twitter:*` と、末尾の構造化データ（`application/ld+json`）の見出し・日付・URLを新しい記事に合わせて書き換える
+3. `sitemap.xml` に記事のURLを追加する
+4. `news.html` に新しい記事リンクを追加する
+5. 必要に応じて `index.html` の最新ニュース一覧にも反映する
+
+`canonical` を複製元の記事のまま残すと、新しい記事が検索結果に出なくなります。`check_site.py` が `canonical` / `og:url` / `sitemap.xml` の漏れを検出し、公開を止めます。
 
 ## メンバー追加方法
 
 メンバーを追加する場合は、次の流れで管理します。
 
-1. `members/` 配下にプロフィール用HTMLを作成する
-2. `images/` にプロフィール画像を配置する
-3. 必要に応じて `index.html` の Members セクションからリンクする
+1. `members/` 配下にプロフィール用HTMLを作成する（`canonical` などの書き換えはお知らせと同じ）
+2. `images/` にプロフィール画像を配置する（表示は最大120pxなので、360px四方程度に縮小する）
+3. `sitemap.xml` にURLを追加する
+4. 必要に応じて `index.html` の Members セクションからリンクする
 
 ## ギャラリーへのリンク追加方法
 
@@ -181,6 +186,13 @@ python scripts/check_site.py --compare HEAD
 Google検索用の安定URLは `/favicon-polar.png`（96 × 96、PNG）です。ホーム画面の `rel="icon"` からルート相対URLで参照し、今後はファイル名を変えずに維持します。`robots.txt` はクローラーを許可して `sitemap.xml` を通知します。
 
 公開後はGoogle Search Consoleで `https://neo-polar.github.io/` をURL検査し、「公開URLをテスト」後に「インデックス登録をリクエスト」を実行してください。サイトマップには `https://neo-polar.github.io/sitemap.xml` を登録します。Google側の再クロールと反映には数日から数週間かかる場合があります。
+
+### 検索エンジン対策（SEO）
+
+- 全ての公開ページに、固有の `title`・`description`・`canonical`・OGP / Twitter Card を設定しています。ホームの `title` は「Polar 公式サイト｜複数ジャンル横断型クリエイティブ組織」です（「Polar」だけでは同名の企業・製品に埋もれるため）。
+- 構造化データ（schema.org の JSON-LD）: ホームに `WebSite` / `Organization`、記事に `NewsArticle`、メンバーに `ProfilePage`、各ページに `BreadcrumbList` を記述しています。JSON-LD はスクリプトとして実行されないため、CSP の `script-src 'self'` の影響を受けません。SNSアカウントを増やしたら、ホームの `Organization` の `sameAs` に追加してください。
+- Bing（Microsoft Edge の検索）・Yandex などへは IndexNow で更新を通知します。`main` への push でデプロイが成功すると、`scripts/indexnow.py` が変更されたHTMLのURLだけを送ります（Actions の画面から手動実行した場合は全ページ）。ルートの `585517fe13ba384ab345eeb9f322977c.txt` は IndexNow の所有確認用キーなので、削除・改名しないでください。通知に失敗してもデプロイ自体は失敗扱いになりません。
+- `sitemap.xml` の `lastmod` は、本文・構造化データ・リンクを変えたときに更新してください。
 
 ## バージョン
 
