@@ -39,9 +39,9 @@ function applyLang(lang) {
   const titleEn = document.documentElement.dataset.titleEn;
   if (lang === 'en' && titleEn) document.title = titleEn;
   else if (lang === 'ja' && titleJa) document.title = titleJa;
-    document.querySelectorAll('img[data-src-ja]').forEach(img => {
-    const src = lang === 'ja' ? img.dataset.srcJa : img.dataset.srcEn;
-    if (src) img.src = src;
+  document.querySelectorAll('img[data-src-ja]').forEach(img => {
+    const src = (lang === 'ja' ? img.dataset.srcJa : img.dataset.srcEn || '').trim();
+    if (src && !/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(src)) img.src = src;
   });
   try { localStorage.setItem('polar-lang', lang); } catch { /* Continue without persistence. */ }
   currentLang = lang;

@@ -13,6 +13,22 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = 'https://neo-polar.github.io/'
 
 
+REQUIRED_CSP_DIRECTIVES = (
+    'default-src',
+    'script-src',
+    'style-src',
+    'font-src',
+    'img-src',
+    'connect-src',
+    'form-action',
+    'base-uri',
+    'object-src',
+    'frame-src',
+    'upgrade-insecure-requests',
+)
+FORBIDDEN_CSP_TOKENS = ("'unsafe-inline'", "'unsafe-eval'", 'frame-ancestors')
+
+
 class Page(HTMLParser):
     def __init__(self, source):
         super().__init__(convert_charrefs=True)
@@ -21,11 +37,13 @@ class Page(HTMLParser):
         self.links = []
         self.ids = set()
         self.meta = {}
+        self.csp = None
         self.icon_links = []
         self.canonical = None
         self.structured_data = []
         self.in_structured_data = False
         self.inline_styles = 0
+        self.security_issues = []
         self.feed(source)
 
     def handle_starttag(self, tag, attrs):
@@ -33,22 +51,41 @@ class Page(HTMLParser):
         if tag == 'style' or 'style' in attrs:
             self.inline_styles += 1
         if tag == 'meta':
+            if attrs.get('http-equiv', '').lower() == 'content-security-policy':
+                self.csp = attrs.get('content', '')
             self.meta[attrs.get('property', attrs.get('name', ''))] = attrs.get('content', '')
         if tag == 'link' and 'icon' in attrs.get('rel', '').split():
             self.icon_links.append(attrs)
         if tag == 'link' and attrs.get('rel') == 'canonical':
             self.canonical = attrs.get('href')
-        if tag == 'script' and attrs.get('type') == 'application/ld+json':
-            self.in_structured_data = True
-            self.structured_data.append('')
+        if tag == 'script':
+            if attrs.get('type') == 'application/ld+json':
+                self.in_structured_data = True
+                self.structured_data.append('')
+            elif attrs.get('src'):
+                parsed_src = urlsplit(attrs['src'])
+                if parsed_src.scheme or parsed_src.netloc:
+                    self.security_issues.append(f'external script is not allowed: {attrs["src"]}')
+        if tag == 'a' and attrs.get('target') == '_blank':
+            rel_tokens = set(attrs.get('rel', '').lower().split())
+            if not {'noopener', 'noreferrer'}.issubset(rel_tokens):
+                self.security_issues.append(f'target="_blank" link missing rel="noopener noreferrer": {attrs.get("href", "")}')
         if tag in ('script', 'style'):
             self.hidden += 1
         if 'id' in attrs:
             self.ids.add(attrs['id'])
         for key in ('href', 'src', 'action', 'data-src-ja', 'data-src-en'):
-            if attrs.get(key):
-                self.links.append((tag, key, attrs[key]))
+            value = attrs.get(key)
+            if value:
+                self.links.append((tag, key, value))
+                lower_val = value.strip().lower()
+                if lower_val.startswith('javascript:'):
+                    self.security_issues.append(f'javascript: URI is not allowed in {tag}[{key}]')
+                elif lower_val.startswith('http://'):
+                    self.security_issues.append(f'insecure http:// URL in {tag}[{key}]: {value}')
         for key, value in attrs.items():
+            if key.lower().startswith('on'):
+                self.security_issues.append(f'inline event handler {key} is not allowed on <{tag}>')
             if key.startswith('data-') or key in ('alt', 'placeholder', 'aria-label'):
                 self.copy.append((tag, key, value))
 
@@ -69,6 +106,26 @@ def uses_site_css(page):
     return any(tag == 'link' and urlsplit(value).path.endswith('css/design.css') for tag, key, value in page.links)
 
 
+def check_security_headers(relative, page, errors):
+    if not page.csp:
+        errors.append(f'{relative}: missing Content-Security-Policy meta tag')
+    else:
+        directives = {}
+        for part in page.csp.split(';'):
+            tokens = part.strip().split()
+            if tokens:
+                directives[tokens[0].lower()] = tokens[1:]
+        for required in REQUIRED_CSP_DIRECTIVES:
+            if required not in directives:
+                errors.append(f'{relative}: CSP missing required directive {required}')
+        for forbidden in FORBIDDEN_CSP_TOKENS:
+            if forbidden in page.csp:
+                errors.append(f'{relative}: CSP must not include {forbidden}')
+    referrer = page.meta.get('referrer', '')
+    if referrer not in ('strict-origin-when-cross-origin', 'no-referrer'):
+        errors.append(f'{relative}: missing or weak referrer policy ({referrer!r})')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--compare', help='Git revision to compare text and existing links against')
@@ -81,8 +138,11 @@ def main():
         relative = path.relative_to(ROOT).as_posix()
         if page.inline_styles:
             errors.append(f'{relative}: inline styles conflict with the site CSP; use an external stylesheet')
+        for issue in page.security_issues:
+            errors.append(f'{relative}: {issue}')
         if uses_site_css(page):
             social_count += 1
+            check_security_headers(relative, page, errors)
             image_url = page.meta.get('og:image', '')
             parsed = urlsplit(image_url)
             if parsed.scheme != 'https' or parsed.netloc != 'neo-polar.github.io':

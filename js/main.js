@@ -215,9 +215,18 @@ function clearError(input) {
   input.removeAttribute('aria-describedby');
   if (el) el.textContent = '';
 }
+function isValidEmail(value) {
+  if (value.length === 0 || value.length > 254 || /\s/.test(value)) return false;
+  const at = value.indexOf('@');
+  if (at <= 0 || at !== value.lastIndexOf('@')) return false;
+  const domain = value.slice(at + 1);
+  if (domain.length < 3 || domain.startsWith('.') || domain.endsWith('.') || domain.includes('..')) return false;
+  return domain.includes('.');
+}
 function validateField(input) {
-  if (!input.value.trim()) { setError(input, getMsg('required')); return false; }
-  if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+  const value = input.value.trim();
+  if (!value) { setError(input, getMsg('required')); return false; }
+  if (input.type === 'email' && !isValidEmail(value)) {
     setError(input, getMsg('email')); return false;
   }
   clearError(input); return true;
