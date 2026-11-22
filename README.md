@@ -1,4 +1,4 @@
-﻿# Polar
+# Polar
 
 複数ジャンル横断型クリエイティブ組織 Polar の公式Webサイトです。
 このリポジトリは、GitHub Pages へ公開するための静的サイトのソース一式です。
@@ -104,11 +104,14 @@ GitHub Actions により、`main` ブランチへの push で自動的に GitHub
 
 ## セキュリティについて
 
-以下のような基本的なセキュリティ設定は実装済みです。
+以下のようなセキュリティ対策を実装し、`scripts/check_site.py` と GitHub Actions で自動検証しています（詳細は `SECURITY.md` を参照）。
 
-- CSP（Content Security Policy）を適用
+- 全公開ページに厳格な CSP（`'unsafe-inline'` なし、`base-uri 'self'`、`object-src 'none'`、`frame-src 'none'`、`img-src 'self' data:`、`upgrade-insecure-requests`）を適用
 - Referrer Policy を `strict-origin-when-cross-origin` に設定
+- すべての `target="_blank"` リンクに `rel="noopener noreferrer"` を付与
 - メールアドレスを JavaScript で難読化して表示
+- 問い合わせフォームに `maxlength` 制限と ReDoS 耐性のあるバリデーションを設定
+- GitHub Actions の全アクションをコミット SHA にピン留めし、最小権限・`persist-credentials: false`・非公開ファイル（`scripts/` 等）を除外したデプロイを実施
 
 ## 変更・公開コマンド例
 

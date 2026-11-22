@@ -25,10 +25,13 @@
              script-src 'self';
              style-src 'self' https://fonts.googleapis.com;
              font-src https://fonts.gstatic.com;
-             img-src 'self' data: https:;
+             img-src 'self' data:;
              form-action https://ssgform.com;
              connect-src 'self';
-             frame-ancestors 'none';" />
+             base-uri 'self';
+             object-src 'none';
+             frame-src 'none';
+             upgrade-insecure-requests;" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
   <link rel="icon" type="image/png" href="./favicon-96x96.png" />

@@ -13,10 +13,13 @@
              script-src 'self';
              style-src 'self' https://fonts.googleapis.com;
              font-src https://fonts.gstatic.com;
-             img-src 'self' data: https:;
+             img-src 'self' data:;
              form-action https://ssgform.com;
              connect-src 'self';
-             frame-ancestors 'none';" />
+             base-uri 'self';
+             object-src 'none';
+             frame-src 'none';
+             upgrade-insecure-requests;" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="description" content="Polarは、音楽・映像・イラスト・文章・プログラミングなど、さまざまなジャンルの人たちが価値を共有しあい、新しいものを生み出すことを支援する複数ジャンル横断型クリエイティブ組織です。コンテストの開催や作品の発信、メンバー募集を行っています。" />
   <link rel="canonical" href="https://neo-polar.github.io/" />
@@ -306,7 +309,7 @@
       <form class="contact-form" action="https://ssgform.com/s/ewKwQXtld52x" method="POST" novalidate>
         <div class="form-group">
           <label for="name" data-ja="お名前" data-en="Name">お名前</label>
-          <input type="text" id="name" name="name" required
+          <input type="text" id="name" name="name" required maxlength="100"
             placeholder="お名前"
             data-placeholder-ja="お名前"
             data-placeholder-en="Your name"
@@ -315,7 +318,7 @@
         </div>
         <div class="form-group">
           <label for="email" data-ja="メールアドレス" data-en="Email">メールアドレス</label>
-          <input type="email" id="email" name="email" required
+          <input type="email" id="email" name="email" required maxlength="254"
             placeholder="example@email.com"
             data-placeholder-ja="example@email.com"
             data-placeholder-en="example@email.com"
@@ -324,7 +327,7 @@
         </div>
         <div class="form-group">
           <label for="message" data-ja="メッセージ" data-en="Message">メッセージ</label>
-          <textarea id="message" name="message" rows="5" required
+          <textarea id="message" name="message" rows="5" required maxlength="5000"
             placeholder="お問い合わせ内容をご記入ください"
             data-placeholder-ja="お問い合わせ内容をご記入ください"
             data-placeholder-en="Enter your message here"></textarea>

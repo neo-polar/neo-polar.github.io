@@ -1,4 +1,4 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Simple workflow for verifying and deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
@@ -6,49 +6,78 @@ on:
   push:
     branches: ["main"]
 
+  # Verify security, links, and behavior on pull requests before merge
+  pull_request:
+    branches: ["main"]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+# Deny all permissions by default; grant only the minimum required per job.
+permissions: {}
 
 jobs:
-  # Single deploy job since we're just deploying
+  verify:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Check local links, assets, and security headers
+        run: python3 scripts/check_site.py
+      - name: Check navigation and language behavior
+        run: node scripts/check_behavior.cjs
+
+  # Deploy job runs only on pushes to main or manual dispatch after verification passes
   deploy:
+    if: github.event_name != 'pull_request'
+    needs: verify
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+    # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           # Full history lets the IndexNow step list only the pages changed by this push.
           fetch-depth: 0
-      - name: Check local links and assets
-        run: python3 scripts/check_site.py
-      - name: Check navigation and language behavior
-        run: node scripts/check_behavior.cjs
+          persist-credentials: false
+      - name: Stage public site files
+        run: |
+          mkdir -p _site
+          tar --exclude='./.git' \
+              --exclude='./.github' \
+              --exclude='./.vscode' \
+              --exclude='./scripts' \
+              --exclude='./README.md' \
+              --exclude='./SECURITY.md' \
+              --exclude='./_site' \
+              -cf - . | tar -xf - -C _site
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: '_site'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5
       - name: Notify Bing and other search engines (IndexNow)
         # A failed notification must not mark the deployment as failed.
         continue-on-error: true
-        run: python3 scripts/indexnow.py "${{ github.event_name == 'push' && github.event.before || '' }}"
+        env:
+          BEFORE_SHA: ${{ github.event_name == 'push' && github.event.before || '' }}
+        run: python3 scripts/indexnow.py "$BEFORE_SHA"
